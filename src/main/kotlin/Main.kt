@@ -9,10 +9,6 @@ fun main() {
     val source = File("src/main/resources/main.kiwi").readText()
     try {
         lexer.load(source)
-        lexer.tokens().forEach {
-            println(it)
-        }
-        lexer.load(source)
         parser.link(lexer)
         parser.load(source)
         val result = parser.parse()

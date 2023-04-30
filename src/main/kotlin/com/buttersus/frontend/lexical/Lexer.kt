@@ -15,7 +15,7 @@ class Lexer {
         "package", "import", "fun",
         "if", "else", "for", "while",
         "return", "break", "continue",
-        "pass"
+        "pass", "class", "in",
     )
 
     /**
@@ -46,7 +46,10 @@ class Lexer {
         lateinit var found: String
         val offset = floor(log10(index + 1.0)).toInt() + 1
         var size = 0
-        Regex("\\S+").matchAt(source, index)?.let {
+        Regex("[\"'][^\n]*").matchAt(source, index)?.let { match ->
+            found = match.value
+            size = match.value.length
+        } ?: Regex("\\S+").matchAt(source, index)?.let {
             size = it.value.length
             found = "found `${it.value}`"
         } ?: run {
@@ -155,12 +158,14 @@ error: could not compile `$filePath` due to previous error
             return TokenType.DOCSTRING to match.value
         }
         Regex("\"([^\"\\\\]|\\\\.)*\"").matchAt(source, index)?.let { match ->
+            if (match.value.contains("\n")) raise("string literal must be on one line", "STRING")
             return TokenType.STRING to match.value
         }
         Regex("\'{3}([^\']|\\\\\'|\'(?!\'{2}))*\'{3}").matchAt(source, index)?.let { match ->
             return TokenType.DOCSTRING to match.value
         }
         Regex("'([^'\\\\]|\\\\.)*'").matchAt(source, index)?.let { match ->
+            if (match.value.contains("\n")) raise("string literal must be on one line", "STRING")
             return TokenType.STRING to match.value
         }
         Regex("[\\p{L}_][\\p{L}0-9_]*\\b").matchAt(source, index)?.let { match ->
@@ -183,9 +188,8 @@ error: could not compile `$filePath` due to previous error
      */
     private fun characters(): Iterator<TokenInfo> = iterator {
         while (true) {
-            // TODO: Сделать обработку скобок, т.к. на данный момент получается '>' может
-            // быть как оператором, так и закрывающей скобкой, непонятно надо ли убирать новую линию перед ней
-            Regex("\\?:|->|<-|&{2}|\\^{2}|\\|{2}|/{2}|\\*{2}|(\\*{2}|/{2}|[+\\-*/%<>=!(\\[{])=?|[:@,.?;]").matchAt(
+            Regex("\\?:|->|<-|&{2}|\\^{2}|\\|{2}|/{2}|\\*{2}|" +
+                    "(\\*{2}|/{2}|[+\\-*/%<>=!(\\[{])=?|\\.\\.|[:@,.?;]").matchAt(
                 source, index
             )?.let { match ->
                 val started = Triple(line, column, index)
@@ -193,7 +197,7 @@ error: could not compile `$filePath` due to previous error
                 column += match.value.length
                 yield(TokenInfo(TokenType.RESERVED, match.value, this@Lexer, started))
                 spaces().forEach { _ -> }
-            } ?: Regex("\\s*[])}>]").matchAt(source, index)?.let { match ->
+            } ?: Regex("\\s*[])}]").matchAt(source, index)?.let { match ->
                 val started = Triple(line, column, index)
                 line += match.value.count("\n"::contains)
                 if (line != started.first)

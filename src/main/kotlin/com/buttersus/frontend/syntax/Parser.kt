@@ -5,6 +5,8 @@ import kotlin.math.floor
 import kotlin.math.log10
 import kotlin.reflect.KFunction0
 
+// TODO: Распределить логику класса по разным файлам путём наследования
+// TODO: Соблюдать структуру Kotlin грамматики
 class Parser {
     // PARSER CONTEXT
     // ==============
@@ -167,8 +169,8 @@ error: could not compile `$filePath` due to previous error
 
     /** SEPARATOR:VALUE+ */
     @Suppress("SameParameterValue")
-    private fun separator(value: () -> TokenAST?, separator: () -> TokenAST?,
-                          from: Int = 1, to: Int = Int.MAX_VALUE): TokenAST.List? {
+    private fun semis(value: () -> TokenAST?, separator: () -> TokenAST?,
+                      from: Int = 1, to: Int = Int.MAX_VALUE): TokenAST.List? {
         val list = TokenAST.List()
         var mark = mark()
         value()?.let { list.add(it) } ?: return (if (list.size < from) null.also {
@@ -210,18 +212,13 @@ error: could not compile `$filePath` due to previous error
     // =====================
 
     fun parse(): TokenAST {
-        // start: .package? .{<NEWLINE>|';'}:import* statement*
+        // start: .package? .separator:import* statement*
         // <NEWLINE>? !<EOF> -> "unexpected context"
         // => Module(package, imports, statements)
         val `package` = `package`() ?: TokenAST.Void
-        val imports = separator(
+        val imports = semis(
             { import() },
-            {
-                alternativeSingle(
-                    { match(TokenType.NEWLINE) },
-                    { match(";") }
-                )
-            }
+            { semis() }
         ) ?: TokenAST.List()
         val statements = list { statement() } ?: TokenAST.List()
         match(TokenType.NEWLINE)
@@ -233,16 +230,13 @@ error: could not compile `$filePath` due to previous error
         val mark = mark()
 
         // 'package' .!<PACKAGE_NAME>[enable] -> "wrong package name"
-        // !{<NEWLINE> | ';'} -> "expected separator" / "';' or newline"
+        // !separator -> "expected separator" / "';' or newline"
         // => Package(identifier)
         fun case0(): TokenAST? {
             match("package") ?: return null
             lexer.enable(TokenType.PACKAGE_NAME)
             val identifier = match(TokenType.PACKAGE_NAME) ?: raise("wrong package name", "PACKAGE_NAME")
-            alternativeSingle(
-                { match(TokenType.NEWLINE) },
-                { match(";") }
-            ) ?: raise("expected separator", "';' or newline")
+            semis() ?: raise("expected separator", "';' or newline")
             return TokenAST.Package(identifier)
         }
 
@@ -256,16 +250,13 @@ error: could not compile `$filePath` due to previous error
         val mark = mark()
 
         // 'import' .!<PACKAGE_NAME>[enable] -> "Expected package name"
-        // !{<NEWLINE> | ';'} -> "Expected ';' or newline"
+        // !separator -> "Expected ';' or newline"
         // => Import(packageName)
         fun case0(): TokenAST? {
             match("import") ?: return null
             lexer.enable(TokenType.IMPORT_PACKAGE_NAME)
             val packageName = match(TokenType.IMPORT_PACKAGE_NAME) ?: raise("wrong package name", "IMPORT_PACKAGE_NAME")
-            alternativeSingle(
-                { match(TokenType.NEWLINE) },
-                { match(";") }
-            ) ?: raise("expected separator", "';' or newline")
+            semis() ?: raise("expected separator", "';' or newline")
             return TokenAST.Import(packageName)
         }
 
@@ -298,13 +289,10 @@ error: could not compile `$filePath` due to previous error
         case1()?.also { return@memoize it }
         reset(mark)
 
-        // =.expressionStatement !{<NEWLINE> | ';'} -> "expected ';' or newline" / "<NEWLINE> or ';'"
+        // =.expressionStatement !separator -> "expected ';' or newline" / "<NEWLINE> or ';'"
         fun case2(): TokenAST? {
             val first = expressionStatement() ?: return null
-            alternativeSingle(
-                { match(TokenType.NEWLINE) },
-                { match(";") }
-            ) ?: raise("expected separator", "<NEWLINE> or ';'")
+            semis() ?: raise("expected separator", "<NEWLINE> or ';'")
             return first
         }
 
@@ -320,36 +308,45 @@ error: could not compile `$filePath` due to previous error
     private fun compoundStatement(): TokenAST? = memoize(::compoundStatement) {
         val mark = mark()
 
-        // ={ifStatement | whileStatement | forStatement}
+        // ={ifStatement | whileStatement | forStatement |
+        // functionDeclaration | classDeclaration}
         alternativeSingle(
             { ifStatement() },
             { whileStatement() },
-            { forStatement() }
-        )?.also { return@memoize it }
-
-        // ={functionDeclaration | TODO: classDeclaration | TODO: interfaceDeclaration}
-        alternativeSingle(
+            { forStatement() },
             { functionDeclaration() },
-            { null },
-            { null }
+            { classDeclaration() }
         )?.also { return@memoize it }
         reset(mark)
 
         return@memoize null
     }
 
-    // TODO: Добавить опциональные скобки
+    private fun declaration(): TokenAST? = memoize(::declaration) {
+        val mark = mark()
+
+        // ={variableDeclaration | functionDeclaration | classDeclaration}
+        alternativeSingle(
+            { variableDeclaration() },
+            { functionDeclaration() },
+            { classDeclaration() }
+        )?.also { return@memoize it }
+
+        return@memoize null
+    }
+
     private fun ifStatement(): TokenAST? = memoize(::ifStatement) {
         val mark = mark()
 
-        // 'if' .!expression -> "wrong condition" '->'?
+        // 'if' '(' .!expression -> "wrong condition" !')' -> "missing closing parenthesis"
         // !'{' -> "missing opening brace" .statement* !'}' -> "missing closing brace"
         // {'else' { .statement | '{' .statement* !'}' -> "missing closing brace"}}?
         // => IfStatement(condition, body, elseBody)
         fun case0(): TokenAST? {
             match("if") ?: return null
+            match("(") ?: return null
             val condition = expression() ?: raise("wrong condition", "expression")
-            match("->")
+            match(")") ?: raise("missing closing parenthesis", "')'")
             match("{") ?: raise("missing opening brace", "'{'")
             val body = list { statement() } ?: TokenAST.List()
             match("}") ?: raise("missing closing brace", "'}'")
@@ -375,20 +372,53 @@ error: could not compile `$filePath` due to previous error
         case0()?.also { return@memoize it }
         reset(mark)
 
+        // 'if' .!expression -> "wrong condition" '->'?
+        // !'{' -> "missing opening brace" .statement* !'}' -> "missing closing brace"
+        // {'else' { .statement | '{' .statement* !'}' -> "missing closing brace"}}?
+        // => IfStatement(condition, body, elseBody)
+        fun case1(): TokenAST? {
+            match("if") ?: return null
+            val condition = expression() ?: raise("wrong condition", "expression")
+            match("->")
+            match("{") ?: raise("missing opening brace", "'{'")
+            val body = list { statement() } ?: TokenAST.List()
+            match("}") ?: raise("missing closing brace", "'}'")
+            var elseBody: TokenAST = TokenAST.Void
+            alternativeMulti(
+                {
+                    match("else") ?: return@alternativeMulti false
+                    true
+                },
+                {
+                    match("{") ?: return@alternativeMulti false
+                    val first = list { statement() } ?: TokenAST.List()
+                    match("}") ?: raise("missing closing brace", "'}'")
+                    elseBody = first
+                    true
+                }
+            ) ?: run {
+                elseBody = TokenAST.Void
+            }
+            return TokenAST.IfStatement(condition, body, elseBody)
+        }
+
+        case1()?.also { return@memoize it }
+        reset(mark)
+
         return@memoize null
     }
 
-    // TODO: Добавить опциональные скобки
     private fun whileStatement(): TokenAST? = memoize(::whileStatement) {
         val mark = mark()
 
-        // 'while' .!expression -> "wrong condition" '->'?
+        // 'while' '(' .!expression -> "wrong condition" !')' -> "missing closing parenthesis"
         // !'{' -> "missing opening brace" .statement* !'}' -> "missing closing brace"
         // => WhileStatement(condition, body)
         fun case0(): TokenAST? {
             match("while") ?: return null
+            match("(") ?: return null
             val condition = expression() ?: raise("wrong condition", "expression")
-            match("->")
+            match(")") ?: raise("missing closing parenthesis", "')'")
             match("{") ?: raise("missing opening brace", "'{'")
             val body = list { statement() } ?: TokenAST.List()
             match("}") ?: raise("missing closing brace", "'}'")
@@ -398,17 +428,51 @@ error: could not compile `$filePath` due to previous error
         case0()?.also { return@memoize it }
         reset(mark)
 
+        // 'while' .!expression -> "wrong condition" '->'?
+        // !'{' -> "missing opening brace" .statement* !'}' -> "missing closing brace"
+        // => WhileStatement(condition, body)
+        fun case1(): TokenAST? {
+            match("while") ?: return null
+            val condition = expression() ?: raise("wrong condition", "expression")
+            match("->")
+            match("{") ?: raise("missing opening brace", "'{'")
+            val body = list { statement() } ?: TokenAST.List()
+            match("}") ?: raise("missing closing brace", "'}'")
+            return TokenAST.WhileStatement(condition, body)
+        }
+
+        case1()?.also { return@memoize it }
+        reset(mark)
+
         return@memoize null
     }
 
-    // TODO: Добавить опциональные скобки
     private fun forStatement(): TokenAST? = memoize(::forStatement) {
         val mark = mark()
+
+        // 'for' '(' .<IDENTIFIER> 'in' .!expression -> "wrong iterable" !')' -> "missing closing parenthesis"
+        // !'{' -> "missing opening brace" .statement* !'}' -> "missing closing brace"
+        // => ForInStatement(variable, iterable, body)
+        fun case0(): TokenAST? {
+            match("for") ?: return null
+            match("(") ?: return null
+            val variable = match(TokenType.IDENTIFIER) ?: raise("wrong variable name", "IDENTIFIER")
+            match("in") ?: return null
+            val iterable = expression() ?: raise("wrong iterable", "expression")
+            match(")") ?: raise("missing closing parenthesis", "')'")
+            match("{") ?: raise("missing opening brace", "'{'")
+            val body = list { statement() } ?: TokenAST.List()
+            match("}") ?: raise("missing closing brace", "'}'")
+            return TokenAST.ForInStatement(variable, iterable, body)
+        }
+        
+        case0()?.also { return@memoize it }
+        reset(mark)
 
         // 'for' .<IDENTIFIER> 'in' .!expression -> "wrong iterable" '->'?
         // !'{' -> "missing opening brace" .statement* !'}' -> "missing closing brace"
         // => ForInStatement(variable, iterable, body)
-        fun case0(): TokenAST? {
+        fun case1(): TokenAST? {
             match("for") ?: return null
             val variable = match(TokenType.IDENTIFIER) ?: raise("wrong variable name", "IDENTIFIER")
             match("in") ?: return null
@@ -420,7 +484,7 @@ error: could not compile `$filePath` due to previous error
             return TokenAST.ForInStatement(variable, iterable, body)
         }
 
-        case0()?.also { return@memoize it }
+        case1()?.also { return@memoize it }
         reset(mark)
 
         return@memoize null
@@ -430,11 +494,12 @@ error: could not compile `$filePath` due to previous error
         val mark = mark()
 
         // 'fun' .!<IDENTIFIER> -> "wrong function name"
-        // {'(' .{2}parameters?[=TokenAST.List(TokenAST.List(), TokenAST.List())] !')' -> "missing closing bracket"}?
+        // {'(' .{2}parameters?[=TokenAST.List(TokenAST.List(), TokenAST.List())] !')' -> "missing closing parenthesis"}?
         // {'->' .!type -> "wrong return type"}?
+        // {'<-' .!',':expression+ -> "missing event"}?
         // !{'{' .statement* !'}' -> "missing closing brace"
         // | '=' .!expression -> "wrong expression"} -> "wrong function body" / "statement or expression"
-        // => FunctionDeclaration(name, parameters, assignedParameters, returns, body)
+        // => FunctionDeclaration(name, parameters, assignedParameters, returns, events, body)
         fun case0(): TokenAST? {
             match("fun") ?: return null
             val name = match(TokenType.IDENTIFIER) ?: raise("wrong function name", "IDENTIFIER")
@@ -442,7 +507,7 @@ error: could not compile `$filePath` due to previous error
             optional(
                 { match("(") },
                 { parameters()?.also { second = it } ?: TokenAST.Void },
-                { match(")") ?: raise("missing closing bracket", "')'") }
+                { match(")") ?: raise("missing closing parenthesis", "')'") }
             ) ?: run {
                 second = TokenAST.List(TokenAST.List(), TokenAST.List())
             }
@@ -452,6 +517,16 @@ error: could not compile `$filePath` due to previous error
                 { type()?.also { returns = it } }
             ) ?: run {
                 returns = TokenAST.Void
+            }
+            var events: TokenAST.List = TokenAST.List()
+            optional(
+                { match("<-") },
+                { semis(
+                    { expression() },
+                    { match(",") }
+                )?.also { events = it } ?: raise("missing event", "expression") }
+            ) ?: run {
+                events = TokenAST.List()
             }
             var body: TokenAST = TokenAST.Void
             alternativeMulti(
@@ -467,7 +542,49 @@ error: could not compile `$filePath` due to previous error
                     true
                 }
             ) ?: raise("wrong function body", "statement or expression")
-            return TokenAST.FunctionDeclaration(name, second[0], second[1], returns, body)
+            return TokenAST.FunctionDeclaration(name, second[0], second[1], returns, events, body)
+        }
+
+        case0()?.also { return@memoize it }
+        reset(mark)
+
+        return@memoize null
+    }
+    
+    // CLASSES
+    // =======
+
+    private fun classDeclaration(): TokenAST? = memoize(::classDeclaration) {
+        val mark = mark()
+
+        // 'class' .!<IDENTIFIER> -> "wrong class name"
+        // {'(' .{2}parameters?[=TokenAST.List(TokenAST.List(), TokenAST.List())]
+        // !')' -> "missing closing parenthesis"}?
+        // {':' .!','.expression+ -> "missing superclass"}?
+        // TODO: Доделать тело класса
+        // => ClassDeclaration(name, parameters, assignedParameters, superclasses)
+        fun case0(): TokenAST? {
+            match("class") ?: return null
+            val name = match(TokenType.IDENTIFIER) ?: raise("wrong class name", "IDENTIFIER")
+            var second: TokenAST.List = TokenAST.List(TokenAST.List(), TokenAST.List())
+            optional(
+                { match("(") },
+                { parameters()?.also { second = it } ?: TokenAST.Void },
+                { match(")") ?: raise("missing closing parenthesis", "')'") }
+            ) ?: run {
+                second = TokenAST.List(TokenAST.List(), TokenAST.List())
+            }
+            var superclasses: TokenAST.List = TokenAST.List()
+            optional(
+                { match(":") },
+                { semis(
+                    { expression() },
+                    { match(",") }
+                )?.also { superclasses = it } ?: raise("missing superclass", "expression") }
+            ) ?: run {
+                superclasses = TokenAST.List()
+            }
+            return TokenAST.ClassDeclaration(name, second[0], second[1], superclasses)
         }
 
         case0()?.also { return@memoize it }
@@ -479,13 +596,13 @@ error: could not compile `$filePath` due to previous error
     private fun parameters(): TokenAST.List? = memoize(::parameters) {
         val mark = mark()
 
-        // .',':{=parameter ?!'='}+
-        // {',' .',':assignedParameter+}? ','? !?=')' -> "missing closing bracket"
+        // .',':{=castParameter ?!'='}+
+        // {',' .',':assignedParameter+}? ','? !?=')' -> "missing closing parenthesis"
         fun case0(): TokenAST? {
-            val first = separator(
+            val first = semis(
                 {
-                    val first = parameter()
-                    lookahead { match("=") }?.also { return@separator null }
+                    val first = castParameter()
+                    lookahead { match("=") }?.also { return@semis null }
                     first
                 },
                 { match(",") }
@@ -494,7 +611,7 @@ error: could not compile `$filePath` due to previous error
             optional(
                 { match(",") },
                 {
-                    separator(
+                    semis(
                         { assignedParameter() },
                         { match(",") }
                     )?.also { second = it }
@@ -503,22 +620,22 @@ error: could not compile `$filePath` due to previous error
                 second = TokenAST.List()
             }
             match(",") ?: TokenAST.Void
-            lookahead { match(")") } ?: raise("missing closing bracket", "')'")
+            lookahead { match(")") } ?: raise("missing closing parenthesis", "')'")
             return TokenAST.List(first, second)
         }
 
         case0()?.also { return@memoize it }
         reset(mark)
 
-        // =.={TokenAST.List()}.',':assignedParameter+ ','? !?=')' -> "missing closing bracket"
+        // =.={TokenAST.List()}.',':assignedParameter+ ','? !?=')' -> "missing closing parenthesis"
         fun case1(): TokenAST? {
             val first = TokenAST.List()
-            val second = separator(
+            val second = semis(
                 { assignedParameter() },
                 { match(",") }
             ) ?: return null
             match(",") ?: TokenAST.Void
-            lookahead { match(")") } ?: raise("missing closing bracket", "')'")
+            lookahead { match(")") } ?: raise("missing closing parenthesis", "')'")
             return TokenAST.List(first, second)
         }
 
@@ -544,6 +661,31 @@ error: could not compile `$filePath` due to previous error
         }
 
         case0()?.also { return@memoize it }
+        reset(mark)
+
+        return@memoize null
+    }
+
+    private fun castParameter(): TokenAST? = memoize(::castParameter) {
+        val mark = mark()
+
+        // .<IDENTIFIER> ':' .!type -> "wrong data type"
+        // 'as' .expression -> "wrong cast expression"
+        // => CastParameter(name, type, value)
+        fun case0(): TokenAST? {
+            val name = match(TokenType.IDENTIFIER) ?: return null
+            match(":") ?: return null
+            val type = type() ?: raise("wrong data type", "type")
+            match("as") ?: return null
+            val value = expression() ?: raise("wrong cast expression", "expression")
+            return TokenAST.CastParameter(name, type, value)
+        }
+
+        case0()?.also { return@memoize it }
+        reset(mark)
+
+        // =parameter
+        parameter()?.also { return@memoize it }
         reset(mark)
 
         return@memoize null
@@ -663,31 +805,290 @@ error: could not compile `$filePath` due to previous error
     // EXPRESSIONS
     // ===========
 
-    // TODO: Добавить операторы сравнения и диапазонов
-    // TODO: Добавить больше видов литералов (словари, множества, кортежи, ...)
     private fun expression(): TokenAST? = memoize(::expression) {
         val mark = mark()
 
-        // '[' .!',':expression* ','? !']' -> "missing closing bracket"
-        // => ListExpression(items)
+        // .disjunction '?' .!expression -> "wrong first expression""
+        // !':' -> "missing ':'" .!expression -> "wrong second expression"
+        // => TernaryExpression(condition, trueExpression, falseExpression)
         fun case0(): TokenAST? {
+            val condition = disjunction() ?: return null
+            match("?") ?: return null
+            val trueExpression = expression() ?: raise("wrong first expression", "expression")
+            match(":") ?: raise("missing ':'", "':'")
+            val falseExpression = expression() ?: raise("wrong second expression", "expression")
+            return TokenAST.TernaryExpression(condition, trueExpression, falseExpression)
+        }
+
+        case0()?.also { return@memoize it }
+        reset(mark)
+
+        // '[' .!',':expression* ','? !']' -> "missing closing parenthesis"
+        // => ListExpression(items)
+        fun case1(): TokenAST? {
             match("[") ?: return null
-            val items = separator(
+            val items = semis(
                 { expression() },
                 { match(",") }
             ) ?: TokenAST.List()
             match(",")
-            match("]") ?: raise("missing closing bracket", "']'")
+            match("]") ?: raise("missing closing parenthesis", "']'")
             return TokenAST.ListExpression(items)
         }
 
-        case0()?.also { return@memoize it }
+        case1()?.also { return@memoize it }
+        reset(mark)
 
-        // =sum
-        sum()?.also { return@memoize it }
+        // '{' .',':{=expression ':' =!expression -> "wrong value"}+ ','? !'}' -> "missing closing brace"
+        // => MapExpression(keys={
+        // TokenAST.List(*first.map{(it as TokenAST.List)[0]}.toTypedArray())
+        // }, values={
+        // TokenAST.List(*first.map{(it as TokenAST.List)[1]}.toTypedArray())
+        // })
+        fun case2(): TokenAST? {
+            match("{") ?: return null
+            val first = semis(
+                {
+                    val first = expression() ?: return@semis null
+                    match(":") ?: return@semis null
+                    val second = expression() ?: raise("wrong value", "expression")
+                    return@semis TokenAST.List(first, second)
+                },
+                { match(",") }
+            ) ?: return null
+            match(",")
+            match("}") ?: raise("missing closing brace", "'}'")
+            return TokenAST.MapExpression(
+                TokenAST.List(
+                    *first.map {
+                        (it as TokenAST.List)[0]
+                    }.toTypedArray()
+                ),
+                TokenAST.List(
+                    *first.map {
+                        (it as TokenAST.List)[1]
+                    }.toTypedArray()
+                )
+            )
+        }
+
+        case2()?.also { return@memoize it }
+        reset(mark)
+
+        // '{' .!',':expression* ','? !'}' -> "missing closing brace"
+        // => SetExpression(items)
+        fun case3(): TokenAST? {
+            match("{") ?: return null
+            val items = semis(
+                { expression() },
+                { match(",") }
+            ) ?: TokenAST.List()
+            match(",")
+            match("}") ?: raise("missing closing brace", "'}'")
+            return TokenAST.SetExpression(items)
+        }
+
+        case3()?.also { return@memoize it }
+        reset(mark)
+
+        // '(' .{',':expression{2} | (expression) ?=','} ','?
+        // !')' -> "missing closing parenthesis"
+        // => TupleExpression(items)
+        fun case4(): TokenAST? {
+            match("(") ?: return null
+            var items = TokenAST.List()
+            alternativeMulti(
+                {
+                    semis(
+                        { expression() },
+                        { match(",") },
+                        2
+                    )?.also { items = it } ?: return@alternativeMulti false
+                    true
+                },
+                {
+                    expression()?.also {
+                        items = TokenAST.List(it)
+                    } ?: return@alternativeMulti false
+                    lookahead{ match(",") } ?: return@alternativeMulti false
+                    true
+                }
+            ) ?: run {
+                reset(mark)
+                return@case4 null
+            }
+            match(",")
+            match(")") ?: raise("missing closing parenthesis", "')'")
+            return TokenAST.TupleExpression(items)
+        }
+
+        case4()?.also { return@memoize it }
+        reset(mark)
+
+        // =disjunction
+        disjunction()?.also { return@memoize it }
         reset(mark)
 
         return@memoize null
+    }
+
+    private fun disjunction(): TokenAST? = memoizeLR(::disjunction) {
+        val mark = mark()
+
+        // .disjunction '||' .!conjunction -> "wrong expression" => Or(left, right)
+        fun case0(): TokenAST? {
+            val left = disjunction() ?: return null
+            match("||") ?: return null
+            val right = conjunction() ?: raise("wrong expression", "conjunction")
+            return TokenAST.Or(left, right)
+        }
+
+        case0()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // =conjunction
+        conjunction()?.also { return@memoizeLR it }
+        reset(mark)
+
+        return@memoizeLR null
+    }
+
+    private fun conjunction(): TokenAST? = memoizeLR(::conjunction) {
+        val mark = mark()
+
+        // .conjunction '&&' .!inversion -> "wrong expression" => And(left, right)
+        fun case0(): TokenAST? {
+            val left = conjunction() ?: return null
+            match("&&") ?: return null
+            val right = inversion() ?: raise("wrong expression", "inversion")
+            return TokenAST.And(left, right)
+        }
+
+        case0()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // =inversion
+        inversion()?.also { return@memoizeLR it }
+        reset(mark)
+
+        return@memoizeLR null
+    }
+
+    private fun inversion(): TokenAST? = memoize(::inversion) {
+        val mark = mark()
+
+        // '!' .!comparison -> "wrong expression" => Not(value)
+        fun case0(): TokenAST? {
+            match("!") ?: return null
+            val value = comparison() ?: raise("wrong expression", "inversion")
+            return TokenAST.Not(value)
+        }
+
+        case0()?.also { return@memoize it }
+        reset(mark)
+
+        // =comparison
+        comparison()?.also { return@memoize it }
+        reset(mark)
+
+        return@memoize null
+    }
+
+    private fun comparison(): TokenAST? = memoizeLR(::comparison) {
+        val mark = mark()
+
+        // .comparison '==' .!range -> "wrong expression" => Equal(left, right)
+        fun case0(): TokenAST? {
+            val left = comparison() ?: return null
+            match("==") ?: return null
+            val right = range() ?: raise("wrong expression", "range")
+            return TokenAST.Equal(left, right)
+        }
+
+        case0()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // .comparison '!=' .!range -> "wrong expression" => NotEqual(left, right)
+        fun case1(): TokenAST? {
+            val left = comparison() ?: return null
+            match("!=") ?: return null
+            val right = range() ?: raise("wrong expression", "range")
+            return TokenAST.NotEqual(left, right)
+        }
+
+        case1()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // .comparison '<' .!range -> "wrong expression" => LessThan(left, right)
+        fun case2(): TokenAST? {
+            val left = comparison() ?: return null
+            match("<") ?: return null
+            val right = range() ?: raise("wrong expression", "range")
+            return TokenAST.LessThan(left, right)
+        }
+
+        case2()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // .comparison '<=' .!range -> "wrong expression" => LessThanOrEqual(left, right)
+        fun case3(): TokenAST? {
+            val left = comparison() ?: return null
+            match("<=") ?: return null
+            val right = range() ?: raise("wrong expression", "range")
+            return TokenAST.LessThanOrEqual(left, right)
+        }
+
+        case3()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // .comparison '>' .!range -> "wrong expression" => GreaterThan(left, right)
+        fun case4(): TokenAST? {
+            val left = comparison() ?: return null
+            match(">") ?: return null
+            val right = range() ?: raise("wrong expression", "range")
+            return TokenAST.GreaterThan(left, right)
+        }
+
+        case4()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // .comparison '>=' .!range -> "wrong expression" => GreaterThanOrEqual(left, right)
+        fun case5(): TokenAST? {
+            val left = comparison() ?: return null
+            match(">=") ?: return null
+            val right = range() ?: raise("wrong expression", "range")
+            return TokenAST.GreaterThanOrEqual(left, right)
+        }
+
+        case5()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // =range
+        range()?.also { return@memoizeLR it }
+        reset(mark)
+
+        return@memoizeLR null
+    }
+
+    private fun range(): TokenAST? = memoizeLR(::range) {
+        val mark = mark()
+
+        // .range '..' .!sum -> "wrong expression" => Range(left, right)
+        fun case0(): TokenAST? {
+            val left = range() ?: return null
+            match("..") ?: return null
+            val right = sum() ?: raise("wrong expression", "sum")
+            return TokenAST.Range(left, right)
+        }
+
+        case0()?.also { return@memoizeLR it }
+        reset(mark)
+
+        // =sum
+        sum()?.also { return@memoizeLR it }
+        reset(mark)
+
+        return@memoizeLR null
     }
 
     private fun sum(): TokenAST? = memoizeLR(::sum) {
@@ -809,60 +1210,47 @@ error: could not compile `$filePath` due to previous error
         case0()?.also { return@memoizeLR it }
         reset(mark)
 
-        // .primary {'<' .',':expression* ','? !'>' -> "missing closing angle bracket"}?
-        // '(' .{2}arguments?[=TokenAST.List(TokenAST.List(), TokenAST.List())]
-        // !')' -> "missing closing bracket"
+        // .primary '(' .{2}arguments?[=TokenAST.List(TokenAST.List(), TokenAST.List())]
+        // !')' -> "missing closing parenthesis"
         // => Call(function, generics, arguments, namedArguments)
         fun case1(): TokenAST? {
             val function = primary() ?: return null
-            var generics: TokenAST.List = TokenAST.List()
-            optional(
-                { match("<") },
-                { separator(
-                    { expression() },
-                    { match(",") }
-                )?.also { generics = TokenAST.List(it) } },
-                { match("?") ?: TokenAST.Void },
-                { match(">") ?: raise("missing closing angle bracket", "'>'") }
-            ) ?: run {
-                generics = TokenAST.List()
-            }
             match("(") ?: return null
             val third = arguments() ?: TokenAST.List(TokenAST.List(), TokenAST.List())
-            match(")") ?: raise("missing closing bracket", "')'")
-            return TokenAST.Call(function, generics, third[0], third[1])
+            match(")") ?: raise("missing closing parenthesis", "')'")
+            return TokenAST.Call(function, third[0], third[1])
         }
 
         case1()?.also { return@memoizeLR it }
         reset(mark)
 
-        // .primary '<' .',':expression* ','? !'>' -> "missing closing angle bracket"
-        // => Generic(parent, generics)
-        fun case2(): TokenAST? {
-            val parent = primary() ?: return null
-            match("<") ?: return null
-            val generics = separator(
-                { expression() },
-                { match(",") }
-            ) ?: raise("missing closing angle bracket", "'>'")
-            match("?")
-            match(">") ?: raise("missing closing angle bracket", "'>'")
-            return TokenAST.Generic(parent, generics)
-        }
+//        // .primary '<' .',':expression* ','? !'>' -> "missing closing angle parenthesis"
+//        // => Generic(parent, generics)
+//        fun case2(): TokenAST? {
+//            val parent = primary() ?: return null
+//            match("<") ?: return null
+//            val generics = separator(
+//                { expression() },
+//                { match(",") }
+//            ) ?: raise("missing closing angle parenthesis", "'>'")
+//            match("?")
+//            match(">") ?: raise("missing closing angle parenthesis", "'>'")
+//            return TokenAST.Generic(parent, generics)
+//        }
+//
+//        case2()?.also { return@memoizeLR it }
+//        reset(mark)
 
-        case2()?.also { return@memoizeLR it }
-        reset(mark)
-
-        // .primary '[' .':':{!expression -> "wrong expression"}* !']' -> "missing closing square bracket"
+        // .primary '[' .':':{!expression -> "wrong expression"}* !']' -> "missing closing square parenthesis"
         // => Index(parent, indices)
         fun case3(): TokenAST? {
             val parent = primary() ?: return null
             match("[") ?: return null
-            val indices = separator(
+            val indices = semis(
                 { expression() ?: raise("wrong expression", "expression") },
                 { match(":") }
-            ) ?: raise("missing closing square bracket", "']'")
-            match("]") ?: raise("missing closing square bracket", "']'")
+            ) ?: raise("missing closing square parenthesis", "']'")
+            match("]") ?: raise("missing closing square parenthesis", "']'")
             return TokenAST.Index(parent, indices)
         }
 
@@ -880,12 +1268,12 @@ error: could not compile `$filePath` due to previous error
         val mark = mark()
 
         // .',':{=expression ?!'='}+
-        // {',' .',':assignedArgument+}? ','? !?=')' -> "missing closing bracket"
+        // {',' .',':assignedArgument+}? ','? !?=')' -> "missing closing parenthesis"
         fun case0(): TokenAST? {
-            val first = separator(
+            val first = semis(
                 {
                     val first = expression()
-                    lookahead { match("=") }?.also { return@separator null }
+                    lookahead { match("=") }?.also { return@semis null }
                     first
                 },
                 { match(",") }
@@ -894,7 +1282,7 @@ error: could not compile `$filePath` due to previous error
             optional(
                 { match(",") },
                 {
-                    separator(
+                    semis(
                         { assignedArgument() },
                         { match(",") }
                     )?.also { second = it }
@@ -903,22 +1291,22 @@ error: could not compile `$filePath` due to previous error
                 second = TokenAST.List()
             }
             match(",") ?: TokenAST.Void
-            lookahead { match(")") } ?: raise("missing closing bracket", "')'")
+            lookahead { match(")") } ?: raise("missing closing parenthesis", "')'")
             return TokenAST.List(first, second)
         }
 
         case0()?.also { return@memoize it }
         reset(mark)
 
-        // =.={TokenAST.List()}.',':assignedArgument+ ','? !?=')' -> "missing closing bracket"
+        // =.={TokenAST.List()}.',':assignedArgument+ ','? !?=')' -> "missing closing parenthesis"
         fun case1(): TokenAST? {
             val first = TokenAST.List()
-            val second = separator(
+            val second = semis(
                 { assignedArgument() },
                 { match(",") }
             ) ?: return null
             match(",") ?: TokenAST.Void
-            lookahead { match(")") } ?: raise("missing closing bracket", "')'")
+            lookahead { match(")") } ?: raise("missing closing parenthesis", "')'")
             return TokenAST.List(first, second)
         }
 
@@ -968,6 +1356,31 @@ error: could not compile `$filePath` due to previous error
             { match(TokenType.STRING) },
             { match(TokenType.CONST_IDENTIFIER) }
         )?.also { return@memoize it }
+        reset(mark)
+
+        // ='(' .!expression -> "wrong expression" ?!',' !')' -> "missing closing parenthesis"
+        fun case0(): TokenAST? {
+            match("(") ?: return null
+            val expression = expression() ?: raise("wrong expression", "expression")
+            lookahead { match(",") }?.also { return null }
+            match(")") ?: raise("missing closing parenthesis", "')'")
+            return expression
+        }
+
+        case0()?.also { return@memoize it }
+        reset(mark)
+
+        return@memoize null
+    }
+    
+    // GENERAL TEMPLATES
+    // =================
+    
+    fun semis(): TokenAST? = memoize(::semis) {
+        val mark = mark()
+
+        // =<NEWLINE> | ';'
+        match(TokenType.NEWLINE)?.also { return@memoize it }
         reset(mark)
 
         return@memoize null

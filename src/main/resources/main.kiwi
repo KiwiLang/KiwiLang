@@ -1,15 +1,5 @@
-package builtin
-
-fun split(
-    input: $string,
-    separator: $string,
-) -> $array<$auto> {
-    result: $array<$string>
-    size: $auto = separator.size
-    for i in input.indices {
-        if input[i:i + size] == separator {
-            result.push(input[0:i])
-            input = input[i + size:]
-        }
-    }
-}
+class main(
+    name: $string as name,
+    age: $int,
+    isAdult: $bool = age >= 18
+) : a(), b

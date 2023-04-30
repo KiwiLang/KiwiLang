@@ -241,6 +241,7 @@ $OP]$RESET
         val parameters: TokenAST,
         val assignedParameters: TokenAST,
         val returns: TokenAST,
+        val events: TokenAST,
         val body: TokenAST
     ) : TokenAST() {
         override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
@@ -248,7 +249,22 @@ $OP]$RESET
             "parameters" to parameters,
             "assignedParameters" to assignedParameters,
             "returns" to returns,
+            "events" to events,
             "body" to body
+        )
+    }
+
+    data class ClassDeclaration(
+        val name: TokenAST,
+        val parameters: TokenAST,
+        val assignedParameters: TokenAST,
+        val superclasses: TokenAST,
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "name" to name,
+            "parameters" to parameters,
+            "assignedParameters" to assignedParameters,
+            "superclasses" to superclasses
         )
     }
 
@@ -259,6 +275,18 @@ $OP]$RESET
         override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
             "name" to name,
             "type" to type
+        )
+    }
+
+    data class CastParameter(
+        val name: TokenAST,
+        val type: TokenAST,
+        val value: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "name" to name,
+            "type" to type,
+            "value" to value
         )
     }
 
@@ -320,13 +348,11 @@ $OP]$RESET
 
     data class Call(
         val function: TokenAST,
-        val generics: TokenAST,
         val arguments: TokenAST,
         val namedArguments: TokenAST
     ) : TokenAST() {
         override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
             "function" to function,
-            "generics" to generics,
             "arguments" to arguments,
             "namedArguments" to namedArguments
         )
@@ -471,6 +497,134 @@ $OP]$RESET
     ) : TokenAST() {
         override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
             "items" to items
+        )
+    }
+
+    data class SetExpression(
+        val items: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "items" to items
+        )
+    }
+
+    data class MapExpression(
+        val keys : TokenAST,
+        val values : TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "keys" to keys,
+            "values" to values
+        )
+    }
+
+    data class TupleExpression(
+        val items: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "items" to items
+        )
+    }
+
+    data class Equal(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "left" to left,
+            "right" to right
+        )
+    }
+
+    data class NotEqual(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "left" to left,
+            "right" to right
+        )
+    }
+
+    data class GreaterThan(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "left" to left,
+            "right" to right
+        )
+    }
+
+    data class GreaterThanOrEqual(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "left" to left,
+            "right" to right
+        )
+    }
+
+    data class LessThan(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "left" to left,
+            "right" to right
+        )
+    }
+
+    data class LessThanOrEqual(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "left" to left,
+            "right" to right
+        )
+    }
+
+    data class Or(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf("left" to left, "right" to right)
+    }
+
+    data class And(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf("left" to left, "right" to right)
+    }
+
+    data class Not(
+        val value: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf("value" to value)
+    }
+
+    data class TernaryExpression(
+        val condition: TokenAST,
+        val trueExpression: TokenAST,
+        val falseExpression: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "condition" to condition,
+            "trueExpression" to trueExpression,
+            "falseExpression" to falseExpression
+        )
+    }
+
+    data class Range(
+        val left: TokenAST,
+        val right: TokenAST
+    ) : TokenAST() {
+        override fun properties(): Array<Pair<String, TokenAST>> = arrayOf(
+            "left" to left,
+            "right" to right
         )
     }
 }
