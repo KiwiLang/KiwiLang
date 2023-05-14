@@ -1,0 +1,17 @@
+package com.buttersus.begin
+
+import events
+
+fun logInfo(message: string = "Hello, World!"),
+    (message, player: selector) <- onUsedCommand(@e[tag=admin]),
+    (message = f"{player} killed {victim}", player: selector, victim: selector) <- onPlayerKill()
+-> $int {
+    """This function logs all important events to the console."""
+    trigger onUsedCommand {
+        player.sendMessage("Your command was logged to the console!")
+    }
+    trigger onPlayerKill {
+        player.sendMessage("You killed $victim!")
+    }
+    log(message)
+}

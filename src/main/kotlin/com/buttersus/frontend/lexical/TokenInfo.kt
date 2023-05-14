@@ -1,6 +1,6 @@
 package com.buttersus.frontend.lexical
 
-data class TokenInfo (
+data class TokenInfo(
     val type: TokenType,
     val lexeme: String,
     val line: Int = 0,
@@ -11,15 +11,28 @@ data class TokenInfo (
     val endIndex: Int = 0
 ) {
     constructor(type: TokenType, lexeme: String, lexer: Lexer, started: Triple<Int, Int, Int>)
-            : this(type, lexeme,
+            : this(
+        type, lexeme,
         started.first, lexer.line,
         started.second, lexer.column,
-        started.third, lexer.index)
+        started.third, lexer.index
+    )
+
+    constructor(type: TokenType, lexeme: String, lexer: Lexer) :
+            this(
+                type, lexeme,
+                lexer.line, lexer.line,
+                lexer.column, lexer.column,
+                lexer.index, lexer.index
+            )
+
     constructor(type: TokenType, lexer: Lexer)
-            : this(type, "",
+            : this(
+        type, "",
         lexer.line, lexer.line,
         lexer.column, lexer.column,
-        lexer.index, lexer.index)
+        lexer.index, lexer.index
+    )
 
     override fun toString(): String {
         var type = this.type.toString()

@@ -1,0 +1,21 @@
+package kiwi
+
+abstract class Number {
+    # OBJECT CONTEXT
+    # ==============
+
+    public lateinit name: $String
+    public lateinit scoreboard: $Scoreboard
+    public isUsingStack: $auto = false
+
+    # CONSTRUCTOR
+    # ===========
+
+    constructor(
+        name: $String,
+        scoreboard: $Scoreboard,
+    ) {
+        this.name = name
+        this.scoreboard = scoreboard
+    }
+}

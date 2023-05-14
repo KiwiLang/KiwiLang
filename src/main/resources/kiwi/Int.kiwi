@@ -1,0 +1,302 @@
+package kiwi
+
+interpret class Int {
+    # OBJECT CONTEXT
+    # ==============
+
+    internal lateinit name: $String
+    internal lateinit scoreboard: $Scoreboard
+    internal isUsingStack: $auto = false
+
+    # OBJECT CONSTRUCTORS
+    # ===================
+
+    @WhenDeclaringVariable
+    @ProtectFromScopeCollision
+    inline constructor(
+        name: $String by localName or $getUniqueName(),
+        value: $Int by component0 = 0,
+        scoreboard: $Scoreboard = $getGlobalScoreboard(),
+    ) """First constructor"""
+    {
+        this.name = name
+        this.scoreboard = scoreboard
+        $execute("scoreboard players set $name $scoreboard $value")
+    }
+
+    @WhenDeclaringVariable
+    @ProtectFromScopeCollision
+    inline constructor(
+        name: $String by localName or $getUniqueName(),
+        scoreboard: $Scoreboard,
+        value: $Int by component0 = 0,
+    ) """Second constructor"""
+    : this(name, value, scoreboard)
+
+    @WhenDeclaringVariable
+    @ProtectFromScopeCollision
+    inline constructor(
+        name: $String by name or $getUniqueName(),
+        scoreboard: $Scoreboard,
+        other: &Int by component0,
+    ) """Third constructor"""
+    {
+        this.name = name
+        this.scoreboard = scoreboard
+        $execute("scoreboard players operation $name $scoreboard = ${other.name} ${other.scoreboard}")
+    }
+
+    @WhenDeclaringVariable
+    inline constructor(
+        name: $String by name or $getUniqueName(),
+        value: $Int by component0 = 0,
+        scoreboard: $Scoreboard = $getGlobalScoreboard(),
+    ) """Fourth constructor"""
+    {
+        this.name = name
+        this.scoreboard = scoreboard
+        isUsingStack = true
+        $execute("execute store result storage $getGlobalStorage() " +
+                 "$getIntStorageBuffer() int 1 run scoreboard players get $name $scoreboard")
+        $execute("data modify storage $getGlobalStorage() $getGlobalStack() append " +
+                 "from storage $getGlobalStorage() $getIntStorageBuffer()")
+        $execute("scoreboard players set $name $scoreboard $value")
+    }
+
+    @WhenDeclaringVariable
+    inline constructor(
+        name: $String by name or $getUniqueName(),
+        scoreboard: $Scoreboard,
+        value: $Int by component0 = 0,
+    ) """Fifth constructor"""
+    : this(name, value, scoreboard)
+
+    @WhenDeclaringVariable
+    inline constructor(
+        name: $String by name or $getUniqueName(),
+        scoreboard: $Scoreboard,
+        other: &Int by component0,
+    ) """Sixth constructor"""
+    {
+        this.name = name
+        this.scoreboard = scoreboard
+        isUsingStack = true
+        $execute("execute store result storage $getGlobalStorage() " +
+                 "$getIntStorageBuffer() int 1 run scoreboard players get $name $scoreboard")
+        $execute("data modify storage $getGlobalStorage() $getGlobalStack() append " +
+                 "from storage $getGlobalStorage() $getIntStorageBuffer()")
+        $execute("scoreboard players operation $name $scoreboard = ${other.name} ${other.scoreboard}")
+    }
+
+    # ASSIGN OPERATORS
+    # ================
+
+    inline operator fun assign(other: &Int)
+    """Assignment operator"""
+    {
+        $execute("scoreboard players operation $name $scoreboard = ${other.name} ${other.scoreboard}")
+    }
+
+    inline operator fun assign(other: $Int)
+    """Assignment operator"""
+    {
+        $execute("scoreboard players set $name $scoreboard = $other")
+    }
+
+    inline operator fun plusAssign(other: &Int)
+    """Addition operator"""
+    {
+        $execute("scoreboard players operation $name $scoreboard += ${other.name} ${other.scoreboard}")
+    }
+
+    inline operator fun plusAssign(other: $Int)
+    """Addition operator"""
+    {
+        $execute("scoreboard players add $name $scoreboard $other")
+    }
+
+    inline operator fun minusAssign(other: &Int)
+    """Subtraction operator"""
+    {
+        $execute("scoreboard players operation $name $scoreboard -= ${other.name} ${other.scoreboard}")
+    }
+
+    inline operator fun minusAssign(other: $Int)
+    """Subtraction operator"""
+    {
+        $execute("scoreboard players remove $name $scoreboard $other")
+    }
+
+    inline operator fun timesAssign(other: &Int)
+    """Multiplication operator"""
+    {
+        $execute("scoreboard players operation $name $scoreboard *= ${other.name} ${other.scoreboard}")
+    }
+
+    inline operator fun timesAssign(other: $Int)
+    """Multiplication operator"""
+    {
+        constant: &Int = other.toConstant()
+        $execute("scoreboard players operation $name $scoreboard *= ${constant.name} ${constant.scoreboard}")
+    }
+
+    inline operator fun divAssign(other: &Int)
+    """Division operator"""
+    {
+        $execute("scoreboard players operation $name $scoreboard /= ${other.name} ${other.scoreboard}")
+    }
+
+    inline operator fun divAssign(other: $Int)
+    """Division operator"""
+    {
+        constant: &Int = other.toConstant()
+        $execute("scoreboard players operation $name $scoreboard /= ${constant.name} ${constant.scoreboard}")
+    }
+
+    inline operator fun remAssign(other: &Int)
+    """Modulo operator"""
+    {
+        $execute("scoreboard players operation $name $scoreboard %= ${other.name} ${other.scoreboard}")
+    }
+
+    inline operator fun remAssign(other: $Int)
+    """Modulo operator"""
+    {
+        constant: &Int = other.toConstant()
+        $execute("scoreboard players operation $name $scoreboard %= ${constant.name} ${constant.scoreboard}")
+    }
+
+    # ARITHMETIC OPERATORS
+    # ====================
+
+    inline operator fun unaryPlus() -> &this
+    """Unary plus operator"""
+    = this
+
+    inline operator fun unaryMinus() -> &Int
+    """Unary minus operator"""
+    {
+        constant: &Int = -1.toConstant()
+        result: Int(this)
+        result *= constant
+        return result
+    }
+
+    inline operator fun plus(other: &Int) -> &Int
+    """Addition operator"""
+    {
+        result: Int(this)
+        result += other
+        return result
+    }
+
+    inline operator fun plus(other: $Int) -> &Int
+    """Addition operator"""
+    {
+        result: Int(this)
+        result += other
+        return result
+    }
+
+    inline operator fun minus(other: &Int) -> &Int
+    """Subtraction operator"""
+    {
+        result: Int(this)
+        result -= other
+        return result
+    }
+
+    inline operator fun minus(other: $Int) -> &Int
+    """Subtraction operator"""
+    {
+        result: Int(this)
+        result -= other
+        return result
+    }
+
+    inline operator fun times(other: &Int) -> &Int
+    """Multiplication operator"""
+    {
+        result: Int(this)
+        result *= other
+        return result
+    }
+
+    inline operator fun times(other: $Int) -> &Int
+    """Multiplication operator"""
+    {
+        result: Int(this)
+        result *= other
+        return result
+    }
+
+    inline operator fun div(other: &Int) -> &Int
+    """Division operator"""
+    {
+        result: Int(this)
+        result /= other
+        return result
+    }
+
+    inline operator fun div(other: $Int) -> &Int
+    """Division operator"""
+    {
+        result: Int(this)
+        result /= other
+        return result
+    }
+
+    inline operator fun rem(other: &Int) -> &Int
+    """Modulo operator"""
+    {
+        result: Int(this)
+        result %= other
+        return result
+    }
+
+    inline operator fun rem(other: $Int) -> &Int
+    """Modulo operator"""
+    {
+        result: Int(this)
+        result %= other
+        return result
+    }
+
+    # COMPARISON OPERATORS
+    # ====================
+
+    compiletime private fun getComparisonPredicate(
+        other: $Json
+    ) -> $Json = {
+         "condition": "minecraft:value_check",
+         "value": {
+             "type": "minecraft:score",
+             "target": {
+                 "type": "minecraft:fixed",
+                 "name": "$name"
+             },
+             "score": "$scoreboard"
+         },
+         "range": other
+     }
+
+    inline operator fun equals(other: &Int) -> Bool
+    """Equality operator"""
+    {
+        $system.predicateFolder.
+    }
+
+    # OBJECT DESTRUCTORS
+    # ==================
+
+    @WhenLeavingScope
+    inline destructor
+    """Destructor"""
+    {
+        if isUsingStack {
+            $execute("execute store result score $name $scoreboard run data get storage " +
+                     "$getGlobalStorage() $getGlobalStack()[-1]")
+            $execute("data remove storage $getGlobalStorage() $getGlobalStack()[-1]")
+        }
+    }
+}

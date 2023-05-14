@@ -1,0 +1,10 @@
+package kiwi
+
+interpret class Bool {
+    # OBJECT CONTEXT
+    # ==============
+
+    public lateinit name: $String
+    public lateinit scoreboard: $String
+    public isUsingStack: $auto = false
+}

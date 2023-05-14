@@ -1,0 +1,14 @@
+# Project exclude paths
+/.gradle/
+/build/
+/build/classes/kotlin/main/
+/video/
+/node_modules/
+/book/node_modules/
+/book/.cache/
+
+yarn.lock
+package.json
+package-lock.json
+book/package.json
+

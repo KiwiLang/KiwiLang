@@ -1,0 +1,8 @@
+package kiwi
+
+compiletime fun getUniqueName(
+    prefix: $String = "indexation",
+) {
+    static counter: $Int = 0
+    return prefix + counter++
+}

@@ -12,10 +12,7 @@ class Lexer {
     private lateinit var filePath: String
     private val keywords = setOf(
         "true", "false", "none",
-        "package", "import", "fun",
-        "if", "else", "for", "while",
-        "return", "break", "continue",
-        "pass", "class", "in",
+        "package", "import", "as"
     )
 
     /**
@@ -29,18 +26,8 @@ class Lexer {
         column = 0
     }
 
-    private val functions = mapOf(
-        TokenType.PACKAGE_NAME to {
-            Regex("[\\p{L}0-9_]+(\\.[\\p{L}0-9_]+)*\\b").matchAt(source, index)?.let { match ->
-                TokenType.PACKAGE_NAME to match.value
-            } ?: raise("wrong package name", "PACKAGE_NAME")
-        },
-        TokenType.IMPORT_PACKAGE_NAME to {
-            Regex("[\\p{L}0-9_]+(\\.[\\p{L}0-9_]+)*(\\.\\*)?\\b").matchAt(source, index)?.let { match ->
-                TokenType.IMPORT_PACKAGE_NAME to match.value
-            } ?: raise("wrong import package name", "IMPORT_PACKAGE_NAME")
-        }
-    )
+    private val functions =
+        mapOf<TokenType, () -> Pair<TokenType, String>>()
 
     private fun raise(message: String, type: String): Nothing {
         lateinit var found: String
@@ -187,16 +174,27 @@ error: could not compile `$filePath` due to previous error
      * Returns the iterator of characters in the source code.
      */
     private fun characters(): Iterator<TokenInfo> = iterator {
-        while (true) {
+        while (index < source.length) {
+            var ignoreSpaces = true
+            if (source[index] == '.') {
+                val token = TokenInfo(TokenType.RESERVED, ".", this@Lexer)
+                index++; column++
+                Regex("[ \t]+").matchAt(source, index)?.let { match ->
+                    index += match.value.length
+                    column += match.value.length
+                }
+                ignoreSpaces = false
+                yield(token)
+            }
             Regex("\\?:|->|<-|&{2}|\\^{2}|\\|{2}|/{2}|\\*{2}|" +
-                    "(\\*{2}|/{2}|[+\\-*/%<>=!(\\[{])=?|\\.\\.|[:@,.?;]").matchAt(
+                    "(\\*{2}|/{2}|[+\\-*/%<>=!(\\[{])=?|\\.\\.|[:@,?;]").matchAt(
                 source, index
             )?.let { match ->
                 val started = Triple(line, column, index)
                 index += match.value.length
                 column += match.value.length
                 yield(TokenInfo(TokenType.RESERVED, match.value, this@Lexer, started))
-                spaces().forEach { _ -> }
+                if (ignoreSpaces) spaces().forEach { _ -> }
             } ?: Regex("\\s*[])}]").matchAt(source, index)?.let { match ->
                 val started = Triple(line, column, index)
                 line += match.value.count("\n"::contains)

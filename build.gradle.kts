@@ -3,7 +3,6 @@
 
 plugins {
     kotlin("jvm") version "1.8.20"
-    id("org.jetbrains.dokka") version "1.8.10"
     application
 }
 
@@ -19,6 +18,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.test {
@@ -27,6 +27,7 @@ tasks.test {
 
 kotlin {
     jvmToolchain(8)
+    jvmToolchain(11)
 }
 
 application {

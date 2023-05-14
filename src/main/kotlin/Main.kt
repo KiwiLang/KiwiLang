@@ -1,23 +1,26 @@
-import com.buttersus.frontend.lexical.*
-import com.buttersus.frontend.syntax.*
-import java.io.File
-
-val lexer = Lexer()
-val parser = Parser()
+//import java.io.File
+//import com.buttersus.frontend.lexical.*
+//import com.buttersus.frontend.syntax.*
+//
+//fun main() {
+//    val source = File("src/main/resources/main.kiwi").readText()
+//
+//    val lexer = Lexer()
+//    val parser = Parser(lexer)
+//
+////    lexer.load(source)
+////    lexer.tokens().forEach {
+////        println(it)
+////    }
+//
+//    lexer.load(source)
+//    parser.load(source)
+//
+//    println(
+//        parser.parse().toSimplifiedColoredTreeString()
+//    )
+//}
 
 fun main() {
-    val source = File("src/main/resources/main.kiwi").readText()
-    try {
-        lexer.load(source)
-        parser.link(lexer)
-        parser.load(source)
-        val result = parser.parse()
-        println(
-            result.toSimplifiedColoredTreeString()
-        )
-    } catch (e: SyntaxError) {
-        println("\u001B[31m${e.message}\u001B[0m")
-    } catch (e: LexicalError) {
-        println("\u001B[31m${e.message}\u001B[0m")
-    }
+    throw Exception("Test")
 }
