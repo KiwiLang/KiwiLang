@@ -1,4 +1,4 @@
-<img src="book/assets/logo.png" style="float: right; margin-right: 30px; margin-top: 50px" alt="logo">
+![logo](book/assets/logo.png)
 
 Kiwi - data pack description language
 =====================================
