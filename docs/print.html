@@ -1,0 +1,1047 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Kiwi Book</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="Documentation for the Kiwi programming language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="home.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="get-started.html">Get started</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="basics/syntax.html"><strong aria-hidden="true">1.1.</strong> Basic syntax</a></li><li class="chapter-item expanded "><a href="basics/idioms.html"><strong aria-hidden="true">1.2.</strong> Idioms</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Concepts</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="concepts/types/overview.html"><strong aria-hidden="true">2.1.</strong> Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="concepts/types/boolean.html"><strong aria-hidden="true">2.1.1.</strong> Boolean</a></li><li class="chapter-item expanded "><a href="concepts/types/number.html"><strong aria-hidden="true">2.1.2.</strong> Number</a></li><li class="chapter-item expanded "><a href="concepts/types/string.html"><strong aria-hidden="true">2.1.3.</strong> String</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.2.</strong> Control Flow</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="concepts/control-flow/conditions.html"><strong aria-hidden="true">2.2.1.</strong> Conditions</a></li><li class="chapter-item expanded "><a href="concepts/control-flow/loops.html"><strong aria-hidden="true">2.2.2.</strong> Loops</a></li><li class="chapter-item expanded "><a href="concepts/control-flow/exceptions.html"><strong aria-hidden="true">2.2.3.</strong> Exceptions</a></li><li class="chapter-item expanded "><a href="concepts/control-flow/returns-and-jumps.html"><strong aria-hidden="true">2.2.4.</strong> Returns and Jumps</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Classes and Objects</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="concepts/classes-and-objects/classes.html"><strong aria-hidden="true">2.3.1.</strong> Classes</a></li><li class="chapter-item expanded "><a href="concepts/classes-and-objects/objects.html"><strong aria-hidden="true">2.3.2.</strong> Objects</a></li><li class="chapter-item expanded "><a href="concepts/classes-and-objects/interfaces.html"><strong aria-hidden="true">2.3.3.</strong> Interfaces</a></li><li class="chapter-item expanded "><a href="concepts/classes-and-objects/parameter-delegation.html"><strong aria-hidden="true">2.3.4.</strong> Parameter delegation</a></li><li class="chapter-item expanded "><a href="concepts/classes-and-objects/visibility-modifiers.html"><strong aria-hidden="true">2.3.5.</strong> Visibility modifiers</a></li><li class="chapter-item expanded "><a href="concepts/classes-and-objects/companion-objects.html"><strong aria-hidden="true">2.3.6.</strong> Companion objects</a></li><li class="chapter-item expanded "><a href="concepts/classes-and-objects/compile-time-classes.html"><strong aria-hidden="true">2.3.7.</strong> Compile-time classes</a></li><li class="chapter-item expanded "><a href="concepts/classes-and-objects/interpret-classes.html"><strong aria-hidden="true">2.3.8.</strong> Interpret classes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.</strong> Functions</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="concepts/functions/functions.html"><strong aria-hidden="true">2.4.1.</strong> Functions</a></li><li class="chapter-item expanded "><a href="concepts/functions/lambdas.html"><strong aria-hidden="true">2.4.2.</strong> Lambdas</a></li><li class="chapter-item expanded "><a href="concepts/functions/events.html"><strong aria-hidden="true">2.4.3.</strong> Events</a></li><li class="chapter-item expanded "><a href="concepts/functions/function-types.html"><strong aria-hidden="true">2.4.4.</strong> Function types</a></li><li class="chapter-item expanded "><a href="concepts/functions/inline-functions.html"><strong aria-hidden="true">2.4.5.</strong> Inline functions</a></li><li class="chapter-item expanded "><a href="concepts/functions/compile-time-functions.html"><strong aria-hidden="true">2.4.6.</strong> Compile-time functions</a></li><li class="chapter-item expanded "><a href="concepts/functions/interpret-functions.html"><strong aria-hidden="true">2.4.7.</strong> Interpret functions</a></li></ol></li><li class="chapter-item expanded "><a href="concepts/packages-and-imports.html"><strong aria-hidden="true">2.5.</strong> Packages and Imports</a></li><li class="chapter-item expanded "><a href="concepts/string-formatting.html"><strong aria-hidden="true">2.6.</strong> String formatting</a></li><li class="chapter-item expanded "><a href="concepts/variables.html"><strong aria-hidden="true">2.7.</strong> Variables</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Standard Library</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="standard-library/collections.html"><strong aria-hidden="true">3.1.</strong> Collections</a></li><li class="chapter-item expanded "><a href="standard-library/ranges.html"><strong aria-hidden="true">3.2.</strong> Ranges</a></li><li class="chapter-item expanded "><a href="standard-library/events.html"><strong aria-hidden="true">3.3.</strong> Events</a></li><li class="chapter-item expanded "><a href="standard-library/annotations.html"><strong aria-hidden="true">3.4.</strong> Annotations</a></li><li class="chapter-item expanded "><a href="standard-library/compile-time-known-annotations.html"><strong aria-hidden="true">3.5.</strong> Compile-time known annotations</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Tools</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="tools/kiwi-debugger.html"><strong aria-hidden="true">4.1.</strong> Kiwi Debugger</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Kiwi Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="kiwi-docs"><a class="header" href="#kiwi-docs">Kiwi docs</a></h1>
+<p>Latest stable version: <code>0.1.0</code></p>
+<pre><code class="language-admonish info">This documentation is still in development.
+</code></pre>
+<h2 id="first-steps"><a class="header" href="#first-steps">First steps</a></h2>
+<ul>
+<li><a href="basics/syntax.html">Basic Syntax</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="get-started-with-kiwi"><a class="header" href="#get-started-with-kiwi">Get started with Kiwi</a></h1>
+<p>Kiwi is a modern static type multi-paradigm programming language for Minecraft data packs.
+It's based on <a href="https://kotlinlang.org/">Kotlin</a> and some other languages.
+The main feature of Kiwi is high-level syntax, which can be a great option for huge
+projects.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="basic-syntax"><a class="header" href="#basic-syntax">Basic syntax</a></h1>
+<p>This is a collection of basic syntax concepts of Kiwi.
+If you are similar with Kotlin, it will be easy to understand.</p>
+<p><em>see <a href="basics/../examples/overview.html">Examples here</a>.</em></p>
+<h2 id="package-definition-and-imports"><a class="header" href="#package-definition-and-imports">Package definition and imports</a></h2>
+<p>Package specification is required to be at the top of the file.
+Imports should be placed after the package specification.</p>
+<pre><code class="language-kiwi">package my_package  # package specification
+
+import my_package.object  # import object from another package
+
+import my_package.*  # in order to import all objects from the package
+
+import my_package.my as my_alias  # import object with alias
+
+...  # your code
+</code></pre>
+<p><em>see <a href="basics/../concepts/packages-and-imports.html">Packages and Imports</a>.</em></p>
+<h2 id="program-entry-point"><a class="header" href="#program-entry-point">Program entry point</a></h2>
+<p>There is no <code>main</code> function in Kiwi. Instead, you can create any function
+and link it with the <code>onLoad</code> event.</p>
+<pre><code class="language-kiwi">fun main() &lt;- onLoad(always) {
+    print(&quot;Hello, World!&quot;)  # outputs &quot;Hello, World!&quot; to the chat
+}
+</code></pre>
+<p><em>see <a href="basics/idioms.html#program-entry-point">Explanation here</a>.</em></p>
+<h2 id="print-to-the-chat-or-console"><a class="header" href="#print-to-the-chat-or-console">Print to the chat or console</a></h2>
+<p><code>print</code> prints the specified text or value to the chat.</p>
+<pre><code class="language-kiwi">print(&quot;Hello, World!&quot;)  # outputs &quot;Hello, World!&quot; to the chat
+print(&quot;Hello, \n&quot;, &quot;World!&quot;)  # outputs &quot;Hello, &quot; and &quot;World!&quot; to the chat
+print(3)  # outputs &quot;3&quot; to the chat
+</code></pre>
+<p><code>log</code> prints the same way, but to the debugger console.
+It's required to make a few steps to enable
+this feature in your server.</p>
+<pre><code class="language-kiwi">log(&quot;Debug message&quot;)  # outputs &quot;Debug message&quot; to the console
+</code></pre>
+<p><em>see <a href="basics/../tools/kiwi-debugger.html">Debugging</a>.</em></p>
+<h2 id="variables"><a class="header" href="#variables">Variables</a></h2>
+<p>Variables are declared by unique name and type.</p>
+<pre><code class="language-kiwi">a: Int = 1  # variable declaration
+</code></pre>
+<p>You can also declare a variable specifying <code>auto</code> type. In this case, the type will be inferred from the value.</p>
+<pre><code class="language-kiwi">a: auto = 1  # type is Int
+b: Int  # declaring variable without value
+b = 4  # assigning value to the variable
+</code></pre>
+<p>Important feature of Kiwi is compile-time logic. You can create
+compile-time variables using '$' sign in type.</p>
+<pre><code class="language-kiwi">a: $Int = 1  # type is compile-time Int
+b: $auto = 2  # type is compile-time Int
+</code></pre>
+<p>Of course, you can use compile-time variables in runtime.</p>
+<pre><code class="language-kiwi">a: $Int = 1
+b: Int = a  # b is 1
+</code></pre>
+<p>But you can't use runtime variables in compile-time.</p>
+<pre><code class="language-kiwi">a: Int = 1
+b: $Int = a  # error: can't use runtime variable in compile-time
+</code></pre>
+<p><em>see <a href="basics/../concepts/variables.html">Variables</a>.</em></p>
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
+<p>A function with two parameters and return type <code>Int</code>.</p>
+<pre><code class="language-kiwi">fun sum(x: Int, y: Int) -&gt; Int {
+    return x + y
+}
+</code></pre>
+<p>A function can be declared as expression</p>
+<pre><code class="language-kiwi">fun sum(x: Int, y: Int) -&gt; Int = x + y
+</code></pre>
+<p>Also, it can be declared as compile-time</p>
+<pre><code class="language-kiwi">compiletime fun sum(x: $Int, y: $Int) -&gt; $Int = x + y
+</code></pre>
+<p>Or even inline runtime function</p>
+<pre><code class="language-kiwi">inline fun sum(x: Int, y: Int) -&gt; Int {
+    return x + y
+}
+</code></pre>
+<p><em>see <a href="basics/../concepts/functions/functions.html">Functions</a>, 
+<a href="basics/../concepts/functions/compile-time-functions.html">Compile-time Functions</a> and
+<a href="basics/../concepts/functions/inline-functions.html">Inline Functions</a>.</em></p>
+<h2 id="creating-classes-and-instances"><a class="header" href="#creating-classes-and-instances">Creating classes and instances</a></h2>
+<p>To define a class, use the <code>class</code> keyword.</p>
+<pre><code class="language-kiwi">class MyClass
+</code></pre>
+<p>Properties of a class can be listed in its declaration or body.</p>
+<pre><code class="language-kiwi">class Rectangle(
+    public width: Int,
+    public height: Int
+) {
+    area: Int = width * height
+}
+</code></pre>
+<p>By default, all parameters in the constructor are not stored in the class.
+To store them, just add any visibility modifier (such as <code>public</code>).</p>
+<p>To create an instance of a class, use constructor invocation</p>
+<pre><code class="language-kiwi">a: Rectangle = Rectangle(5, 10)
+a: auto = Rectangle(5, 10)
+a: Rectangle(5, 10)
+</code></pre>
+<p>Or you can add parameter delegation using <code>by</code> keyword</p>
+<pre><code class="language-kiwi">class Rectangle(
+    public (width, height): Int by components  # parameter delegation
+) {
+    area: Int = width * height
+}
+
+a: Rectangle = 5, 10
+</code></pre>
+<p>Parameter delegation is a powerful feature that allows you to organize your code</p>
+<pre><code class="language-kiwi">a: Array = [1, 2, 3]
+a: Set = {1, 2, 3}
+a: Dict = {1: 2, 3: 4}
+a: Criteria = dummy
+</code></pre>
+<p><em>see <a href="basics/../concepts/classes-and-objects/classes.html">Classes</a> 
+and <a href="basics/../concepts/classes-and-objects/parameter-delegation.html">Parameter Delegation</a>.</em></p>
+<h2 id="comments"><a class="header" href="#comments">Comments</a></h2>
+<p>Just like in Python, comments start with a <code>#</code> and go until the end of the line.</p>
+<pre><code class="language-kiwi"># This is a comment
+</code></pre>
+<p>Or you can use multi-line docstrings</p>
+<pre><code class="language-kiwi">a: Int = 0
+&quot;&quot;&quot;
+It's a docstring
+&quot;&quot;&quot;
+</code></pre>
+<p><em>see <a href="basics/idioms.html#comments-and-docstrings">Comments and Docstrings</a>.</em></p>
+<h2 id="string-formatting"><a class="header" href="#string-formatting">String formatting</a></h2>
+<p>You can insert values into strings, using f-strings with <code>{}</code>.</p>
+<pre><code class="language-kiwi">a: Int = 5
+b: auto = f&quot;Hello, {a}!&quot;  # &quot;Hello, 5!&quot;
+</code></pre>
+<p>Or use another syntax for default strings when it comes to compile-time.</p>
+<pre><code class="language-kiwi">a: $Int = 5
+$execute(&quot;say Hello, $a!&quot;)  # first way
+$execute(&quot;say Hello, ${a}!&quot;)  # second way
+</code></pre>
+<p><em>see <a href="basics/../concepts/string-formatting.html">String Formatting</a>.</em></p>
+<h2 id="conditionals"><a class="header" href="#conditionals">Conditionals</a></h2>
+<pre><code class="language-kiwi">fun maxOfTwo(x: Int, y: Int) -&gt; Int {
+    if x &gt; y {
+        return x
+    } else {
+        return y
+    }
+}
+</code></pre>
+<p>In Kiwi, you can also use ternary operator followed by <code>?</code> and <code>:</code>.</p>
+<pre><code class="language-kiwi">fun maxOfTwo(x: Int, y: Int) -&gt; Int = x &gt; y ? x : y
+</code></pre>
+<p><em>see <a href="basics/../concepts/control-flow/conditions.html#if-expression">If expression</a>.</em></p>
+<h2 id="for-loops"><a class="header" href="#for-loops">for loops</a></h2>
+<pre><code class="language-kiwi">fun sumOfArray(array: Array) -&gt; Int {
+    sum: Int = 0
+    for index in array.indices {
+        sum += array[index]
+    }
+    return sum
+}
+</code></pre>
+<p>Or you can iterate over the array directly.</p>
+<pre><code class="language-kiwi">fun sumOfArray(array: Array) -&gt; Int {
+    sum: Int = 0
+    for element in array {
+        sum += element
+    }
+    return sum
+}
+</code></pre>
+<p><em>see <a href="basics/../concepts/control-flow/loops.html#for-loops">for loops</a>.</em></p>
+<h2 id="while-loops"><a class="header" href="#while-loops">while loops</a></h2>
+<pre><code class="language-kiwi">fun sumOfArray(array: Array) -&gt; Int {
+    sum: Int = 0
+    index: Int = 0
+    while index &lt; array.size {
+        sum += array[index]
+        index += 1
+    }
+    return sum
+}
+</code></pre>
+<p><em>see <a href="basics/../concepts/control-flow/loops.html#while-loops">while loops</a>.</em></p>
+<h2 id="when-expression"><a class="header" href="#when-expression">when expression</a></h2>
+<pre><code class="language-kiwi">fun describe(obj: Int) -&gt; Int {
+    return when obj {
+        1 -&gt; &quot;One&quot;
+        2 -&gt; &quot;Two&quot;
+        3 -&gt; &quot;Three&quot;
+        else -&gt; &quot;Unknown&quot;
+    }
+}
+</code></pre>
+<p><em>see <a href="basics/../concepts/control-flow/conditions.html#when-expression">when expression</a>.</em></p>
+<h2 id="exceptions"><a class="header" href="#exceptions">Exceptions</a></h2>
+<p>There are no classic exceptions in Kiwi, but you can use <code>unreliable</code> modifier.</p>
+<pre><code class="language-kiwi">unreliable fun foo() {
+    a: Int = 5
+    b: Int = 0
+    a / b  # error: division by zero
+}
+</code></pre>
+<p>It will check all unreliable calls inside the function and if any of them fails,
+it will fail the whole function.</p>
+<pre><code class="language-kiwi">foo() ?: log(&quot;foo failed&quot;)  # foo failed
+</code></pre>
+<p>Function without <code>unreliable</code> modifier can't throw an exception, but you can use '?:' operator
+to handle exception.</p>
+<p><em>see <a href="basics/../concepts/control-flow/exceptions.html">Exceptions</a>.</em></p>
+<p>Or if you want to throw an exception, you can use <code>throw</code> keyword.</p>
+<pre><code class="language-kiwi">fun foo() {
+    throw &quot;foo failed&quot;
+}
+</code></pre>
+<h2 id="events"><a class="header" href="#events">Events</a></h2>
+<p>It can be used by <code>&lt;- &lt;event&gt;</code> syntax.</p>
+<pre><code class="language-kiwi">fun main() &lt;- onTick(1) {
+    log(&quot;Hello, world!&quot;)
+}
+</code></pre>
+<p>You can also get access to return parameters of the event.
+To do this, you need to specify code, that will be executed when
+the specified event is triggered using <code>trigger</code> keyword.</p>
+<blockquote>
+<p>Order of trigger blocks does matter.</p>
+</blockquote>
+<pre><code class="language-kiwi">fun main() &lt;- onLoad(always), (time: Int) &lt;- onTick(1) {
+    log(&quot;This will be printed firstly&quot;)
+    trigger onTick {
+        log(&quot;Time: $time&quot;)  # this code will be executed when onTick event is triggered
+    }
+    trigger onLoad {
+        log(&quot;Hello, world!&quot;)  # this code will be executed when onLoad event is triggered
+    }
+    log(&quot;This will be executed in any case&quot;)
+}
+</code></pre>
+<p>You can create an event using function with <code>Promise</code> return type.</p>
+<pre><code class="language-kiwi">playerLeaveScoreboard: Scoreboard = minecraft.custom:minecraft.leave_game
+
+fun onPlayerJoin(
+    player: Selector
+) -&gt; Promise&lt;Selector&gt; &lt;- onTick(1) {
+    if playerLeaveScoreboard[player] {
+        playerLeaveScoreboard[player] = 0
+        return player
+    }
+}
+
+fun main() &lt;- onPlayerJoin(@a) {
+    log(&quot;Player joined&quot;)
+}
+</code></pre>
+<p><em>see <a href="basics/../concepts/functions/events.html">Events</a>.</em></p>
+<h2 id="ranges"><a class="header" href="#ranges">Ranges</a></h2>
+<p>Iterate over a range.</p>
+<pre><code class="language-kiwi">for i in 1..10 {  # includes 10
+    print(i)  # 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+}
+</code></pre>
+<p>Using a step in a range.</p>
+<pre><code class="language-kiwi">for i in 1..10 step 2 {
+    print(i)  # 1, 3, 5, 7, 9
+}
+</code></pre>
+<p>Check if a number is within a range using <code>in</code> operator.</p>
+<pre><code class="language-kiwi">fun isInRange(x: Int) -&gt; bool = x in 1..10
+</code></pre>
+<p>Check if a number is out of range.</p>
+<pre><code class="language-kiwi">fun square(x: Int) -&gt; Int {
+    if x in short.MAX... {
+       log(&quot;Number is too big&quot;)
+    }
+    return x * x
+}
+</code></pre>
+<p><em>see <a href="basics/../standard-library/ranges.html">Ranges</a>.</em></p>
+<h2 id="collections"><a class="header" href="#collections">Collections</a></h2>
+<p>Iterate over a collection.</p>
+<pre><code class="language-kiwi">for (item in items) {
+    print(item)
+}
+</code></pre>
+<p>Check if a collection contains an object using <code>in</code> and <code>!in</code> operators.</p>
+<pre><code class="language-kiwi">fun isInRange(x: Int) -&gt; bool = x in 1..10
+fun isNotInRange(x: Int) -&gt; bool = x !in 1..10
+</code></pre>
+<p><em>see <a href="basics/../standard-library/collections.html">Collections</a>.</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="idioms"><a class="header" href="#idioms">Idioms</a></h1>
+<p>A collection of random idioms that are used in Kiwi.</p>
+<h2 id="program-entry-point-1"><a class="header" href="#program-entry-point-1">Program entry point</a></h2>
+<p>There is no <code>main()</code> function in Kiwi. It's caused by the fact that Minecraft is a game, so
+usually we use events to run our code.</p>
+<p>So, there are a few ways to run your code:</p>
+<ul>
+<li><code>onLoad(always)</code> event. It's called when the game is loaded, it will be
+called more than once if you reload the game. It's useful for debugging.
+<em>see <a href="basics/../standard-library/events.html#onload">onLoad event</a>.</em></li>
+<li><code>onLoad(once)</code> event. It's called when the game is loaded for the first time.
+It's useful to set up your libraries, objects, etc.
+<em>see <a href="basics/../standard-library/events.html#onload">onLoad event</a>.</em></li>
+<li><code>onTick(x: $Int)</code> event. It's called every x ticks. It's useful for game logic, creating
+custom entities, etc.
+<em>see <a href="basics/../standard-library/events.html#ontick">onTick event</a>.</em></li>
+<li>Calling function by yourself. To do this, you need to <em>&quot;fix&quot;</em> the name of function,
+that you want to call. It's required because Kiwi usually renames functions in order to
+avoid name collisions. To fix the name, you need to add <code>@FixName(&quot;name&quot;)</code> annotation
+like this:</li>
+</ul>
+<pre><code class="language-kiwi">@FixName(&quot;my_function&quot;)
+fun myFunction() {
+    print(&quot;Hello, World!&quot;)
+}
+</code></pre>
+<p>Then you can call this function in minecraft chat using next syntax:</p>
+<pre><code class="language-mcfunction">function &lt;datapack-name&gt;:fixed/&lt;fixed-name&gt;
+</code></pre>
+<p>For example, if your datapack name is <code>my_datapack</code> and you fixed the name of function
+to <code>my_function</code>, then you can call it using this command:</p>
+<pre><code class="language-mcfunction">function my_datapack:fixed/my_function
+</code></pre>
+<p><em>see <a href="basics/../standard-library/annotations.html#fix-name">Fix Name annotation</a>.</em></p>
+<h2 id="comments-and-docstrings"><a class="header" href="#comments-and-docstrings">Comments and Docstrings</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="basic-types"><a class="header" href="#basic-types">Basic types</a></h1>
+<p>In Kiwi, all types are separated into compile-time and runtime types.
+Some types can be both compile-time and runtime - for example, <code>Int</code> type.
+Also, runtime types can be separated into primitive and complex types.</p>
+<p>This section describes all basic types used in Kiwi.</p>
+<ul>
+<li><a href="concepts/types/number.html">Numbers</a></li>
+<li><a href="concepts/types/boolean.html">Booleans</a></li>
+<li><a href="concepts/types/string.html">Strings</a></li>
+<li><a href="concepts/types/selectors.html">Selectors</a></li>
+<li><a href="concepts/types/blocks.html">Blocks</a></li>
+<li><a href="concepts/types/ranges.html">Ranges</a></li>
+<li><a href="concepts/types/arrays.html">Arrays</a></li>
+<li><a href="concepts/types/maps.html">Maps</a></li>
+<li><a href="concepts/types/sets.html">Sets</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="boolean"><a class="header" href="#boolean">Boolean</a></h1>
+<p>The <code>Bool</code> type represents boolean values. There are only two possible values:
+<code>true</code> and <code>false</code>.</p>
+<pre><code class="language-kiwi">a: auto = true
+b: Bool = false
+</code></pre>
+<p>Booleans are primitive types, so they are stored by value without any reference.</p>
+<p>Built-in operators for booleans:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">Precedence</th><th>Operator</th><th>Description</th></tr></thead><tbody>
+<tr><td style="text-align: left">Highest</td><td><code>!</code></td><td>Logical NOT</td></tr>
+<tr><td style="text-align: left"></td><td><code>&amp;&amp;</code></td><td>Logical AND</td></tr>
+<tr><td style="text-align: left">Lowest</td><td><code>\|\|</code></td><td>Logical OR</td></tr>
+</tbody></table>
+</div>
+<pre><code class="language-kiwi">a: auto = !true  # false
+b: auto = true &amp;&amp; false  # false
+c: auto = true || false  # true
+</code></pre>
+<p><code>||</code> and <code>&amp;&amp;</code> operators work lazily. It means that the right operand is evaluated
+only if the left operand is not enough to determine the result of the expression.</p>
+<pre><code class="language-kiwi">a: auto = amIAlive() || amIDead()  
+# amIDead() is not called if amIAlive() returns true
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="number"><a class="header" href="#number">Number</a></h1>
+<blockquote>
+<p>All numbers in Kiwi are primitive types. Generally, it means that
+they are stored without any additional data to save memory.</p>
+</blockquote>
+<h2 id="integer-types"><a class="header" href="#integer-types">Integer types</a></h2>
+<p>Minecraft has only one full integer type - <code>Int</code>. It's a 32-bit signed integer type,
+which can store values from <code>-2,147,483,648</code> to <code>2,147,483,647</code>.
+So keep in mind that all another integer types are just aliases for <code>Int</code>.</p>
+<p>Kiwi provides a set of built-in types that represent numbers.
+For integers, there are three types with different sizes and ranges:</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Size (bits)</th><th>Min value</th><th>Max value</th></tr></thead><tbody>
+<tr><td><code>Byte</code></td><td>8</td><td>-128</td><td>127</td></tr>
+<tr><td><code>Short</code></td><td>16</td><td>-32,768</td><td>32,767</td></tr>
+<tr><td><code>Int</code></td><td>32</td><td>-2,147,483,648</td><td>2,147,483,647</td></tr>
+</tbody></table>
+</div>
+<p>When you initialize a variable with no explicit type specification,
+the compiler automatically infers the type from the value:</p>
+<pre><code class="language-kiwi">a: auto = 1  # type is int
+b: auto = 2b  # type is byte
+c: auto = 3s  # type is short
+</code></pre>
+<blockquote>
+<p>Note that there is no <code>long</code> type in Kiwi. It's because Minecraft
+doesn't support arithmetic for 64-bit integers.</p>
+</blockquote>
+<h2 id="floating-point-types"><a class="header" href="#floating-point-types">Floating-point types</a></h2>
+<p>Kiwi can simulate floating-point types using fixed-point arithmetic.
+So there are two floating-point types in Kiwi: <code>float</code> and <code>double</code>.</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Size (bits)</th><th>Integer bits</th><th>Fractional bits</th><th>Min value</th><th>Max value</th></tr></thead><tbody>
+<tr><td><code>Float</code></td><td>32</td><td>24</td><td>8</td><td>-8388608</td><td>8388607</td></tr>
+<tr><td><code>Double</code></td><td>32</td><td>16</td><td>16</td><td>-32768</td><td>32767</td></tr>
+</tbody></table>
+</div>
+<p>You can initialize floating-point variables with numbers having
+a fractional part:</p>
+<pre><code class="language-kiwi">a: auto = 1.0f  # type is float
+b: auto = 2.0d  # type is double
+c: auto = 3.0   # type is double
+</code></pre>
+<p>Or you can use scientific notation:</p>
+<pre><code class="language-kiwi">a: auto = 1.0e-3f
+</code></pre>
+<p>Note the fact that Kiwi does not automatically to convert floating-point 
+numbers to integers and back. Therefore, you will have to do this manually:</p>
+<pre><code class="language-kiwi">fun printDouble(d: Double) { print(d) }
+
+printDouble(1)  # error: can't pass double to printDouble
+printDouble(1d)  # ok
+</code></pre>
+<h2 id="literal-constants-for-numbers"><a class="header" href="#literal-constants-for-numbers">Literal constants for numbers</a></h2>
+<p>There are several ways to write literal constants for numbers:</p>
+<ul>
+<li>Decimal: <code>123</code></li>
+<li>Hexadecimal: <code>0x123</code></li>
+<li>Binary: <code>0b101</code></li>
+<li>Octal: <code>0o123</code></li>
+<li>Scientific notation: <code>1.0e-3</code></li>
+<li>Underscores: <code>1_000_000</code></li>
+<li>Suffixes: <code>1b</code>, <code>1s</code>, <code>1</code>, <code>1.0f</code>, <code>1.0d</code></li>
+<li>Negative numbers: <code>-1</code>, <code>-1.0f</code>, <code>-1.0d</code></li>
+<li>Positive numbers: <code>+1</code>, <code>+1.0f</code>, <code>+1.0d</code></li>
+<li>Infinity: <code>inf</code>, <code>+inf</code>, <code>-inf</code> (only for compile-time constants)</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="string"><a class="header" href="#string">String</a></h1>
+<blockquote>
+<p>All strings in Kiwi are reference types, so
+they store additional data to run faster.</p>
+</blockquote>
+<p>Strings in Kiwi are represented by the <code>String</code> type.
+It can be initialized with a string literal:</p>
+<pre><code class="language-kiwi">a: auto = &quot;Hello, world!&quot;
+</code></pre>
+<p>Elements of a string can be accessed via the <code>[]</code> operator:</p>
+<pre><code class="language-kiwi">a: auto = &quot;Hello, world!&quot;
+b: auto = a[0]  # 'H'
+c: auto = a[1]  # 'e'
+</code></pre>
+<p>All strings are immutable, so each method that changes a string
+returns a new string object:</p>
+<pre><code class="language-kiwi">a: auto = &quot;Hello, world!&quot;
+b: auto = a.replace(&quot;world&quot;, &quot;Kiwi&quot;)  # &quot;Hello, Kiwi!&quot;
+print(a)  # &quot;Hello, world!&quot;
+print(b)  # &quot;Hello, Kiwi!&quot;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="conditions"><a class="header" href="#conditions">Conditions</a></h1>
+<h2 id="if-expression"><a class="header" href="#if-expression">If expression</a></h2>
+<p>In Kiwi, <code>if</code> is an expression: it returns a value.
+But there is ternary operator in Kiwi if you prefer to use it instead.</p>
+<pre><code class="language-kiwi">a: Int = 1
+b: Int = 2
+lateinit max: Int
+
+// With else
+if a &gt; b {
+    max = a
+} else {
+    max = b
+}
+
+// As expression (brackets in condition are required)
+max = if (a &gt; b) a else b
+
+// As expression with blocks
+max = if a &gt; b {
+    a
+} else {
+    b
+}
+
+// With ternary operator
+max = a &gt; b ? a : b
+</code></pre>
+<p>In case of <code>if</code> used as expression with blocks, 
+the last expression in the block is returned.</p>
+<pre><code class="language-kiwi">max: Int = if a &gt; b {
+    println(&quot;a is max&quot;)
+    a
+} else {
+    println(&quot;b is max&quot;)
+    b
+}
+</code></pre>
+<h2 id="when-expression-1"><a class="header" href="#when-expression-1">When expression</a></h2>
+<p><code>when</code> defines a conditional expression with multiple branches.
+It is similar to <code>switch</code> in other languages.</p>
+<pre><code class="language-kiwi">when x {
+    1 -&gt; println(&quot;x == 1&quot;)
+    2 -&gt; println(&quot;x == 2&quot;)
+    else -&gt; println(&quot;x is neither 1 nor 2&quot;)
+}
+</code></pre>
+<h3 id="when-expression-with-no-argument"><a class="header" href="#when-expression-with-no-argument">When expression with no argument</a></h3>
+<p><code>when</code> can be used as an alternative to <code>if-else if</code> chain.
+Note the fact, that it can be used as an expression.</p>
+<pre><code class="language-kiwi">fun maxOfTwo(x: Int, y: Int) -&gt; Int = when {
+    x &gt; y -&gt; x
+    else -&gt; y
+}
+</code></pre>
+<p>Or as a statement.</p>
+<pre><code class="language-kiwi">when {
+    x.isOdd() -&gt; println(&quot;x is odd&quot;)
+    x.isEven() -&gt; println(&quot;x is even&quot;)
+    else -&gt; println(&quot;x is funny&quot;)
+}
+</code></pre>
+<h3 id="when-expression-with-argument"><a class="header" href="#when-expression-with-argument">When expression with argument</a></h3>
+<p>It is also possible to use <code>when</code> with an argument.
+In this case, the argument is compared with given keys.</p>
+<pre><code class="language-kiwi">fun describe(obj: Int) -&gt; Int {
+    return when obj {
+        1 -&gt; &quot;One&quot;
+        2 -&gt; &quot;Two&quot;
+        else -&gt; &quot;Unknown&quot;
+    }
+}
+</code></pre>
+<p>To define several keys for one branch, you can use comma-separated list of values.</p>
+<pre><code class="language-kiwi">fun describe(obj: Int) -&gt; Int {
+    return when obj {
+        1, 2 -&gt; &quot;One or Two&quot;
+        else -&gt; &quot;Unknown&quot;
+    }
+}
+</code></pre>
+<p>You can also use arbitrary expressions (not only constants) as branch keys.</p>
+<pre><code class="language-kiwi">fun describe(obj: Int) -&gt; Int {
+    return when obj {
+        parseInt(s) -&gt; &quot;s encodes obj&quot;
+        else -&gt; &quot;s does not encode obj&quot;
+    }
+}
+</code></pre>
+<p>Keep in mind, in case of arbitrary expressions, the order of branches is important.</p>
+<pre><code class="language-kiwi">a: Int = 1
+
+when x {
+    1 -&gt; println(&quot;x == 1&quot;)
+    a -&gt; println(&quot;x == a&quot;)
+    else -&gt; println(&quot;otherwise&quot;)
+}
+# prints &quot;x == 1&quot; - the first branch is matched
+</code></pre>
+<p>It's possible to define variable using following syntax.</p>
+<pre><code class="language-kiwi">fun describeHealth(player: Selector) =
+    when health: Int = player.health {
+        20 -&gt; &quot;is healthy&quot;
+        in 10..19 -&gt; f&quot;needs to restore {20 - health} health points&quot;
+        else -&gt; &quot;is having troubles&quot;
+    }
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="loops"><a class="header" href="#loops">Loops</a></h1>
+<h2 id="for-loops-1"><a class="header" href="#for-loops-1">for loops</a></h2>
+<h2 id="while-loops-1"><a class="header" href="#while-loops-1">while loops</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exceptions-1"><a class="header" href="#exceptions-1">Exceptions</a></h1>
+<h2 id="exception-calsses"><a class="header" href="#exception-calsses">Exception calsses</a></h2>
+<p>All exception classes in Kiwi inherit from <code>Exception</code> class.
+Every exception has a message, stack trace and optional cause.</p>
+<p>To throw an exception, you need to use <code>throw</code> keyword.</p>
+<pre><code class="language-kiwi">throw Exception(&quot;foo failed&quot;)
+</code></pre>
+<p>To catch an exception, you need to use <code>try</code> ... <code>catch</code> block.</p>
+<pre><code class="language-kiwi">try {
+    # some code
+} catch e: Exception {
+    # handle exception
+} finally {
+    # optional finally block
+}
+</code></pre>
+<p>There may be zero or more <code>catch</code> blocks, but only one <code>finally</code> block.
+However, at least one of them must be present.</p>
+<h3 id="try-is-an-expression"><a class="header" href="#try-is-an-expression">Try is an expression</a></h3>
+<p><code>try</code> is an expression, i.e. it may have a return value.</p>
+<pre><code class="language-kiwi">val a: Int = try {
+    foo()
+} catch e: Exception {
+    0
+}
+</code></pre>
+<p>The returned value of <code>try</code> is either the last expression in the <code>try</code> block
+or the last expression in the <code>catch</code> block (or blocks).
+The <code>finally</code> block does not affect the result of the expression.</p>
+<h2 id="the-nothing-type"><a class="header" href="#the-nothing-type">The Nothing type</a></h2>
+<p><code>throw</code> is an expression in Kiwi, so you can use it on the right hand side of an assignment.</p>
+<pre><code class="language-kiwi">a: Int = if (x &gt;= 0) {
+    sqrt(x)
+} else {
+    throw Exception(&quot;x must be non-negative&quot;)
+}
+</code></pre>
+<p>The <code>throw</code> expression has type <code>Nothing</code>. It has no value and is used to mark
+unreachable code.</p>
+<pre><code class="language-kiwi">fun fail(message: String): Nothing {
+    throw Exception(message)
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="visibility-modifiers"><a class="header" href="#visibility-modifiers">Visibility modifiers</a></h1>
+<p>All top-level declarations, classes, functions, properties, etc.
+can have visibility modifiers:</p>
+<ul>
+<li><code>public</code> - visible everywhere</li>
+<li><code>private</code> - visible only inside the file or class</li>
+<li><code>protected</code> - visible only inside the subclasses</li>
+<li><code>internal</code> - visible only inside the package</li>
+</ul>
+<p>On this page, you'll learn how to use them.</p>
+<h2 id="packages"><a class="header" href="#packages">Packages</a></h2>
+<p>Functions, properties, classes, objects, and interfaces can be declared
+at the &quot;top level&quot;, i.e. directly inside a package:</p>
+<pre><code class="language-kiwi">package org.example
+
+fun foo() { ... }
+class Bar { ... }
+</code></pre>
+<p>Such declarations are visible everywhere inside the package, because
+<code>public</code> modifier is applied by default.</p>
+<p>There are t three top-level visibility modifiers: <code>private</code> and <code>internal</code>:</p>
+<ul>
+<li><code>public</code> means visible everywhere</li>
+<li><code>private</code> means visible inside this file only (including all the declarations inside it)</li>
+<li><code>internal</code> means visible inside the same module only</li>
+</ul>
+<h2 id="classes-members"><a class="header" href="#classes-members">Classes members</a></h2>
+<p>For members declared inside a class:</p>
+<ul>
+<li><code>public</code> means visible to everyone who can see the class</li>
+<li><code>private</code> means visible inside this class only</li>
+<li><code>protected</code> means visible inside this class and its subclasses</li>
+<li><code>internal</code> means visible to everyone in the same module who can see the class</li>
+</ul>
+<p>If you override a <code>protected</code> or <code>internal</code> member and do not specify the visibility explicitly,
+the overriding member will have the same visibility as the original declaration.</p>
+<p>Examples:</p>
+<pre><code class="language-kiwi">open class Outer {
+    private val a = 1
+    protected open val b = 2
+    internal val c = 3
+    val d = 4  // public by default
+
+    protected class Nested {
+        public val e: Int = 5
+    }
+}
+
+class Subclass : Outer() {
+    // a is not visible
+    // b, c and d are visible
+    // Nested and e are visible
+
+    override val b = 5   // 'b' is protected
+    override val c = 6   // 'c' is internal
+}
+</code></pre>
+<h2 id="local-declarations"><a class="header" href="#local-declarations">Local declarations</a></h2>
+<p>Local variables, functions and classes 
+can not have visibility modifiers.</p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="interpret-classes"><a class="header" href="#interpret-classes">Interpret classes</a></h1>
+<p>Runtime classes in Kiwi can have compile-time properties
+by using the <code>interpret</code> keyword.</p>
+<pre><code class="language-kiwi">interpret class Foo {
+  bar: $Int = 0
+}
+</code></pre>
+<p>Such classes can be used as normal classes, but they provide
+ways to access their compile-time properties.</p>
+<p>For example, you can get access to compile-time properties if
+it's declared at same or higher levels.</p>
+<pre><code class="language-kiwi">a: Foo = Foo()  # a is declared at the same level as property usage
+a.bar = 1
+print(a.bar)  # 1
+</code></pre>
+<h2 id="restrictions"><a class="header" href="#restrictions">Restrictions</a></h2>
+<p>As compile-time properties are not stored in runtime,
+you can't access them if the object can't be resolved at compile-time.</p>
+<pre><code class="language-kiwi">fun printBar(foo: Foo) {
+  print(foo.bar)  # Error: foo.bar is not a runtime property
+}
+</code></pre>
+<p>Also, to get access from a runtime interpret parameter,
+you need to use additional annotations, that will guarantee
+that the parameter is known at compile-time.</p>
+<pre><code class="language-kiwi">interpret fun printBar(
+    @compileTimeKnown  # This annotation is required
+    foo: Foo
+) {
+    print(foo.bar)  # OK
+}
+
+printBar(Foo())  # OK
+</code></pre>
+<p>Note that each time you interpret a
+function, a new function will be created,
+so it's better to avoid using it as much as possible.</p>
+<p><em>see <a href="concepts/classes-and-objects/../../standard-library/compile-time-known-annotations.html">Compile-time known annotations</a>
+and <a href="concepts/classes-and-objects/../functions/interpret-functions.html">Interpret functions</a>.</em></p>
+<h2 id="interpret-classes-in-types"><a class="header" href="#interpret-classes-in-types">Interpret classes in types</a></h2>
+<p>There are a few classes in standard library that are interpreted,
+and generally they are primitives:</p>
+<ul>
+<li><code>Int</code> - integer number</li>
+<li><code>Float</code> - floating point number</li>
+<li><code>String</code> - string</li>
+<li><code>Boolean</code> - boolean value</li>
+<li><code>Array</code> - array</li>
+</ul>
+<p><em>see <a href="concepts/classes-and-objects/../types/overview.html">Basic types</a>.</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="functions-1"><a class="header" href="#functions-1">Functions</a></h1>
+<p>In Kiwi, you can declare function using <code>fun</code> keyword.</p>
+<pre><code class="language-kiwi">fun main() {
+    println(&quot;Hello, World!&quot;)
+}
+</code></pre>
+<h2 id="function-usage"><a class="header" href="#function-usage">Function usage</a></h2>
+<p>Functions can be called using <code>()</code> operator.</p>
+<pre><code class="language-kiwi">fun main() {
+    println(&quot;Hello, World!&quot;)
+    a: Int = 4.toConstant()
+}
+</code></pre>
+<h3 id="function-arguments"><a class="header" href="#function-arguments">Function arguments</a></h3>
+<p>Functions can have arguments.</p>
+<pre><code class="language-kiwi">foo(5, 6)
+</code></pre>
+<p>They can be put in order or named.</p>
+<pre><code class="language-kiwi">foo(5, b = 6)
+</code></pre>
+<p>But named arguments must be put after ordered ones.</p>
+<pre><code class="language-kiwi">foo(a = 5, 6)  # Error
+</code></pre>
+<h3 id="function-parameters"><a class="header" href="#function-parameters">Function parameters</a></h3>
+<p>Function parameters are defined using Pascal notation - name: type. Parameters are separated using commas,
+and each parameter must be explicitly typed:</p>
+<pre><code class="language-kiwi">fun foo(a: Int, b: Int) {
+    print(a + b)
+}
+</code></pre>
+<p>You can leave comma after last parameter optionally.</p>
+<pre><code class="language-kiwi">fun foo(
+    a: Int, 
+    b: Int,  # trailing comma
+) {
+    print(a + b)
+}
+</code></pre>
+<h3 id="default-arguments"><a class="header" href="#default-arguments">Default arguments</a></h3>
+<p>Function parameters can have default values.</p>
+<pre><code class="language-kiwi">fun foo(a: Int = 5, b: Int = 6) {
+    print(a + b)
+}
+</code></pre>
+<p>And you can call function without arguments, which will use default values.</p>
+<pre><code class="language-kiwi">foo() # prints 11
+</code></pre>
+<h3 id="variable-number-of-arguments-varargs"><a class="header" href="#variable-number-of-arguments-varargs">Variable number of arguments (varargs)</a></h3>
+<p>Function parameters can be defined as varargs.</p>
+<pre><code class="language-kiwi">fun foo(vararg array: Int) {
+    for (item in a) {
+        print(i)
+    }
+}
+</code></pre>
+<p>And you can pass any number of arguments to it.</p>
+<pre><code class="language-kiwi">foo(1, 2, 3, 4, 5)  # prints 1 2 3 4 5 separated by newlines
+</code></pre>
+<p>Varargs must be the last parameter.</p>
+<pre><code class="language-kiwi">fun foo(vararg array: Int, a: Int) {  # Error
+    for (item in a) {
+        print(i)
+    }
+}
+</code></pre>
+<p>Also, you can pass array to varargs by using <code>*</code> operator.</p>
+<pre><code class="language-kiwi">a: Array&lt;Int&gt; = [1, 2, 3, 4, 5]
+foo(*a)  # prints 1 2 3 4 5 separated by newlines
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="packages-and-imports"><a class="header" href="#packages-and-imports">Packages and imports</a></h1>
+<p>A source file may start with package declaration:</p>
+<pre><code class="language-kiwi">package org.example
+
+class Foo {
+    # ...
+}
+</code></pre>
+<p>All the contents, such as classes and functions, 
+of the source file are included in this package.
+So, in the example above, you can refer to the 
+class <code>Foo</code> as <code>org.example.Foo</code>.</p>
+<p>If you don't specify a package, the source file
+is included in the default package.</p>
+<h2 id="default-imports"><a class="header" href="#default-imports">Default imports</a></h2>
+<p>The following packages are imported by default:</p>
+<ul>
+<li><code>kiwi.*</code></li>
+</ul>
+<h2 id="imports"><a class="header" href="#imports">Imports</a></h2>
+<p>Apart from the default imports, each file may contain its own import directives.</p>
+<p>You can import either a single name:</p>
+<pre><code class="language-kiwi">import org.example.Foo  # Foo is now available in the current scope
+</code></pre>
+<p>or all the names from a package:</p>
+<pre><code class="language-kiwi">import org.example.*  # All the names from org.example are now available in the current scope
+</code></pre>
+<p>You can also import a name under a different name:</p>
+<pre><code class="language-kiwi">import org.example.Foo as Bar  # Foo is now available as Bar in the current scope
+</code></pre>
+<h2 id="visibility-of-top-level-declarations"><a class="header" href="#visibility-of-top-level-declarations">Visibility of top-level declarations</a></h2>
+<p>Top-level declarations are visible in the whole package by default.
+You can make them visible only inside the package with the <code>private</code> modifier:</p>
+<pre><code class="language-kiwi">private class Foo {
+    # ...
+}
+</code></pre>
+<p><em>see <a href="concepts/classes-and-objects/visibility-modifiers.html">Visibility modifiers</a></em></p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="events-1"><a class="header" href="#events-1">Events</a></h1>
+<h2 id="onload"><a class="header" href="#onload">onLoad</a></h2>
+<h2 id="ontick"><a class="header" href="#ontick">onTick</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="annotations"><a class="header" href="#annotations">Annotations</a></h1>
+<h2 id="fix-name"><a class="header" href="#fix-name">Fix Name</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="./dist/index.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

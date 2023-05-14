@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Conditions - Kiwi Book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="Documentation for the Kiwi programming language">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../index.css">
+        <link rel="stylesheet" href="../.././mdbook-admonish.css">
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../home.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="../../get-started.html">Get started</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../basics/syntax.html"><strong aria-hidden="true">1.1.</strong> Basic syntax</a></li><li class="chapter-item expanded "><a href="../../basics/idioms.html"><strong aria-hidden="true">1.2.</strong> Idioms</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Concepts</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/types/overview.html"><strong aria-hidden="true">2.1.</strong> Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/types/boolean.html"><strong aria-hidden="true">2.1.1.</strong> Boolean</a></li><li class="chapter-item expanded "><a href="../../concepts/types/number.html"><strong aria-hidden="true">2.1.2.</strong> Number</a></li><li class="chapter-item expanded "><a href="../../concepts/types/string.html"><strong aria-hidden="true">2.1.3.</strong> String</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.2.</strong> Control Flow</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/control-flow/conditions.html" class="active"><strong aria-hidden="true">2.2.1.</strong> Conditions</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/loops.html"><strong aria-hidden="true">2.2.2.</strong> Loops</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/exceptions.html"><strong aria-hidden="true">2.2.3.</strong> Exceptions</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/returns-and-jumps.html"><strong aria-hidden="true">2.2.4.</strong> Returns and Jumps</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Classes and Objects</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/classes.html"><strong aria-hidden="true">2.3.1.</strong> Classes</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/objects.html"><strong aria-hidden="true">2.3.2.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/interfaces.html"><strong aria-hidden="true">2.3.3.</strong> Interfaces</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/parameter-delegation.html"><strong aria-hidden="true">2.3.4.</strong> Parameter delegation</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/visibility-modifiers.html"><strong aria-hidden="true">2.3.5.</strong> Visibility modifiers</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/companion-objects.html"><strong aria-hidden="true">2.3.6.</strong> Companion objects</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/compile-time-classes.html"><strong aria-hidden="true">2.3.7.</strong> Compile-time classes</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/interpret-classes.html"><strong aria-hidden="true">2.3.8.</strong> Interpret classes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.</strong> Functions</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/functions/functions.html"><strong aria-hidden="true">2.4.1.</strong> Functions</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/lambdas.html"><strong aria-hidden="true">2.4.2.</strong> Lambdas</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/events.html"><strong aria-hidden="true">2.4.3.</strong> Events</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/function-types.html"><strong aria-hidden="true">2.4.4.</strong> Function types</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/inline-functions.html"><strong aria-hidden="true">2.4.5.</strong> Inline functions</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/compile-time-functions.html"><strong aria-hidden="true">2.4.6.</strong> Compile-time functions</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/interpret-functions.html"><strong aria-hidden="true">2.4.7.</strong> Interpret functions</a></li></ol></li><li class="chapter-item expanded "><a href="../../concepts/packages-and-imports.html"><strong aria-hidden="true">2.5.</strong> Packages and Imports</a></li><li class="chapter-item expanded "><a href="../../concepts/string-formatting.html"><strong aria-hidden="true">2.6.</strong> String formatting</a></li><li class="chapter-item expanded "><a href="../../concepts/variables.html"><strong aria-hidden="true">2.7.</strong> Variables</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Standard Library</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../standard-library/collections.html"><strong aria-hidden="true">3.1.</strong> Collections</a></li><li class="chapter-item expanded "><a href="../../standard-library/ranges.html"><strong aria-hidden="true">3.2.</strong> Ranges</a></li><li class="chapter-item expanded "><a href="../../standard-library/events.html"><strong aria-hidden="true">3.3.</strong> Events</a></li><li class="chapter-item expanded "><a href="../../standard-library/annotations.html"><strong aria-hidden="true">3.4.</strong> Annotations</a></li><li class="chapter-item expanded "><a href="../../standard-library/compile-time-known-annotations.html"><strong aria-hidden="true">3.5.</strong> Compile-time known annotations</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Tools</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/kiwi-debugger.html"><strong aria-hidden="true">4.1.</strong> Kiwi Debugger</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Kiwi Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="conditions"><a class="header" href="#conditions">Conditions</a></h1>
+<h2 id="if-expression"><a class="header" href="#if-expression">If expression</a></h2>
+<p>In Kiwi, <code>if</code> is an expression: it returns a value.
+But there is ternary operator in Kiwi if you prefer to use it instead.</p>
+<pre><code class="language-kiwi">a: Int = 1
+b: Int = 2
+lateinit max: Int
+
+// With else
+if a &gt; b {
+    max = a
+} else {
+    max = b
+}
+
+// As expression (brackets in condition are required)
+max = if (a &gt; b) a else b
+
+// As expression with blocks
+max = if a &gt; b {
+    a
+} else {
+    b
+}
+
+// With ternary operator
+max = a &gt; b ? a : b
+</code></pre>
+<p>In case of <code>if</code> used as expression with blocks, 
+the last expression in the block is returned.</p>
+<pre><code class="language-kiwi">max: Int = if a &gt; b {
+    println(&quot;a is max&quot;)
+    a
+} else {
+    println(&quot;b is max&quot;)
+    b
+}
+</code></pre>
+<h2 id="when-expression"><a class="header" href="#when-expression">When expression</a></h2>
+<p><code>when</code> defines a conditional expression with multiple branches.
+It is similar to <code>switch</code> in other languages.</p>
+<pre><code class="language-kiwi">when x {
+    1 -&gt; println(&quot;x == 1&quot;)
+    2 -&gt; println(&quot;x == 2&quot;)
+    else -&gt; println(&quot;x is neither 1 nor 2&quot;)
+}
+</code></pre>
+<h3 id="when-expression-with-no-argument"><a class="header" href="#when-expression-with-no-argument">When expression with no argument</a></h3>
+<p><code>when</code> can be used as an alternative to <code>if-else if</code> chain.
+Note the fact, that it can be used as an expression.</p>
+<pre><code class="language-kiwi">fun maxOfTwo(x: Int, y: Int) -&gt; Int = when {
+    x &gt; y -&gt; x
+    else -&gt; y
+}
+</code></pre>
+<p>Or as a statement.</p>
+<pre><code class="language-kiwi">when {
+    x.isOdd() -&gt; println(&quot;x is odd&quot;)
+    x.isEven() -&gt; println(&quot;x is even&quot;)
+    else -&gt; println(&quot;x is funny&quot;)
+}
+</code></pre>
+<h3 id="when-expression-with-argument"><a class="header" href="#when-expression-with-argument">When expression with argument</a></h3>
+<p>It is also possible to use <code>when</code> with an argument.
+In this case, the argument is compared with given keys.</p>
+<pre><code class="language-kiwi">fun describe(obj: Int) -&gt; Int {
+    return when obj {
+        1 -&gt; &quot;One&quot;
+        2 -&gt; &quot;Two&quot;
+        else -&gt; &quot;Unknown&quot;
+    }
+}
+</code></pre>
+<p>To define several keys for one branch, you can use comma-separated list of values.</p>
+<pre><code class="language-kiwi">fun describe(obj: Int) -&gt; Int {
+    return when obj {
+        1, 2 -&gt; &quot;One or Two&quot;
+        else -&gt; &quot;Unknown&quot;
+    }
+}
+</code></pre>
+<p>You can also use arbitrary expressions (not only constants) as branch keys.</p>
+<pre><code class="language-kiwi">fun describe(obj: Int) -&gt; Int {
+    return when obj {
+        parseInt(s) -&gt; &quot;s encodes obj&quot;
+        else -&gt; &quot;s does not encode obj&quot;
+    }
+}
+</code></pre>
+<p>Keep in mind, in case of arbitrary expressions, the order of branches is important.</p>
+<pre><code class="language-kiwi">a: Int = 1
+
+when x {
+    1 -&gt; println(&quot;x == 1&quot;)
+    a -&gt; println(&quot;x == a&quot;)
+    else -&gt; println(&quot;otherwise&quot;)
+}
+# prints &quot;x == 1&quot; - the first branch is matched
+</code></pre>
+<p>It's possible to define variable using following syntax.</p>
+<pre><code class="language-kiwi">fun describeHealth(player: Selector) =
+    when health: Int = player.health {
+        20 -&gt; &quot;is healthy&quot;
+        in 10..19 -&gt; f&quot;needs to restore {20 - health} health points&quot;
+        else -&gt; &quot;is having troubles&quot;
+    }
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../concepts/types/string.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../concepts/control-flow/loops.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../concepts/types/string.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../concepts/control-flow/loops.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../.././dist/index.js"></script>
+
+
+    </div>
+    </body>
+</html>
