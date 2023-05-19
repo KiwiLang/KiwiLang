@@ -1,3 +1,63 @@
 .table-wrapper > table {
     display: block;
 }
+
+.home-card {
+    box-shadow: none;
+    margin: 0 20px;
+    border-radius: 0px;
+    border: 1px solid;
+    border-color: rgba(from var(--fg) r g b / 50%) !important;
+    color: rgba(25,25,28,.7) !important;
+}
+
+.home-card > .admonition-title {
+    margin-left: -12px;
+    margin-right: -12px;
+    font-size: 1.6rem;
+    color: #777 !important;
+    padding: 8px 12px;
+}
+
+.home-card > div {
+    padding-top: 12px;
+}
+
+.home-card > .admonition-title::before {
+    background-color: var(--sidebar-bg);
+    display: none;
+    mask-image: none;
+}
+
+.home-card:hover {
+    border-color: var(--fg) !important;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.05), 0 0 0.1rem rgba(0, 0, 0, 0.1);
+}
+
+.home-card:hover > .admonition-title {
+    color: var(--fg) !important;
+}
+
+a.admonition-anchor-link::before {
+    content: none !important;
+}
+
+.home-card-link {
+    text-decoration: none !important;
+}
+
+.home-card-link:visited {
+    color: var(--fg) !important;
+}
+
+.home-card-wrapper {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-top: 48px;
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+}

@@ -1,10 +1,9 @@
 [book]
+title = "Kiwi Book"
+description = "Documentation for the Kiwi programming language"
 authors = ["ButterSus <eduardkrivosapkin5@gmail.com>"]
 language = "en"
 multilingual = false
-title = "Kiwi Book"
-description = "Documentation for the Kiwi programming language"
-src = "src"
 
 [build]
 build-dir = "../docs"
@@ -15,11 +14,14 @@ additional-js = [
 ]
 additional-css = [
     "./mdbook-admonish.css",
-    "./index.css",
+    "./index.css", "./theme/catppuccin.css", "./theme/catppuccin-highlight.css",
 ]
 
 [preprocessor]
-
+[preprocessor.tera]
 [preprocessor.admonish]
 command = "mdbook-admonish"
 assets_version = "2.0.1" # do not edit: managed by `mdbook-admonish install`
+
+[preprocessor.catppuccin]
+assets_version = "0.1.1" # DO NOT EDIT: Managed by `mdbook-catppuccin install`

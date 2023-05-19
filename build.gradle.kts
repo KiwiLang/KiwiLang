@@ -33,23 +33,3 @@ kotlin {
 application {
     mainClass.set("MainKt")
 }
-
-// DOCUMENTATION
-
-//val cleanDocumentation = task("cleanDocumentation") {
-//    fileTree("${buildDir.path}/docs").files.forEach {
-//        it.delete()
-//    }
-//}
-//
-//tasks.dokkaHtml.configure {
-//    dependsOn(cleanDocumentation)
-//    outputDirectory.set(buildDir.resolve("docs"))
-//    cacheRoot.set(file("default"))
-//    dokkaSourceSets {
-//        named("docs") {
-//            moduleName.set("My Dokka Project")
-//            includes.from(fileTree("src/docs").include("**/*.md"))
-//        }
-//    }
-//}

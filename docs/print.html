@@ -9,6 +9,7 @@
 
         <!-- Custom HTML head -->
         
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Documentation for the Kiwi programming language">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -32,18 +33,19 @@
         <!-- Custom theme stylesheets -->
         <link rel="stylesheet" href="./mdbook-admonish.css">
         <link rel="stylesheet" href="./index.css">
+        <link rel="stylesheet" href="./theme/catppuccin.css">
+        <link rel="stylesheet" href="./theme/catppuccin-highlight.css">
 
     </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script>
+        <script type="text/javascript">
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script>
+        <script type="text/javascript">
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -59,7 +61,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script>
+        <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -71,14 +73,12 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script>
+        <script type="text/javascript">
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -104,11 +104,10 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
                         </ul>
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
@@ -137,7 +136,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script>
+                <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -148,21 +147,29 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="kiwi-docs"><a class="header" href="#kiwi-docs">Kiwi docs</a></h1>
-<p>Latest stable version: <code>0.1.0</code></p>
-<div id="admonition-info" class="admonition info">
+<p>Latest stable version: <code>in Alpha</code></p>
+<div class="home-card-wrapper">
+<div id="admonition-get-started-with-kiwi" class="admonition quote home-card">
 <div class="admonition-title">
-<p>Info</p>
-<p><a class="admonition-anchor-link" href="home.html#admonition-info"></a></p>
+<p>Get started with Kiwi</p>
+<p><a class="admonition-anchor-link" href="home.html#admonition-get-started-with-kiwi"></a></p>
 </div>
 <div>
-<p>This documentation is still in development.</p>
+<img src="https://memepedia.ru/wp-content/uploads/2021/09/mishk-frede-mem-4-768x768.jpg" alt="Kiwi logo" class="home-card-logo">
+<p>Create your first project with Kiwi in
+your preferred IDE.</p>
 </div>
 </div>
-<h2 id="first-steps"><a class="header" href="#first-steps">First steps</a></h2>
-<ul>
-<li><a href="basics/syntax.html">Basic Syntax</a></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="get-started-with-kiwi"><a class="header" href="#get-started-with-kiwi">Get started with Kiwi</a></h1>
+<div id="admonition-look-at-examples" class="admonition quote home-card">
+<div class="admonition-title">
+<p>Look at examples</p>
+<p><a class="admonition-anchor-link" href="home.html#admonition-look-at-examples"></a></p>
+</div>
+<div>
+<p>Check out the most popular datapacks, based on Kiwi.</p>
+</div>
+</div>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="get-started-with-kiwi"><a class="header" href="#get-started-with-kiwi">Get started with Kiwi</a></h1>
 <p>Kiwi is a modern static type multi-paradigm programming language for Minecraft data packs.
 It's based on <a href="https://kotlinlang.org/">Kotlin</a> and some other languages.
 The main feature of Kiwi is high-level syntax, which can be a great option for huge
@@ -623,33 +630,33 @@ But there is ternary operator in Kiwi if you prefer to use it instead.</p>
 b: Int = 2
 lateinit max: Int
 
-// With else
+# With else
 if a &gt; b {
     max = a
 } else {
     max = b
 }
 
-// As expression (brackets in condition are required)
+# As expression (brackets in condition are required)
 max = if (a &gt; b) a else b
 
-// As expression with blocks
+# As expression with blocks
 max = if a &gt; b {
     a
 } else {
     b
 }
 
-// With ternary operator
+# With ternary operator
 max = a &gt; b ? a : b
 </code></pre>
 <p>In case of <code>if</code> used as expression with blocks, 
 the last expression in the block is returned.</p>
 <pre><code class="language-kiwi">max: Int = if a &gt; b {
-    println(&quot;a is max&quot;)
+    print(&quot;a is max&quot;)
     a
 } else {
-    println(&quot;b is max&quot;)
+    print(&quot;b is max&quot;)
     b
 }
 </code></pre>
@@ -657,9 +664,9 @@ the last expression in the block is returned.</p>
 <p><code>when</code> defines a conditional expression with multiple branches.
 It is similar to <code>switch</code> in other languages.</p>
 <pre><code class="language-kiwi">when x {
-    1 -&gt; println(&quot;x == 1&quot;)
-    2 -&gt; println(&quot;x == 2&quot;)
-    else -&gt; println(&quot;x is neither 1 nor 2&quot;)
+    1 -&gt; print(&quot;x == 1&quot;)
+    2 -&gt; print(&quot;x == 2&quot;)
+    else -&gt; print(&quot;x is neither 1 nor 2&quot;)
 }
 </code></pre>
 <h3 id="when-expression-with-no-argument"><a class="header" href="#when-expression-with-no-argument">When expression with no argument</a></h3>
@@ -672,9 +679,9 @@ Note the fact, that it can be used as an expression.</p>
 </code></pre>
 <p>Or as a statement.</p>
 <pre><code class="language-kiwi">when {
-    x.isOdd() -&gt; println(&quot;x is odd&quot;)
-    x.isEven() -&gt; println(&quot;x is even&quot;)
-    else -&gt; println(&quot;x is funny&quot;)
+    x.isOdd() -&gt; print(&quot;x is odd&quot;)
+    x.isEven() -&gt; print(&quot;x is even&quot;)
+    else -&gt; print(&quot;x is funny&quot;)
 }
 </code></pre>
 <h3 id="when-expression-with-argument"><a class="header" href="#when-expression-with-argument">When expression with argument</a></h3>
@@ -708,9 +715,9 @@ In this case, the argument is compared with given keys.</p>
 <pre><code class="language-kiwi">a: Int = 1
 
 when x {
-    1 -&gt; println(&quot;x == 1&quot;)
-    a -&gt; println(&quot;x == a&quot;)
-    else -&gt; println(&quot;otherwise&quot;)
+    1 -&gt; print(&quot;x == 1&quot;)
+    a -&gt; print(&quot;x == a&quot;)
+    else -&gt; print(&quot;otherwise&quot;)
 }
 # prints &quot;x == 1&quot; - the first branch is matched
 </code></pre>
@@ -768,7 +775,160 @@ unreachable code.</p>
     throw Exception(message)
 }
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="visibility-modifiers"><a class="header" href="#visibility-modifiers">Visibility modifiers</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="classes"><a class="header" href="#classes">Classes</a></h1>
+<p>Classes in Kiwi are declared using the keyword <code>class</code>:</p>
+<pre><code class="language-kiwi">class Person { ... }
+</code></pre>
+<p>The class declaration consists of the class name,
+the class header (specifying its primary constructor and some other things),
+and the class body, which contains the class members. Both
+the header and the body are optional.</p>
+<pre><code class="language-kiwi">class Empty
+
+class Person (
+    name: String
+    age: Int
+)
+</code></pre>
+<h2 id="constructors"><a class="header" href="#constructors">Constructors</a></h2>
+<p>Classes in Kiwi can have a <strong>primary constructor</strong>
+and one or more <strong>secondary constructors</strong> using following syntax.</p>
+<pre><code class="language-kiwi">class Person(firstName: String) { ... }
+</code></pre>
+<p>The primary constructor cannot contain any code.
+Initialization code can be placed in initializer blocks,
+which are prefixed with the <code>init</code> keyword.</p>
+<p>During the initialization of an instance,
+the initializer blocks are executed in the 
+same order as they appear in the class body, 
+interleaved with the property initializers:</p>
+<pre><code class="language-kiwi">class InitOrderDemo(name: String) {
+    firstProperty: auto = &quot;First property: $name&quot;.also(::print)
+
+    init {
+        println(&quot;First initializer block that prints ${name}&quot;)
+    }
+
+    secondProperty: auto = &quot;Second property: ${name.length}&quot;.also(::print)
+
+    init {
+        println(&quot;Second initializer block that prints ${name.length}&quot;)
+    }
+}
+</code></pre>
+<p>Primary constructor parameters can be used in the initializer blocks.
+They can also be used in property initializers declared in the class body:</p>
+<pre><code class="language-kiwi">class Customer(name: String) {
+    customerKey: auto = name.toUpperCase()
+}
+</code></pre>
+<p>Primary constructors also can store parameters as properties
+using any visibility modifier (by default, they are <code>public</code>):</p>
+<pre><code class="language-kiwi">class Person(
+    public firstName: String,
+    public lastName: String,
+    public age: Int,  # trailing comma is allowed
+) { ... }
+</code></pre>
+<p>You can add syntactic sugar to constructor parameters.</p>
+<pre><code class="language-kiwi">class Person(
+    public (firstName, lastName): String by components,
+    public age: Int by components = -1,
+) { ... }
+</code></pre>
+<p>Learn more about <a href="concepts/classes-and-objects/parameter-delegation.html">parameter delegation</a>.</p>
+<p>As with functions, you can add a default
+parameter values.</p>
+<pre><code class="language-kiwi">class Person(
+    public firstName: String = &quot;John&quot;,
+    public lastName: String = &quot;Doe&quot;,
+    public age: Int = 0,
+) { ... }
+</code></pre>
+<p>Learn more about <a href="concepts/classes-and-objects/visibility-modifiers.html">visibility modifiers</a>.</p>
+<h2 id="secondary-constructors"><a class="header" href="#secondary-constructors">Secondary constructors</a></h2>
+<p>The class can also declare secondary constructors,
+which are prefixed with the <code>constructor</code> keyword:</p>
+<pre><code class="language-kiwi">class Person {
+    constructor(parent: Person) {
+        parent.children.add(this)
+    }
+}
+</code></pre>
+<p>If the class has a primary constructor, each 
+secondary constructor needs to delegate to the primary constructor,
+either directly or indirectly through another secondary constructor(s).
+Delegation to another constructor of the same class is done using the <code>this</code> keyword:</p>
+<pre><code class="language-kiwi">class Person(val name: String) {
+    constructor(name: String, parent: Person)
+        : this(name)  # delegate to primary constructor
+    {
+        parent.children.add(this)
+    }
+}
+</code></pre>
+<p>Or you can call primary constructor directly:</p>
+<pre><code class="language-kiwi">class Person(val name: String) {
+    constructor(name: String, parent: Person)
+    {
+        parent.children.add(this)
+        this(name)  # call primary constructor
+    }
+}
+</code></pre>
+<p>Note that code in initializer blocks will be executed
+after the primary constructor and before secondary constructors:</p>
+<pre><code class="language-kiwi">class Constructors {
+    init {
+        println(&quot;Init block&quot;)
+    }
+
+    constructor(i: Int) {
+        println(&quot;Constructor&quot;)
+    }
+}
+</code></pre>
+<p>If a non-abstract class does not declare any constructors,
+it will have default constructor with no arguments.</p>
+<p>If you don't want your class to have a public constructor,
+declare an empty primary constructor with private modifier:</p>
+<pre><code class="language-kiwi">class DontCreateMe private { ... }
+</code></pre>
+<h2 id="transfer-constructor"><a class="header" href="#transfer-constructor">Transfer constructor</a></h2>
+<p>By default, Kiwi have no references/pointers.
+So, Kiwi implements copy-by-value concept.</p>
+<p>That means that every time you declare a variable,
+you create a new object in memory with the same value.</p>
+<pre><code class="language-kiwi">class Person(
+    public (name): String by components
+) { ... }
+
+fun main() &lt;- onLoad(always) {
+    person1: auto = &quot;John&quot;
+    person2: auto = person1  # create a copy of person1
+}
+</code></pre>
+<div id="admonition-note" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="concepts/classes-and-objects/classes.html#admonition-note"></a></p>
+</div>
+<div>
+<p>All properties will be copied from <code>person1</code> to <code>person2</code>.</p>
+</div>
+</div>
+<p>If you want to override this behavior,
+you can use the <code>transfer</code> keyword:</p>
+<pre><code class="language-kiwi">class Person(
+    public (name): String by components
+) {
+    transfer(other: Person) {
+        name = other.name
+    }
+}
+</code></pre>
+<h2 id="creating-instances-of-classes"><a class="header" href="#creating-instances-of-classes">Creating instances of classes</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="visibility-modifiers"><a class="header" href="#visibility-modifiers">Visibility modifiers</a></h1>
 <p>All top-level declarations, classes, functions, properties, etc.
 can have visibility modifiers:</p>
 <ul>
@@ -1009,7 +1169,7 @@ You can make them visible only inside the package with the <code>private</code> 
         </div>
 
         <!-- Livereload script (if served using the cli tool) -->
-        <script>
+        <script type="text/javascript">
             const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
             const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
             const socket = new WebSocket(wsAddress);
@@ -1027,28 +1187,27 @@ You can make them visible only inside the package with the <code>private</code> 
 
 
 
-        <script>
+        <script type="text/javascript">
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        <script src="./dist/index.js"></script>
+        <script type="text/javascript" src="./dist/index.js"></script>
 
-        <script>
+        <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
 
-    </div>
     </body>
 </html>

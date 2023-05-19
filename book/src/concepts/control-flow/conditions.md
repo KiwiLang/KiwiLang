@@ -10,24 +10,24 @@ a: Int = 1
 b: Int = 2
 lateinit max: Int
 
-// With else
+# With else
 if a > b {
     max = a
 } else {
     max = b
 }
 
-// As expression (brackets in condition are required)
+# As expression (brackets in condition are required)
 max = if (a > b) a else b
 
-// As expression with blocks
+# As expression with blocks
 max = if a > b {
     a
 } else {
     b
 }
 
-// With ternary operator
+# With ternary operator
 max = a > b ? a : b
 ```
 
@@ -36,10 +36,10 @@ the last expression in the block is returned.
 
 ```kiwi
 max: Int = if a > b {
-    println("a is max")
+    print("a is max")
     a
 } else {
-    println("b is max")
+    print("b is max")
     b
 }
 ```
@@ -51,9 +51,9 @@ It is similar to `switch` in other languages.
 
 ```kiwi
 when x {
-    1 -> println("x == 1")
-    2 -> println("x == 2")
-    else -> println("x is neither 1 nor 2")
+    1 -> print("x == 1")
+    2 -> print("x == 2")
+    else -> print("x is neither 1 nor 2")
 }
 ```
 
@@ -73,9 +73,9 @@ Or as a statement.
 
 ```kiwi
 when {
-    x.isOdd() -> println("x is odd")
-    x.isEven() -> println("x is even")
-    else -> println("x is funny")
+    x.isOdd() -> print("x is odd")
+    x.isEven() -> print("x is even")
+    else -> print("x is funny")
 }
 ```
 
@@ -122,9 +122,9 @@ Keep in mind, in case of arbitrary expressions, the order of branches is importa
 a: Int = 1
 
 when x {
-    1 -> println("x == 1")
-    a -> println("x == a")
-    else -> println("otherwise")
+    1 -> print("x == 1")
+    a -> print("x == a")
+    else -> print("otherwise")
 }
 # prints "x == 1" - the first branch is matched
 ```
