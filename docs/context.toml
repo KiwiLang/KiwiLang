@@ -1,0 +1,14 @@
+# Project configuration
+# =====================
+
+name = "Kiwi"
+#root = "http://localhost:3000"
+root = "https://buttersus.github.io/KiwiLang"
+license = "https://github.com/ButterSus/KiwiLang/blob/master/LICENSE"
+version = "in Alpha"
+
+# Urls
+# ====
+
+kotlin_url = "https://kotlinlang.org"
+kotlin_docs_url = "https://kotlinlang.org/docs/reference"
