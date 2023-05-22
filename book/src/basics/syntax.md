@@ -3,7 +3,7 @@
 This is a collection of basic syntax concepts of Kiwi.
 If you are similar with Kotlin, it will be easy to understand.
 
-_see [Examples here](../examples/overview.md)._
+_see [Examples here](../projects/overview.md)._
 
 ## Package definition and imports
 

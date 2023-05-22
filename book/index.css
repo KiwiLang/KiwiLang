@@ -2,62 +2,143 @@
     display: block;
 }
 
-.home-card {
-    box-shadow: none;
-    margin: 0 20px;
-    border-radius: 0px;
-    border: 1px solid;
-    border-color: rgba(from var(--fg) r g b / 50%) !important;
-    color: rgba(25,25,28,.7) !important;
+.docs-content-wrapper > h1 {
+    font-size: 4.0rem;
 }
 
-.home-card > .admonition-title {
+.docs-content-wrapper > p {
+    font-size: 2.0rem;
+    margin: 12px 0;
+}
+
+.docs-card-container {
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-top: 32px;
+    margin-bottom: -16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    font-size: 1.4rem;
+    flex-wrap: wrap;
+}
+
+.docs-card {
+    --card-opacity: 0.8;
+
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 300px;
+    max-width: 333.167px;
+    box-shadow: none;
+    margin: 16px 16px;
+    border-radius: 0px;
+    border: 1px solid;
+    border-color: rgba(var(--fg-rgb), var(--card-opacity)) !important;
+    color: rgba(var(--fg-rgb), 0.65) !important;
+    stroke: var(--icon-color);
+    fill: var(--icon-color);
+}
+
+.docs-card:hover {
+    --card-opacity: 1.0;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.05), 0 0 0.1rem rgba(0, 0, 0, 0.1);
+}
+
+
+.docs-card > .admonition-title {
     margin-left: -12px;
     margin-right: -12px;
     font-size: 1.6rem;
-    color: #777 !important;
+    color: rgba(var(--fg-rgb), var(--card-opacity)) !important;
     padding: 8px 12px;
 }
 
-.home-card > div {
-    padding-top: 12px;
-}
 
-.home-card > .admonition-title::before {
+.docs-card > .admonition-title::before {
     background-color: var(--sidebar-bg);
     display: none;
     mask-image: none;
 }
 
-.home-card:hover {
-    border-color: var(--fg) !important;
-    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.05), 0 0 0.1rem rgba(0, 0, 0, 0.1);
+
+.docs-card > div {
+    position: relative;
+    padding-top: 12px;
 }
 
-.home-card:hover > .admonition-title {
-    color: var(--fg) !important;
+.docs-card-visit:visited, .docs-card-visit:hover, .docs-card-visit:link {
+    color: inherit !important;
+    text-decoration: inherit !important;
 }
 
-a.admonition-anchor-link::before {
-    content: none !important;
-}
-
-.home-card-link {
-    text-decoration: none !important;
-}
-
-.home-card-link:visited {
-    color: var(--fg) !important;
-}
-
-.home-card-wrapper {
-    margin-left: -20px;
-    margin-right: -20px;
-    margin-top: 48px;
-    margin-bottom: 0px;
+.docs-card-visit {
+    position: relative;
+    left: 0px;
+    width: fit-content;
+    font-size: 24px;
+    font-weight: 600;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    font-size: 1.4rem;
+    margin: 0px -8px;
+}
+
+.docs-card-visit > * {
+    margin: 0px 8px;
+}
+
+.docs-card-visit > p > svg {
+    padding-top: 8px !important;
+}
+
+.docs-card-visit > span {
+    color: rgba(var(--icon-color-rgb), calc(var(--card-opacity) - .2));
+    border-bottom: 3px solid rgba(var(--icon-color-rgb), calc(var(--card-opacity) - .2));
+}
+
+@media (max-width: 600px) {
+    .docs-card-visit {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .docs-card-visit > span {
+        border-bottom: none;
+    }
+}
+
+.docs-card-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding-left: 12px;
+    margin-left: -12px;
+    padding-right: 12px;
+    margin-right: -12px;
+    padding-top: 52px;
+    margin-top: -52px;
+    padding-bottom: 12px;
+    margin-bottom: -12px;
+}
+
+.docs-card-link > ul {
+    margin: 0px;
+    padding-left: 20px;
+}
+
+.docs-card-link > ul > li {
+    color: var(--fg);
+}
+
+.docs-card-link:visited, .docs-card-link:hover, .docs-card-link:link {
+    color: inherit !important;
+    text-decoration: inherit !important;
+}
+
+.admonition-anchor-link::before {
+    content: none !important;
 }

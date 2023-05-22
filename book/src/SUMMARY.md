@@ -1,6 +1,6 @@
 # Summary
 
-[Introduction](home.md)
+[Home](home.md)
 [Get started](get-started.md)
 
 - [Basics]()
@@ -43,4 +43,6 @@
   - [Annotations](standard-library/annotations.md)
   - [Compile-time known annotations](standard-library/compile-time-known-annotations.md)
 - [Tools]()
+  - [IDE support](tools/ide.md)
   - [Kiwi Debugger](tools/kiwi-debugger.md)
+- [Kiwi-based Projects](projects/overview.md)

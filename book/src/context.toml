@@ -2,19 +2,12 @@
 # =====================
 
 name = "Kiwi"
-root = "https://localhost:3000"
+root = "http://localhost:3000"
 license = "https://github.com/ButterSus/KiwiLang/blob/master/LICENSE"
 version = "in Alpha"
 logo_float_left = """
 <img src="https://github.com/ButterSus/KiwiLang/blob/master/book/assets/logo.png?raw=true"
 style="float: left; height: 100%; margin-top: 16px; margin-left: 0px; margin-right: 25px; margin-bottom: 16px"/>
-"""
-
-# HTML-Tools
-# ==========
-
-separator = """
-<div style="clear: both;"></div>
 """
 
 # Urls

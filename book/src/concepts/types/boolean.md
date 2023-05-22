@@ -12,11 +12,11 @@ Booleans are primitive types, so they are stored by value without any reference.
 
 Built-in operators for booleans:
 
-| Precedence | Operator | Description |
-|:-----------|----------|-------------|
-| Highest    | `!`      | Logical NOT |
-|            | `&&`     | Logical AND |
-| Lowest     | `\|\|`   | Logical OR  |
+| Precedence | Operator                       | Description |
+|:-----------|--------------------------------|-------------|
+| Highest    | `!`                            | Logical NOT |
+|            | `&&`                           | Logical AND |
+| Lowest     | <code class="hljs">\|\|</code> | Logical OR  |
 
 ```kiwi
 a: auto = !true  # false

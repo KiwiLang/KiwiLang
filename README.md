@@ -1,4 +1,4 @@
-![logo](book/assets/logo.png)
+![logo](book/src/assets/logo.png)````
 
 Kiwi - data pack description language
 =====================================
