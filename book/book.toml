@@ -18,6 +18,8 @@ additional-css = [
     "./theme/catppuccin.css",  # new theme
     "./theme/catppuccin-highlight.css",  # new theme
 ]
+default-theme = "light"
+preferred-dark-theme = "macchiato"
 
 [preprocessor]  # required
 [preprocessor.tera]  # macros

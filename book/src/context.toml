@@ -2,8 +2,8 @@
 # =====================
 
 name = "Kiwi"
-#root = "http://localhost:3000"
-root = "https://buttersus.github.io/KiwiLang"
+root = "http://localhost:3000"
+#root = "https://buttersus.github.io/KiwiLang"
 license = "https://github.com/ButterSus/KiwiLang/blob/master/LICENSE"
 version = "in Alpha"
 
