@@ -46,3 +46,4 @@
   - [IDE support](tools/ide.md)
   - [Kiwi Debugger](tools/kiwi-debugger.md)
 - [Kiwi-based Projects](projects/overview.md)
+- [Contributing Kiwi](contributing.md)

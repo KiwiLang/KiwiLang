@@ -1,3 +1,7 @@
+main {
+    margin-top: 40px;
+}
+
 .table-wrapper > table {
     display: block;
 }
@@ -97,6 +101,11 @@
 .docs-card-visit > span {
     color: rgba(var(--icon-color-rgb), calc(var(--card-opacity) - .2));
     border-bottom: 3px solid rgba(var(--icon-color-rgb), calc(var(--card-opacity) - .2));
+}
+
+.docs-card-visit.icon-mode > span {
+    color: rgba(var(--fg-rgb), calc(var(--card-opacity) - .2));
+    border-bottom: none;
 }
 
 @media (max-width: 600px) {
