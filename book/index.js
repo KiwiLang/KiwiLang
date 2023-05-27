@@ -1,53 +1,14 @@
 import hljs from "highlight.js/lib/core";
 
 hljs.registerLanguage("kiwi", (hljs) => {
-    const PACKAGE = {
-        className: 'keyword',
-        begin: 'package',
-        illegal: '\\n|#|;',
-        contains: [
-            {
-                className: 'title',
-                begin: '\\s+[a-zA-Z0-9_\\.\\s*]*',
-                contains: [
-                    {
-                        className: 'operator',
-                        begin: '\\.',
-                    }
-                ]
-            }
-        ]
-    }
-
-    const IMPORT = {
-        className: 'keyword',
-        begin: 'import',
-        illegal: '\\n|#|;',
-        contains: [
-            {
-                className: 'title',
-                begin: '\\s+[a-zA-Z0-9_\\.\\s*]*',
-                contains: [
-                    {
-                        className: 'operator',
-                        begin: '\\.',
-                    }
-                ]
-            }
-        ]
-    }
-
     const KEYWORDS = [
         // Packages and Imports
         "package",
         "import",
         "as",
 
-        // Types
-        "\\$auto",
-        "auto",
-
         // Control Flow
+        "trigger",
         "if",
         "else",
         "for",
@@ -69,6 +30,8 @@ hljs.registerLanguage("kiwi", (hljs) => {
         "inline",
 
         // Classes
+        "extend",
+        "by",
         "class",
         "interface",
         "object",
@@ -93,14 +56,6 @@ hljs.registerLanguage("kiwi", (hljs) => {
     ]
 
     const BUILTINS = [
-        // Types
-        "Int",
-        "Float",
-        "Bool",
-        "String",
-        "Char",
-        "Nothing",
-
         // Functions
         "print",
         "log"
@@ -164,24 +119,131 @@ hljs.registerLanguage("kiwi", (hljs) => {
         "?:",
     ]
 
+    const EXTENSIONS = [
+        // Methods
+        "get",
+        "set",
+        "forEach",
+        "map",
+        "filter",
+        "reduce",
+        "fold",
+        "any",
+        "all",
+        "isEmpty",
+        "isNotEmpty",
+        "contains",
+        "containsAll",
+        "indexOf",
+        "lastIndexOf",
+        "toConstant",
+
+        // Operators
+        "step",
+        "until",
+        "downTo",
+        "rangeTo",
+
+        // Properties
+        "size",
+        "length",
+        "first",
+        "last",
+        "keys",
+        "values",
+        "indices",
+        "MAX_VALUE",
+        "MIN_VALUE",
+    ]
+
+    const PACKAGE_NAME = {
+        className: 'package-name',
+        begin: '(?<=package)[ ]+[a-zA-Z0-9_.]*(?!(\\n|#|as))',
+    }
+
+    const IMPORT_PACKAGE_NAME = {
+        className: 'package-name',
+        begin: '(?<=import)[ ]+[a-zA-Z0-9_.*]*(?!(\\n|#|as))',
+    }
+
+    const TEMPLATE_TYPE = {
+        className: 'type',
+        begin: '[a-zA-Z_][a-zA-Z0-9_]*',
+    }
+
+    const TEMPLATE_COMPILETIME_TYPE = {
+        className: 'compiletime-type',
+        begin: '\\$[a-zA-Z_][a-zA-Z0-9_]*',
+    }
+
+    const TEMPLATE_TYPES = {
+        className: 'wrapper',
+        begin: '(?<![ ])\\<(?!\\-)',
+        end: '\\>',
+        illegal: '[[](){}-+;?|&@#~!=/*^%:]',
+        contains: [TEMPLATE_TYPE, TEMPLATE_COMPILETIME_TYPE, hljs.HASH_COMMENT_MODE]
+    }
+
     const BACKSLASH_ESCAPE = {
         className: 'escape',
         begin: '\\\\[\\s\\S]',
         relevance: 0
     }
 
+    const RESET = {
+        className: 'reset',
+        begin: '[^}]',
+    }
+
     const COMPILETIME_FORMATTED_INSERT = {
-        className: 'operator',
+        className: 'format',
         begin: '\\$\\{',
         end: '\\}',
-        contains: []  // TODO: support nested
+        contains: [RESET]
+    }
+
+    const BINARY_NUMBER = {
+        className: 'number',
+        begin: '\\b0b[01]+',
+    }
+
+    const OCTAL_NUMBER = {
+        className: 'number',
+        begin: '\\b0o[0-7]+',
+    }
+
+    const HEX_NUMBER = {
+        className: 'number',
+        begin: '\\b0x[0-9a-fA-F]+',
+    }
+
+    const DECIMAL_NUMBER = {
+        className: 'number',
+        begin: '\\b[0-9]+',
+    }
+
+    const FLOAT_NUMBER = {
+        className: 'number',
+        begin: '\\b[0-9]+\\.[0-9]*(e[+-]?\\d+)?(?![ ]*\\.)|' +
+            '\\b(?<!\\.)\\.[0-9]+(e[+-]?\\d+)?|' +
+            '\\b[0-9]+e[+-]?\\d+'
     }
 
     const FORMATTED_INSERT = {
-        className: 'operator',
+        className: 'format',
         begin: '\\{',
         end: '\\}',
-        contains: []  // TODO: support nested
+        contains: [RESET, hljs.HASH_COMMENT_MODE]
+    }
+
+    const INSERT_START = {
+        className: 'format',
+        begin: '\\$',
+    }
+
+    const INSERT_CONTENT = {
+        className: 'reset',
+        begin: '(?<=\\$)[a-zA-Z_][a-zA-Z0-9_]*',
     }
 
     const APOS_STRING_MODE = {
@@ -189,7 +251,12 @@ hljs.registerLanguage("kiwi", (hljs) => {
         begin: "'",
         end: "'",
         illegal: '\\n',
-        contains: [BACKSLASH_ESCAPE, COMPILETIME_FORMATTED_INSERT]
+        contains: [
+            BACKSLASH_ESCAPE,
+            COMPILETIME_FORMATTED_INSERT,
+            INSERT_START,
+            INSERT_CONTENT,
+        ]
     }
 
     const FORMATTED_APOS_STRING_MODE = {
@@ -197,21 +264,38 @@ hljs.registerLanguage("kiwi", (hljs) => {
         begin: "f'",
         end: "'",
         illegal: '\\n',
-        contains: [BACKSLASH_ESCAPE, FORMATTED_INSERT, COMPILETIME_FORMATTED_INSERT]
+        contains: [
+            BACKSLASH_ESCAPE,
+            FORMATTED_INSERT,
+            COMPILETIME_FORMATTED_INSERT,
+            INSERT_START,
+            INSERT_CONTENT,
+        ]
     }
 
     const APOS_DOC_STRING_MODE = {
         className: 'string',
         begin: "'''",
         end: "'''",
-        contains: [BACKSLASH_ESCAPE, COMPILETIME_FORMATTED_INSERT]
+        contains: [
+            BACKSLASH_ESCAPE,
+            COMPILETIME_FORMATTED_INSERT,
+            INSERT_START,
+            INSERT_CONTENT,
+        ]
     }
 
     const FORMATTED_APOS_DOC_STRING_MODE = {
         className: 'string',
         begin: "f'''",
         end: "'''",
-        contains: [BACKSLASH_ESCAPE, FORMATTED_INSERT, COMPILETIME_FORMATTED_INSERT]
+        contains: [
+            BACKSLASH_ESCAPE,
+            FORMATTED_INSERT,
+            COMPILETIME_FORMATTED_INSERT,
+            INSERT_START,
+            INSERT_CONTENT,
+        ]
     }
 
     const QUOTE_STRING_MODE = {
@@ -219,7 +303,12 @@ hljs.registerLanguage("kiwi", (hljs) => {
         begin: '"',
         end: '"',
         illegal: '\\n',
-        contains: [BACKSLASH_ESCAPE, COMPILETIME_FORMATTED_INSERT]
+        contains: [
+            BACKSLASH_ESCAPE,
+            COMPILETIME_FORMATTED_INSERT,
+            INSERT_START,
+            INSERT_CONTENT,
+        ]
     }
 
     const FORMATTED_QUOTE_STRING_MODE = {
@@ -227,31 +316,78 @@ hljs.registerLanguage("kiwi", (hljs) => {
         begin: 'f"',
         end: '"',
         illegal: '\\n',
-        contains: [BACKSLASH_ESCAPE, FORMATTED_INSERT, COMPILETIME_FORMATTED_INSERT]
+        contains: [
+            BACKSLASH_ESCAPE,
+            FORMATTED_INSERT,
+            COMPILETIME_FORMATTED_INSERT,
+            INSERT_START,
+            INSERT_CONTENT,
+        ]
     }
 
     const QUOTE_DOC_STRING_MODE = {
         className: 'string',
         begin: '"""',
         end: '"""',
-        contains: [BACKSLASH_ESCAPE, COMPILETIME_FORMATTED_INSERT]
+        contains: [
+            BACKSLASH_ESCAPE,
+            COMPILETIME_FORMATTED_INSERT,
+            INSERT_START,
+            INSERT_CONTENT,
+        ]
     }
 
     const FORMATTED_QUOTE_DOC_STRING_MODE = {
         className: 'string',
         begin: 'f"""',
         end: '"""',
-        contains: [BACKSLASH_ESCAPE, FORMATTED_INSERT, COMPILETIME_FORMATTED_INSERT]
+        contains: [
+            BACKSLASH_ESCAPE,
+            FORMATTED_INSERT,
+            COMPILETIME_FORMATTED_INSERT,
+            INSERT_START,
+            INSERT_CONTENT,
+        ]
     }
 
-    const COMPILETIME_ANYTHING = {
-        className: 'variable.language',
-        begin: '\\$(?!auto)[a-zA-Z_][a-zA-Z0-9_]*',
+    const TYPE = {
+        className: 'type',
+        begin: '(?<=(\\S:|->))[ ]*(?!auto)[a-zA-Z_][a-zA-Z0-9_]*(?!\\w*\\s*\\.)',
+    }
+
+    const COMPILETIME_TYPE = {
+        className: 'compiletime-type',
+        begin: '(?<=(\\S:|->))[ ]*(?!\\$auto)\\$[a-zA-Z_][a-zA-Z0-9_]*(?!\\w*\\s*\\.)',     
+    }
+
+    const AUTO_TYPE = {
+        className: 'keyword',
+        begin: '((?!\\b)\\$a|\\ba)uto\\b',
+    }
+
+    const PARAMETER_DELEGATION = {
+        className: 'parameter-delegation',
+        begin: '(?<=by)[ ]+[a-zA-Z_][a-zA-Z0-9_]*',
+    }
+
+    const COMPILETIME_CALL = {
+        className: 'compiletime-call',
+        begin: '\\$[a-zA-Z_][a-zA-Z0-9_]*\\b',
     }
 
     const ELLIPSIS = {
-        className: 'comment',
-        begin: '\\.{3}',
+        className: 'ellipsis',
+        begin: '(?<=\\s)\\.{3}',
+    }
+
+    const SELECTOR = {
+        className: 'selector',
+        begin: '@[a-zA-Z_][a-zA-Z0-9_]*',
+    }
+
+    const EVENT = {
+        className: 'event',
+        begin: '(?<=<-)[ ]*[a-zA-Z_][a-zA-Z0-9_]*',
     }
 
     return {
@@ -259,13 +395,16 @@ hljs.registerLanguage("kiwi", (hljs) => {
         case_insensitive: true, // language is case-insensitive
         keywords: {
             keyword: KEYWORDS.join(" "),
-            built_in: BUILTINS.join(" "),
+            builtin: BUILTINS.join(" "),
             literal: LITERALS.join(" "),
             operator: OPERATORS.join(" "),
+            extension: EXTENSIONS.join(" "),
         },
         contains: [
-            PACKAGE,
-            IMPORT,
+            hljs.HASH_COMMENT_MODE,         // # single line comment
+            PACKAGE_NAME,                   // package <package>
+            IMPORT_PACKAGE_NAME,            // import <package> as <name>
+            TEMPLATE_TYPES,                 // <type, type, ...>
             APOS_STRING_MODE,               // 'string'
             FORMATTED_APOS_STRING_MODE,     // f'string'
             APOS_DOC_STRING_MODE,           // '''string'''
@@ -274,16 +413,24 @@ hljs.registerLanguage("kiwi", (hljs) => {
             FORMATTED_QUOTE_STRING_MODE,    // f"string"
             QUOTE_DOC_STRING_MODE,          // """string"""
             FORMATTED_QUOTE_DOC_STRING_MODE,// f"""string"""
-            hljs.C_NUMBER_MODE,             // 0x..., 0..., decimal, float
-            hljs.BINARY_NUMBER_MODE,        // 0b...
-            hljs.HASH_COMMENT_MODE,         // #...
-            COMPILETIME_ANYTHING,           // $...
+            BINARY_NUMBER,                  // 0b0101
+            OCTAL_NUMBER,                   // 0o174
+            HEX_NUMBER,                     // 0x4F0
+            DECIMAL_NUMBER,                 // 123
+            FLOAT_NUMBER,                   // 123.456, .456, 123e-4
+            COMPILETIME_TYPE,               // : $<type>
+            TYPE,                           // : <type>
+            AUTO_TYPE,                      // : auto
+            PARAMETER_DELEGATION,           // by <name>
+            COMPILETIME_CALL,               // $<name>
             ELLIPSIS,                       // ...
+            SELECTOR,                       // @<name>
+            EVENT,                          // <- <name>
         ]
     }
 });
 
-window.addEventListener("load", (event) => {
+window.addEventListener("load", (_) => {
     document
         .querySelectorAll("code.language-kiwi")
         .forEach((block) => hljs.highlightBlock(block));

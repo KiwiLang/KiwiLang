@@ -3,7 +3,7 @@
 This is a collection of basic syntax concepts of Kiwi.
 If you are similar with Kotlin, it will be easy to understand.
 
-_see [Examples here](../projects/overview.md)._
+_see [Examples here](../projects/overview.html)._
 
 ## Package definition and imports
 
@@ -19,7 +19,7 @@ import my_package.*  # in order to import all objects from the package
 
 import my_package.my as my_alias  # import object with alias
 
-...  # your code
+...
 ```
 
 _see [Packages and Imports](../concepts/packages-and-imports.md)._
@@ -55,6 +55,10 @@ this feature in your server.
 log("Debug message")  # outputs "Debug message" to the console
 ```
 
+```admonish note
+`log` doesn't show messages in the chat. It's only for debugging.
+```
+
 _see [Debugging](../tools/kiwi-debugger.md)._
 
 ## Variables
@@ -62,7 +66,7 @@ _see [Debugging](../tools/kiwi-debugger.md)._
 Variables are declared by unique name and type.
 
 ```kiwi
-a: Int = 1  # variable declaration
+a: Int  # variable declaration
 ```
 
 You can also declare a variable specifying `auto` type. In this case, the type will be inferred from the value.
@@ -71,6 +75,7 @@ You can also declare a variable specifying `auto` type. In this case, the type w
 a: auto = 1  # type is Int
 b: Int  # declaring variable without value
 b = 4  # assigning value to the variable
+c: auto  # error: can't infer type of variable without value
 ```
 
 Important feature of Kiwi is compile-time logic. You can create
@@ -95,7 +100,7 @@ a: Int = 1
 b: $Int = a  # error: can't use runtime variable in compile-time
 ```
 
-_see [Variables](../concepts/variables.md)._
+_see [Variables](../concepts/variables.md) and [Compile-time](../concepts/compile-time/compile-time-logic.md)._
 
 ## Functions
 
@@ -128,7 +133,7 @@ inline fun sum(x: Int, y: Int) -> Int {
 ```
 
 _see [Functions](../concepts/functions/functions.md), 
-[Compile-time Functions](../concepts/functions/compile-time-functions.md) and
+[Compile-time Functions](../concepts/compile-time/compile-time-functions.md) and
 [Inline Functions](../concepts/functions/inline-functions.md)._
 
 ## Creating classes and instances
@@ -302,35 +307,25 @@ _see [when expression](../concepts/control-flow/conditions.md#when-expression)._
 
 ## Exceptions
 
-There are no classic exceptions in Kiwi, but you can use `unreliable` modifier.
+A new exception can be thrown using `throw` keyword.
 
 ```kiwi
-unreliable fun foo() {
-    a: Int = 5
-    b: Int = 0
-    a / b  # error: division by zero
+throw Exception("Something went wrong")
+```
+
+To catch an exception, use `try` and `catch` keywords.
+
+```kiwi
+try {
+    throw Exception("Something went wrong")
+} catch (e: Exception) {
+    log(e.message)
+} finally {  # optional
+    log("This will be executed in any case")
 }
 ```
 
-It will check all unreliable calls inside the function and if any of them fails,
-it will fail the whole function.
-
-```kiwi
-foo() ?: log("foo failed")  # foo failed
-```
-
-Function without `unreliable` modifier can't throw an exception, but you can use '?:' operator
-to handle exception.
-
-_see [Exceptions](../concepts/control-flow/exceptions.md)._
-
-Or if you want to throw an exception, you can use `throw` keyword.
-
-```kiwi
-fun foo() {
-    throw "foo failed"
-}
-```
+_see [Exceptions](../concepts/exceptions.md)._
 
 ## Events
 
@@ -346,7 +341,9 @@ You can also get access to return parameters of the event.
 To do this, you need to specify code, that will be executed when
 the specified event is triggered using `trigger` keyword.
 
-> Order of trigger blocks does matter.
+```admonish note
+Order of trigger blocks does matter.
+```
 
 ```kiwi
 fun main() <- onLoad(always), (time: Int) <- onTick(1) {
@@ -410,7 +407,7 @@ Check if a number is out of range.
 
 ```kiwi
 fun square(x: Int) -> Int {
-    if x in short.MAX... {
+    if x in short.MAX_VALUE... {
        log("Number is too big")
     }
     return x * x

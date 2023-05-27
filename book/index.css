@@ -16,10 +16,7 @@ main {
 }
 
 .docs-card-container {
-    margin-left: -16px;
-    margin-right: -16px;
-    margin-top: 32px;
-    margin-bottom: -16px;
+    margin: 32px -16px -16px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -34,10 +31,10 @@ main {
     flex-grow: 1;
     flex-basis: 0;
     min-width: 300px;
-    max-width: 333.167px;
+    max-width: 333px;
     box-shadow: none;
     margin: 16px 16px;
-    border-radius: 0px;
+    border-radius: 0;
     border: 1px solid;
     border-color: rgba(var(--fg-rgb), var(--card-opacity)) !important;
     color: rgba(var(--fg-rgb), 0.65) !important;

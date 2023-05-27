@@ -1,0 +1,347 @@
+// LIGHT-THEME
+// ===========
+
+.light {
+  .hljs {
+    background: #f4f4f4;
+    color: #000000;
+  }
+
+  .hljs-comment {
+    color: #616161;
+    font-style: italic;
+  }
+
+  .hljs-string {
+    color: #4CAF50;
+  }
+
+  .hljs-escape {
+    color: #E17D17;
+  }
+
+  .hljs-builtin {
+    color: #2196F3;
+  }
+
+  .hljs-number {
+    color: #1976D2;
+  }
+
+  .hljs-ellipsis {
+    color: #616161;
+  }
+
+  .hljs-package-name {
+    color: #000000;
+  }
+
+  .hljs-compiletime-type {
+    color: #7B1FA2;
+  }
+
+  .hljs-type {
+    color: #2196F3;
+  }
+
+  .hljs-keyword {
+    color: #E17D17;
+  }
+
+  .hljs-compiletime-call {
+    color: #7B1FA2;
+  }
+
+  .hljs-template-type {
+    color: #2196F3;
+  }
+
+  .hljs-template-compiletime-type {
+    color: #7B1FA2;
+  }
+
+  .hljs-parameter-delegation {
+    color: #E17D17;
+  }
+
+  .hljs-format {
+    color: #E17D17;
+  }
+
+  .hljs-reset {
+    color: #000000;
+  }
+
+  .hljs-selector {
+    color: #0058ff;
+  }
+
+  .hljs-event {
+    color: #7B1FA2;
+    font-style: italic;
+  }
+
+  .hljs-extension {
+    color: #FF3E11;
+    font-style: italic;
+  }
+}
+
+.latte {
+  .hljs {
+    background: #e6e9ef;
+    color: #4C4F69;
+  }
+
+  .hljs-comment {
+    color: #9CA0B0;
+    font-style: italic;
+  }
+
+  .hljs-string {
+    color: #40A02B;
+  }
+
+  .hljs-escape {
+    color: #EA76CB;
+  }
+
+  .hljs-builtin {
+    color: #1E66F5;
+  }
+
+  .hljs-number {
+    color: #FE640B;
+  }
+
+  .hljs-ellipsis {
+    color: #4C4F69;
+  }
+
+  .hljs-package-name {
+    color: #4C4F69;
+  }
+
+  .hljs-compiletime-type {
+    color: #E64553;
+  }
+
+  .hljs-type {
+    color: #DF8E1D;
+  }
+
+  .hljs-keyword {
+    color: #8839EF;
+  }
+
+  .hljs-compiletime-call {
+    color: #E64553;
+  }
+
+  .hljs-template-type {
+    color: #DF8E1D;
+  }
+
+  .hljs-template-compiletime-type {
+    color: #E64553;
+  }
+
+  .hljs-parameter-delegation {
+    color: #8839EF;
+  }
+
+  .hljs-format {
+    color: #EA76CB;
+  }
+
+  .hljs-reset {
+    color: #4C4F69;
+  }
+
+  .hljs-selector {
+    color: #0058ff;
+  }
+
+  .hljs-event {
+    color: #E64553;
+    font-style: italic;
+  }
+
+  .hljs-extension {
+    color: #179299;
+    font-style: italic;
+  }
+}
+
+// DARK-THEME
+// ==========
+
+.coal {
+  .hljs {
+    color: #C9C9D1;
+  }
+
+  .hljs-comment {
+    color: #676773;
+  }
+
+  .hljs-string {
+    color: #62A362;
+  }
+
+  .hljs-escape {
+    color: #E0957B;
+  }
+
+  .hljs-builtin {
+    color: #C7A65D;
+  }
+
+  .hljs-number {
+    color: #4DACF0;
+  }
+
+  .hljs-ellipsis {
+    color: #676773;
+  }
+
+  .hljs-package-name {
+    color: #C9C9D1;
+  }
+
+  .hljs-compiletime-type {
+    color: #93A6F5;
+  }
+
+  .hljs-type {
+    color: #C7A65D;
+  }
+
+  .hljs-keyword {
+    color: #E0957B;
+  }
+
+  .hljs-compiletime-call {
+    color: #93A6F5;
+  }
+
+  .hljs-template-type {
+    color: #C9C9D1;
+  }
+
+  .hljs-template-compiletime-type {
+    color: #93A6F5;
+  }
+
+  .hljs-parameter-delegation {
+    color: #E0957B;
+  }
+
+  .hljs-format {
+    color: #E0957B;
+  }
+
+  .hljs-reset {
+    color: #C9C9D1;
+  }
+
+  .hljs-selector {
+    color: #37CCCC;
+  }
+
+  .hljs-event {
+    color: #93A6F5;
+    font-style: italic;
+  }
+
+  .hljs-extension {
+    color: #C7A65D;
+    font-style: italic;
+  }
+}
+
+.macchiato {
+  .hljs {
+    background: #1e2030;
+    color: #CAD3F5;
+  }
+
+  .hljs-comment {
+    color: #6E738D;
+  }
+
+  .hljs-string {
+    color: #A6DA95;
+  }
+
+  .hljs-escape {
+    color: #F5BDE6;
+  }
+
+  .hljs-builtin {
+    color: #8AADF4;
+    font-style: italic;
+  }
+
+  .hljs-number {
+    color: #F5A97F;
+  }
+
+  .hljs-ellipsis {
+    color: #6E738D;
+  }
+
+  .hljs-package-name {
+    color: #CAD3F5;
+  }
+
+  .hljs-compiletime-type {
+    color: #EE99A0;
+  }
+
+  .hljs-type {
+    color: #EED49F;
+  }
+
+  .hljs-keyword {
+    color: #C6A0F6;
+  }
+
+  .hljs-compiletime-call {
+    color: #EE99A0;
+  }
+
+  .hljs-template-type {
+    color: #EED49F;
+  }
+
+  .hljs-template-compiletime-type {
+    color: #EE99A0;
+  }
+
+  .hljs-parameter-delegation {
+    color: #C6A0F6;
+  }
+
+  .hljs-format {
+    color: #F5BDE6;
+  }
+
+  .hljs-reset {
+    color: #CAD3F5;
+  }
+
+  .hljs-selector {
+    color: #EE99A0;
+  }
+
+  .hljs-event {
+    color: #EE99A0;
+    font-style: italic;
+  }
+
+  .hljs-extension {
+    color: #8AADF4;
+    font-style: italic;
+  }
+}

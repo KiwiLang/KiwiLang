@@ -15,11 +15,11 @@ additional-js = [
 additional-css = [
     "./mdbook-admonish.css",  # mkdocs-material
     "./index.css",   # custom css
-    "./theme/catppuccin.css",  # new theme
-    "./theme/catppuccin-highlight.css",  # new theme
+    "./theme/kiwi.css",  # new theme
+    "./theme/kiwi-highlight.css",  # new theme
 ]
 default-theme = "light"
-preferred-dark-theme = "macchiato"
+preferred-dark-theme = "coal"
 
 [preprocessor]  # required
 [preprocessor.tera]  # macros
@@ -29,4 +29,4 @@ command = "mdbook-admonish"
 assets_version = "2.0.1"
 
 [preprocessor.catppuccin]  # new theme
-assets_version = "0.1.1"
+assets_version = "0.1.1" # DO NOT EDIT: Managed by `mdbook-catppuccin install`

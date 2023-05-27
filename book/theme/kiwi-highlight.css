@@ -1,0 +1,259 @@
+.light .hljs {
+  background: #f4f4f4;
+  color: #000000;
+}
+.light .hljs-comment {
+  color: #616161;
+  font-style: italic;
+}
+.light .hljs-string {
+  color: #4CAF50;
+}
+.light .hljs-escape {
+  color: #E17D17;
+}
+.light .hljs-builtin {
+  color: #2196F3;
+}
+.light .hljs-number {
+  color: #1976D2;
+}
+.light .hljs-ellipsis {
+  color: #616161;
+}
+.light .hljs-package-name {
+  color: #000000;
+}
+.light .hljs-compiletime-type {
+  color: #7B1FA2;
+}
+.light .hljs-type {
+  color: #2196F3;
+}
+.light .hljs-keyword {
+  color: #E17D17;
+}
+.light .hljs-compiletime-call {
+  color: #7B1FA2;
+}
+.light .hljs-template-type {
+  color: #2196F3;
+}
+.light .hljs-template-compiletime-type {
+  color: #7B1FA2;
+}
+.light .hljs-parameter-delegation {
+  color: #E17D17;
+}
+.light .hljs-format {
+  color: #E17D17;
+}
+.light .hljs-reset {
+  color: #000000;
+}
+.light .hljs-selector {
+  color: #0058ff;
+}
+.light .hljs-event {
+  color: #7B1FA2;
+  font-style: italic;
+}
+.light .hljs-extension {
+  color: #FF3E11;
+  font-style: italic;
+}
+
+.latte .hljs {
+  background: #e6e9ef;
+  color: #4C4F69;
+}
+.latte .hljs-comment {
+  color: #9CA0B0;
+  font-style: italic;
+}
+.latte .hljs-string {
+  color: #40A02B;
+}
+.latte .hljs-escape {
+  color: #EA76CB;
+}
+.latte .hljs-builtin {
+  color: #1E66F5;
+}
+.latte .hljs-number {
+  color: #FE640B;
+}
+.latte .hljs-ellipsis {
+  color: #4C4F69;
+}
+.latte .hljs-package-name {
+  color: #4C4F69;
+}
+.latte .hljs-compiletime-type {
+  color: #E64553;
+}
+.latte .hljs-type {
+  color: #DF8E1D;
+}
+.latte .hljs-keyword {
+  color: #8839EF;
+}
+.latte .hljs-compiletime-call {
+  color: #E64553;
+}
+.latte .hljs-template-type {
+  color: #DF8E1D;
+}
+.latte .hljs-template-compiletime-type {
+  color: #E64553;
+}
+.latte .hljs-parameter-delegation {
+  color: #8839EF;
+}
+.latte .hljs-format {
+  color: #EA76CB;
+}
+.latte .hljs-reset {
+  color: #4C4F69;
+}
+.latte .hljs-selector {
+  color: #0058ff;
+}
+.latte .hljs-event {
+  color: #E64553;
+  font-style: italic;
+}
+.latte .hljs-extension {
+  color: #179299;
+  font-style: italic;
+}
+
+.coal .hljs {
+  color: #C9C9D1;
+}
+.coal .hljs-comment {
+  color: #676773;
+}
+.coal .hljs-string {
+  color: #62A362;
+}
+.coal .hljs-escape {
+  color: #E0957B;
+}
+.coal .hljs-builtin {
+  color: #C7A65D;
+}
+.coal .hljs-number {
+  color: #4DACF0;
+}
+.coal .hljs-ellipsis {
+  color: #676773;
+}
+.coal .hljs-package-name {
+  color: #C9C9D1;
+}
+.coal .hljs-compiletime-type {
+  color: #93A6F5;
+}
+.coal .hljs-type {
+  color: #C7A65D;
+}
+.coal .hljs-keyword {
+  color: #E0957B;
+}
+.coal .hljs-compiletime-call {
+  color: #93A6F5;
+}
+.coal .hljs-template-type {
+  color: #C9C9D1;
+}
+.coal .hljs-template-compiletime-type {
+  color: #93A6F5;
+}
+.coal .hljs-parameter-delegation {
+  color: #E0957B;
+}
+.coal .hljs-format {
+  color: #E0957B;
+}
+.coal .hljs-reset {
+  color: #C9C9D1;
+}
+.coal .hljs-selector {
+  color: #37CCCC;
+}
+.coal .hljs-event {
+  color: #93A6F5;
+  font-style: italic;
+}
+.coal .hljs-extension {
+  color: #C7A65D;
+  font-style: italic;
+}
+
+.macchiato .hljs {
+  background: #1e2030;
+  color: #CAD3F5;
+}
+.macchiato .hljs-comment {
+  color: #6E738D;
+}
+.macchiato .hljs-string {
+  color: #A6DA95;
+}
+.macchiato .hljs-escape {
+  color: #F5BDE6;
+}
+.macchiato .hljs-builtin {
+  color: #8AADF4;
+  font-style: italic;
+}
+.macchiato .hljs-number {
+  color: #F5A97F;
+}
+.macchiato .hljs-ellipsis {
+  color: #6E738D;
+}
+.macchiato .hljs-package-name {
+  color: #CAD3F5;
+}
+.macchiato .hljs-compiletime-type {
+  color: #EE99A0;
+}
+.macchiato .hljs-type {
+  color: #EED49F;
+}
+.macchiato .hljs-keyword {
+  color: #C6A0F6;
+}
+.macchiato .hljs-compiletime-call {
+  color: #EE99A0;
+}
+.macchiato .hljs-template-type {
+  color: #EED49F;
+}
+.macchiato .hljs-template-compiletime-type {
+  color: #EE99A0;
+}
+.macchiato .hljs-parameter-delegation {
+  color: #C6A0F6;
+}
+.macchiato .hljs-format {
+  color: #F5BDE6;
+}
+.macchiato .hljs-reset {
+  color: #CAD3F5;
+}
+.macchiato .hljs-selector {
+  color: #EE99A0;
+}
+.macchiato .hljs-event {
+  color: #EE99A0;
+  font-style: italic;
+}
+.macchiato .hljs-extension {
+  color: #8AADF4;
+  font-style: italic;
+}
+
+/*# sourceMappingURL=kiwi-highlight.css.map */
