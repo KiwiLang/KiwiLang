@@ -67,4 +67,4 @@ Kiwi is licensed under the [MIT License](LICENSE).
 ## Any questions?
 
 [//]: # (TODO: Add discord server link)
-Join to our [discord server](#)!
+Join to our [discord server]({{discord}})!

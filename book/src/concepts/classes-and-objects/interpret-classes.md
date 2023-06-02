@@ -64,5 +64,3 @@ and generally they are primitives:
 - `String` - string
 - `Boolean` - boolean value
 - `Array` - array
-
-_see [Basic types](../types/overview.md)._

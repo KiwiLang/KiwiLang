@@ -1,3 +1,5 @@
+<div class="wide-page"></div>
+
 # IDE support
 
 <div class="docs-card-container">

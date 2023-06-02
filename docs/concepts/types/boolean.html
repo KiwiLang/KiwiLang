@@ -1,151 +1,177 @@
 <!DOCTYPE HTML>
 <html lang="en" class="sidebar-visible no-js light">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>Boolean - Kiwi Book</title>
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>Boolean - Kiwi Book</title>
 
 
-        <!-- Custom HTML head -->
-        
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Documentation for the Kiwi programming language">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+    <!-- Custom HTML head -->
+    
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="description" content="Documentation for the Kiwi programming language">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff"/>
 
-        <link rel="icon" href="../../favicon.svg">
-        <link rel="shortcut icon" href="../../favicon.png">
-        <link rel="stylesheet" href="../../css/variables.css">
-        <link rel="stylesheet" href="../../css/general.css">
-        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="icon" href="../../favicon.png">
+        <link rel="shortcut icon" href="../..//assets/favicon.png">
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/general.css">
+    <link rel="stylesheet" href="../../css/chrome.css">
         <link rel="stylesheet" href="../../css/print.css" media="print">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../../fonts/fonts.css">
 
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="../../highlight.css">
+    <link rel="stylesheet" href="../../tomorrow-night.css">
+    <link rel="stylesheet" href="../../ayu-highlight.css">
 
-        <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../.././mdbook-admonish.css">
-        <link rel="stylesheet" href="../.././index.css">
+    <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../.././theme/mdbook-admonish.css">
+        <link rel="stylesheet" href="../.././theme/index.css">
         <link rel="stylesheet" href="../.././theme/kiwi.css">
         <link rel="stylesheet" href="../.././theme/kiwi-highlight.css">
+        <link rel="stylesheet" href="../.././theme/pagetoc.css">
 
-    </head>
-    <body>
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">
-            var path_to_root = "../../";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "light";
-        </script>
+</head>
+<body>
+<!-- Provide site root to javascript -->
+<script type="text/javascript">
+    var path_to_root = "../../";
+    var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "light";
+</script>
 
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
-            try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+<!-- Work around some values being stored in localStorage wrapped in quotes -->
+<script type="text/javascript">
+    try {
+        var theme = localStorage.getItem('mdbook-theme');
+        var sidebar = localStorage.getItem('mdbook-sidebar');
 
-                if (theme.startsWith('"') && theme.endsWith('"')) {
-                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
-                }
+        if (theme.startsWith('"') && theme.endsWith('"')) {
+            localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+        }
 
-                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
-                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
-                }
-            } catch (e) { }
-        </script>
+        if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+            localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+        }
+    } catch (e) {
+    }
+</script>
 
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
-            var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
-            if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('no-js')
-            html.classList.remove('light')
-            html.classList.add(theme);
-            html.classList.add('js');
-        </script>
+<!-- Set the theme before any content is loaded, prevents flash -->
+<script type="text/javascript">
+    var theme;
+    try {
+        theme = localStorage.getItem('mdbook-theme');
+    } catch (e) {
+    }
+    if (theme === null || theme === undefined) {
+        theme = default_theme;
+    }
+    var html = document.querySelector('html');
+    html.classList.remove('no-js')
+    html.classList.remove('light')
+    html.classList.add(theme);
+    html.classList.add('js');
+</script>
 
-        <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
-            if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
-                sidebar = sidebar || 'visible';
-            }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script>
+<!-- Hide / unhide sidebar before it is displayed -->
+<script type="text/javascript">
+    var html = document.querySelector('html');
+    var sidebar = 'hidden';
+    if (document.body.clientWidth >= 1080) {
+        try {
+            sidebar = localStorage.getItem('mdbook-sidebar');
+        } catch (e) {
+        }
+        sidebar = sidebar || 'visible';
+    }
+    html.classList.remove('sidebar-visible');
+    html.classList.add("sidebar-" + sidebar);
+</script>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../home.html">Home</a></li><li class="chapter-item expanded affix "><a href="../../get-started.html">Get started</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../basics/syntax.html"><strong aria-hidden="true">1.1.</strong> Basic syntax</a></li><li class="chapter-item expanded "><a href="../../basics/idioms.html"><strong aria-hidden="true">1.2.</strong> Idioms</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Concepts</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/types/overview.html"><strong aria-hidden="true">2.1.</strong> Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/types/boolean.html" class="active"><strong aria-hidden="true">2.1.1.</strong> Boolean</a></li><li class="chapter-item expanded "><a href="../../concepts/types/number.html"><strong aria-hidden="true">2.1.2.</strong> Number</a></li><li class="chapter-item expanded "><a href="../../concepts/types/string.html"><strong aria-hidden="true">2.1.3.</strong> String</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.2.</strong> Control Flow</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/control-flow/conditions.html"><strong aria-hidden="true">2.2.1.</strong> Conditions</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/loops.html"><strong aria-hidden="true">2.2.2.</strong> Loops</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/exceptions.html"><strong aria-hidden="true">2.2.3.</strong> Exceptions</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/returns-and-jumps.html"><strong aria-hidden="true">2.2.4.</strong> Returns and Jumps</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Classes and Objects</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/classes.html"><strong aria-hidden="true">2.3.1.</strong> Classes</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/objects.html"><strong aria-hidden="true">2.3.2.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/interfaces.html"><strong aria-hidden="true">2.3.3.</strong> Interfaces</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/parameter-delegation.html"><strong aria-hidden="true">2.3.4.</strong> Parameter delegation</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/visibility-modifiers.html"><strong aria-hidden="true">2.3.5.</strong> Visibility modifiers</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/companion-objects.html"><strong aria-hidden="true">2.3.6.</strong> Companion objects</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/compile-time-classes.html"><strong aria-hidden="true">2.3.7.</strong> Compile-time classes</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/interpret-classes.html"><strong aria-hidden="true">2.3.8.</strong> Interpret classes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.</strong> Functions</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/functions/functions.html"><strong aria-hidden="true">2.4.1.</strong> Functions</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/lambdas.html"><strong aria-hidden="true">2.4.2.</strong> Lambdas</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/events.html"><strong aria-hidden="true">2.4.3.</strong> Events</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/function-types.html"><strong aria-hidden="true">2.4.4.</strong> Function types</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/inline-functions.html"><strong aria-hidden="true">2.4.5.</strong> Inline functions</a></li><li class="chapter-item expanded "><a href="../../concepts/compile-time/compile-time-functions.html"><strong aria-hidden="true">2.4.6.</strong> Compile-time functions</a></li><li class="chapter-item expanded "><a href="../../concepts/compile-time/interpret-functions.html"><strong aria-hidden="true">2.4.7.</strong> Interpret functions</a></li></ol></li><li class="chapter-item expanded "><a href="../../concepts/packages-and-imports.html"><strong aria-hidden="true">2.5.</strong> Packages and Imports</a></li><li class="chapter-item expanded "><a href="../../concepts/string-formatting.html"><strong aria-hidden="true">2.6.</strong> String formatting</a></li><li class="chapter-item expanded "><a href="../../concepts/variables.html"><strong aria-hidden="true">2.7.</strong> Variables</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Standard Library</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../standard-library/collections.html"><strong aria-hidden="true">3.1.</strong> Collections</a></li><li class="chapter-item expanded "><a href="../../standard-library/ranges.html"><strong aria-hidden="true">3.2.</strong> Ranges</a></li><li class="chapter-item expanded "><a href="../../standard-library/events.html"><strong aria-hidden="true">3.3.</strong> Events</a></li><li class="chapter-item expanded "><a href="../../standard-library/annotations.html"><strong aria-hidden="true">3.4.</strong> Annotations</a></li><li class="chapter-item expanded "><a href="../../standard-library/compile-time-known-annotations.html"><strong aria-hidden="true">3.5.</strong> Compile-time known annotations</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Всячина в 4 утра</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../govno-v-4-utra/magic-interfaces.html"><strong aria-hidden="true">4.1.</strong> Магические интерфейсы</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Tools</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/ide.html"><strong aria-hidden="true">5.1.</strong> IDE support</a></li><li class="chapter-item expanded "><a href="../../tools/kiwi-debugger.html"><strong aria-hidden="true">5.2.</strong> Kiwi Debugger</a></li></ol></li><li class="chapter-item expanded "><a href="../../projects/overview.html"><strong aria-hidden="true">6.</strong> Kiwi-based Projects</a></li><li class="chapter-item expanded "><a href="../../contributing.html"><strong aria-hidden="true">7.</strong> Contributing Kiwi</a></li></ol>
+<nav id="sidebar" class="sidebar" aria-label="Table of contents">
+    <div class="sidebar-scrollbox">
+        <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../home.html">Home</a></li><li class="chapter-item expanded affix "><a href="../../get-started.html">Get started</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">1.</strong> Basics</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../basics/syntax.html"><strong aria-hidden="true">1.1.</strong> Basic syntax</a></li><li class="chapter-item expanded "><a href="../../basics/idioms.html"><strong aria-hidden="true">1.2.</strong> Idioms</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> Concepts</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">2.1.</strong> Types</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/types/boolean.html" class="active"><strong aria-hidden="true">2.1.1.</strong> Boolean</a></li><li class="chapter-item expanded "><a href="../../concepts/types/number.html"><strong aria-hidden="true">2.1.2.</strong> Number</a></li><li class="chapter-item expanded "><a href="../../concepts/types/string.html"><strong aria-hidden="true">2.1.3.</strong> String</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.2.</strong> Control Flow</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/control-flow/conditions.html"><strong aria-hidden="true">2.2.1.</strong> Conditions</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/loops.html"><strong aria-hidden="true">2.2.2.</strong> Loops</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/exceptions.html"><strong aria-hidden="true">2.2.3.</strong> Exceptions</a></li><li class="chapter-item expanded "><a href="../../concepts/control-flow/returns-and-jumps.html"><strong aria-hidden="true">2.2.4.</strong> Returns and Jumps</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> Classes and Objects</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/classes.html"><strong aria-hidden="true">2.3.1.</strong> Classes</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/objects.html"><strong aria-hidden="true">2.3.2.</strong> Objects</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/interfaces.html"><strong aria-hidden="true">2.3.3.</strong> Interfaces</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/parameter-delegation.html"><strong aria-hidden="true">2.3.4.</strong> Parameter delegation</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/visibility-modifiers.html"><strong aria-hidden="true">2.3.5.</strong> Visibility modifiers</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/companion-objects.html"><strong aria-hidden="true">2.3.6.</strong> Companion objects</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/compile-time-classes.html"><strong aria-hidden="true">2.3.7.</strong> Compile-time classes</a></li><li class="chapter-item expanded "><a href="../../concepts/classes-and-objects/interpret-classes.html"><strong aria-hidden="true">2.3.8.</strong> Interpret classes</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.</strong> Functions</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../concepts/functions/functions.html"><strong aria-hidden="true">2.4.1.</strong> Functions</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/lambdas.html"><strong aria-hidden="true">2.4.2.</strong> Lambdas</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/events.html"><strong aria-hidden="true">2.4.3.</strong> Events</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/function-types.html"><strong aria-hidden="true">2.4.4.</strong> Function types</a></li><li class="chapter-item expanded "><a href="../../concepts/functions/inline-functions.html"><strong aria-hidden="true">2.4.5.</strong> Inline functions</a></li><li class="chapter-item expanded "><a href="../../concepts/compile-time/compile-time-functions.html"><strong aria-hidden="true">2.4.6.</strong> Compile-time functions</a></li><li class="chapter-item expanded "><a href="../../concepts/compile-time/interpret-functions.html"><strong aria-hidden="true">2.4.7.</strong> Interpret functions</a></li></ol></li><li class="chapter-item expanded "><a href="../../concepts/packages-and-imports.html"><strong aria-hidden="true">2.5.</strong> Packages and Imports</a></li><li class="chapter-item expanded "><a href="../../concepts/string-formatting.html"><strong aria-hidden="true">2.6.</strong> String formatting</a></li><li class="chapter-item expanded "><a href="../../concepts/variables.html"><strong aria-hidden="true">2.7.</strong> Variables</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Standard Library</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../standard-library/collections.html"><strong aria-hidden="true">3.1.</strong> Collections</a></li><li class="chapter-item expanded "><a href="../../standard-library/ranges.html"><strong aria-hidden="true">3.2.</strong> Ranges</a></li><li class="chapter-item expanded "><a href="../../standard-library/events.html"><strong aria-hidden="true">3.3.</strong> Events</a></li><li class="chapter-item expanded "><a href="../../standard-library/annotations.html"><strong aria-hidden="true">3.4.</strong> Annotations</a></li><li class="chapter-item expanded "><a href="../../standard-library/compile-time-known-annotations.html"><strong aria-hidden="true">3.5.</strong> Compile-time known annotations</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Tools</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tools/ide.html"><strong aria-hidden="true">4.1.</strong> IDE support</a></li><li class="chapter-item expanded "><a href="../../tools/kiwi-debugger.html"><strong aria-hidden="true">4.2.</strong> Kiwi Debugger</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> Kiwi-based Projects</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../projects/overview.html"><strong aria-hidden="true">5.1.</strong> General</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> Contributing Kiwi</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../contributing/overview.html"><strong aria-hidden="true">6.1.</strong> How to contribute</a></li><li class="chapter-item expanded "><a href="../../contributing/report-a-bug.html"><strong aria-hidden="true">6.2.</strong> Report a bug</a></li><li class="chapter-item expanded "><a href="../../contributing/request-a-feature.html"><strong aria-hidden="true">6.3.</strong> Request a feature</a></li><li class="chapter-item expanded "><a href="../../contributing/documentation.html"><strong aria-hidden="true">6.4.</strong> Documentation</a></li><li class="chapter-item expanded "><a href="../../contributing/contributors.html"><strong aria-hidden="true">6.5.</strong> Contributors</a></li></ol></li></ol>
+    </div>
+    <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+</nav>
+
+<div id="page-wrapper" class="page-wrapper">
+
+    <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+        <div id="menu-bar" class="menu-bar sticky bordered">
+            <div class="left-buttons">
+                <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                        aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                        aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                    <i class="fa fa-paint-brush"></i>
+                </button>
+                <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                    <li role="none">
+                        <button role="menuitem" class="theme" id="light">Light (default)</button>
+                    </li>
+                    <li role="none">
+                        <button role="menuitem" class="theme" id="latte">Latte</button>
+                    </li>
+                    <li role="none">
+                        <button role="menuitem" class="theme" id="coal">Coal</button>
+                    </li>
+                    <li role="none">
+                        <button role="menuitem" class="theme" id="macchiato">Macchiato</button>
+                    </li>
+                </ul>
+                    <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
+                        <i class="fa fa-search"></i>
+                    </button>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
-        </nav>
 
-        <div id="page-wrapper" class="page-wrapper">
+            <h1 class="menu-title">Kiwi Book</h1>
 
-            <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
-                    <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
-                        </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="latte">Latte</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="macchiato">Macchiato</button></li>
-                        </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
+            <div class="right-buttons">
+                    <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                        <i id="print-button" class="fa fa-print"></i>
+                    </a>
 
-                    <h1 class="menu-title">Kiwi Book</h1>
+            </div>
+        </div>
 
-                    <div class="right-buttons">
-                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
-                            <i id="print-button" class="fa fa-print"></i>
-                        </a>
-
-                    </div>
+            <div id="search-wrapper" class="hidden">
+                <form id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                           aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </form>
+                <div id="searchresults-outer" class="searchresults-outer hidden">
+                    <div id="searchresults-header" class="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
                 </div>
+            </div>
 
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                    </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
-                        </ul>
-                    </div>
+        <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+        <script type="text/javascript">
+            document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+            Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+            });
+        </script>
+
+        <div id="content" class="content">
+            <main>
+                <div class="sidetoc">
+                    <nav class="pagetoc"></nav>
                 </div>
-
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
-                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script>
-
-                <div id="content" class="content">
-                    <main>
-                        <h1 id="boolean"><a class="header" href="#boolean">Boolean</a></h1>
+                <h1 id="boolean"><a class="header" href="#boolean">Boolean</a></h1>
 <p>The <code>Bool</code> type represents boolean values. There are only two possible values:
 <code>true</code> and <code>false</code>.</p>
 <pre><code class="language-kiwi">a: auto = true
@@ -169,54 +195,118 @@ only if the left operand is not enough to determine the result of the expression
 # amIDead() is not called if amIAlive() returns true
 </code></pre>
 
-                    </main>
+            </main>
 
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../concepts/types/overview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-
-                            <a rel="next" href="../../concepts/types/number.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-
-                        <div style="clear: both"></div>
-                    </nav>
-                </div>
-            </div>
-
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../concepts/types/overview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+            <nav class="nav-wrapper" aria-label="Page navigation">
+                <!-- Mobile navigation buttons -->
+                    <a rel="prev" href="../../basics/idioms.html" class="mobile-nav-chapters previous"
+                       title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../../concepts/types/number.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../../concepts/types/number.html" class="mobile-nav-chapters next"
+                       title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
+
+                <div style="clear: both"></div>
             </nav>
-
         </div>
+        <footer>
+            <div class="footer-layout">
+                <div class="footer-logo">
+                    <a href="../../home.html">
+                        <img src="../../assets/logo.png" alt="Kiwi logo">
+                    </a>
+                </div>
+                <div class="footer-social">
+                    <a href="#">
+                        <svg viewBox="0 0 24 24">
+                            <path d="m20.9 12.2a8.94 8.94 0 0 1 -6.4 8.6.39176.39176 0 0 1 -.4-.4v-3a1.58066 1.58066 0 0 0 -.5-1.2 3.7342 3.7342 0 0 0 3.9-3.4 4.24447 4.24447 0 0 0 -.9-3.5 2.8554 2.8554 0 0 0 -.2-2.4 7.23943 7.23943 0 0 0 -2.4.9 8.21667 8.21667 0 0 0 -4.4 0 4.61924 4.61924 0 0 0 -2.3-.9h-.1a2.74943 2.74943 0 0 0 -.2 2.4 4.07472 4.07472 0 0 0 -.9 3.5 3.81064 3.81064 0 0 0 3.9 3.4 1.08192 1.08192 0 0 0 -.4.6 2.63862 2.63862 0 0 0 -.1.7 1.94273 1.94273 0 0 1 -2.2-.5c-.5-.8-.9-1.2-1.4-1.3s-.6.2-.6.2a1.00419 1.00419 0 0 0 .5.6 1.69523 1.69523 0 0 1 .8 1 1.82656 1.82656 0 0 0 1.2 1.2 3.9156 3.9156 0 0 0 1.9 0v1.7a.29725.29725 0 0 1 -.4.3 8.82071 8.82071 0 0 1 -6.3-8.5 8.95014 8.95014 0 0 1 17.9 0z"></path>
+                        </svg>
+                    </a>
+                    <a href="#">
+                        <svg viewBox="-4 -4 28 28">
+                            <path d="m13.93 11.4c-.054.633-.582 1.127-1.224 1.127-.678 0-1.229-.55-1.229-1.229s.55-1.229 1.228-1.229c.683.029 1.225.59 1.225 1.277 0 .019 0 .037-.001.056v-.003zm-5.604-1.33c-.688.061-1.223.634-1.223 1.332s.535 1.271 1.218 1.332h.005c.683-.029 1.225-.59 1.225-1.277 0-.019 0-.037-.001-.056v.003c.001-.02.002-.043.002-.067 0-.685-.541-1.243-1.219-1.269h-.002zm12.674-7.598v21.528c-3.023-2.672-2.057-1.787-5.568-5.052l.636 2.22h-13.609c-1.359-.004-2.46-1.106-2.46-2.466 0-.002 0-.004 0-.006v-16.224c0-.002 0-.004 0-.006 0-1.36 1.101-2.462 2.459-2.466h16.081c1.359.004 2.46 1.106 2.46 2.466v.006zm-3.42 11.376c-.042-2.559-.676-4.96-1.77-7.086l.042.09c-.924-.731-2.088-1.195-3.358-1.259l-.014-.001-.168.192c1.15.312 2.15.837 3.002 1.535l-.014-.011c-1.399-.769-3.066-1.222-4.839-1.222-1.493 0-2.911.321-4.189.898l.064-.026c-.444.204-.708.35-.708.35.884-.722 1.942-1.266 3.1-1.56l.056-.012-.12-.144c-1.284.065-2.448.529-3.384 1.269l.012-.009c-1.052 2.036-1.686 4.437-1.728 6.982v.014c.799 1.111 2.088 1.826 3.543 1.826.041 0 .082-.001.123-.002h-.006s.444-.54.804-.996c-.866-.223-1.592-.727-2.093-1.406l-.007-.01c.176.124.468.284.49.3 1.209.672 2.652 1.067 4.188 1.067 1.191 0 2.326-.238 3.36-.668l-.058.021c.528-.202.982-.44 1.404-.723l-.025.016c-.526.703-1.277 1.212-2.144 1.423l-.026.005c.36.456.792.972.792.972.033.001.072.001.111.001 1.461 0 2.755-.714 3.552-1.813l.009-.013z"/>
+                        </svg>
+                    </a>
+                    <a href="https://stackoverflow.com/questions/tagged/kiwi">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M17.527 20.27V15.19h1.685v6.764H4v-6.763h1.685v5.078h11.842z"></path>
+                            <path d="M7.546 14.71l8.274 1.73.35-1.664-8.274-1.73-.35 1.664zm1.094-3.94l7.661 3.568.7-1.532-7.66-3.59-.7 1.554zm2.123-3.765l6.501 5.407 1.073-1.292-6.501-5.406-1.073 1.291zM14.966 3l-1.357 1.007 5.034 6.785L20 9.785 14.966 3zM7.37 18.562h8.448v-1.685H7.371v1.685z"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Contributing to Kiwi</a>
+                    <a href="#">Releases</a>
+                    <a href="#">Philosophy</a>
+                    <a href="#">Thanks to contributors</a>
+                </div>
+                <div class="footer-license">
+                    <span>
+                        Kiwi is licensed by <a href="https://github.com/KiwiLang/KiwiLang/blob/master/LICENSE">MIT License</a>.
+                        Thanks for <a href="/contributing/contributors.html">our contributors</a>.
+                    </span>
+                    <span>
+                        Supported by Kiwi Community
+                    </span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            <a rel="prev" href="../../basics/idioms.html" class="nav-chapters previous" title="Previous chapter"
+               aria-label="Previous chapter" aria-keyshortcuts="Left">
+                <i class="fa fa-angle-left"></i>
+            </a>
+
+            <a rel="next" href="../../concepts/types/number.html" class="nav-chapters next" title="Next chapter"
+               aria-label="Next chapter" aria-keyshortcuts="Right">
+                <i class="fa fa-angle-right"></i>
+            </a>
+    </nav>
+
+</div>
+
+    <!-- Livereload script (if served using the cli tool) -->
+    <script type="text/javascript">
+        const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+        const socket = new WebSocket(wsAddress);
+        socket.onmessage = function (event) {
+            if (event.data === "reload") {
+                socket.close();
+                location.reload();
+            }
+        };
+
+        window.onbeforeunload = function () {
+            socket.close();
+        }
+    </script>
 
 
 
-
-        <script type="text/javascript">
-            window.playground_copyable = true;
-        </script>
-
-
-        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
-
-        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- Custom JS scripts -->
-        <script type="text/javascript" src="../.././dist/index.js"></script>
+    <script type="text/javascript">
+        window.playground_copyable = true;
+    </script>
 
 
-    </body>
+    <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JS scripts -->
+    <script type="text/javascript" src="../.././dist/highlight.js"></script>
+    <script type="text/javascript" src="../.././dist/sidebar.js"></script>
+    <script type="text/javascript" src="../.././dist/pagetoc.js"></script>
+
+
+</body>
 </html>

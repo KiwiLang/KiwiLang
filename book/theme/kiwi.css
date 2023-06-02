@@ -4,6 +4,7 @@
     --icon-color-rgb: 205, 214, 244;
     --bg: #1e1e2e;
     --fg: #cdd6f4;
+    --fg-50: #8a8aae;
     --fg-rgb: 205, 214, 244;
     --sidebar-bg: #181825;
     --sidebar-fg: #cdd6f4;
@@ -38,6 +39,7 @@
     --icon-color-rgb: 255, 255, 255;
     --bg: #24273a;
     --fg: #cad3f5;
+    --fg-50: #9389a2;
     --fg-rgb: 202, 211, 245;
     --sidebar-bg: #1e2030;
     --sidebar-fg: #cad3f5;
@@ -73,6 +75,7 @@
     --icon-color-rgb: 198, 208, 245;
     --bg: #303446;
     --fg: #c6d0f5;
+    --fg-50: #9a9ebd;
     --fg-rgb: 198, 208, 245;
     --sidebar-bg: #292c3c;
     --sidebar-fg: #c6d0f5;
@@ -102,11 +105,13 @@
     --search-mark-bg: #ef9f76;
 }
 
+
 .latte {
     --icon-color: #cc694a;
     --icon-color-rgb: 204, 105, 74;
     --bg: #eff1f5;
     --fg: #4c4f69;
+    --fg-50: #797a87;
     --fg-rgb: 76, 79, 105;
     --sidebar-bg: #e6e9ef;
     --sidebar-fg: #4c4f69;
@@ -139,7 +144,9 @@
 .light {
     --icon-color: #6f2d13;
     --icon-color-rgb: 111, 45, 19;
+    --bg: #ffffff;
     --fg: #000000;
+    --fg-50: #AAAAAA;
     --fg-rgb: 0, 0, 0;
 }
 
@@ -152,10 +159,16 @@
 }
 
 .coal {
-    --icon-color: #4ce62c;
-    --icon-color-rgb: 76, 230, 44;
+    --icon-color: #f9dfcc;
+    --icon-color-rgb: 249, 223, 204;
+    --bg: #131516;
     --fg: #98a3ad;
+    --fg-50: #5f686e;
     --fg-rgb: 152, 163, 173;
+    --searchbar-bg: #131516;
+    --searchbar-fg: #98a3ad;
+    --searchbar-border-color: #404040;
+    --searchbar-shadow-color: #131516;
 }
 
 .navy {

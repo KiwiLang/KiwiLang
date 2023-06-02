@@ -1,3 +1,5 @@
+<div class="wide-page"></div>
+
 # Get started with Kiwi
 
 Kiwi is a modern static type multi-paradigm programming language for Minecraft data packs.

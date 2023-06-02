@@ -1,6 +1,6 @@
 # Exceptions
 
-## Exception calsses
+## Exception classes
 
 All exception classes in Kiwi inherit from `Exception` class.
 Every exception has a message, stack trace and optional cause.
@@ -62,4 +62,9 @@ fun fail(message: String): Nothing {
     throw Exception(message)
 }
 ```
+
+## Optimized exceptions
+
+You can enforce the compiler to optimize exceptions by using `@optimize` annotation.
+
 

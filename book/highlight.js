@@ -1,4 +1,4 @@
-import hljs from "highlight.js/lib/core";
+import hljs from "highlight.js/lib/core"
 
 hljs.registerLanguage("kiwi", (hljs) => {
     const KEYWORDS = [
@@ -428,10 +428,10 @@ hljs.registerLanguage("kiwi", (hljs) => {
             EVENT,                          // <- <name>
         ]
     }
-});
+})
 
 window.addEventListener("load", (_) => {
     document
         .querySelectorAll("code.language-kiwi")
-        .forEach((block) => hljs.highlightBlock(block));
-});
+        .forEach((block) => hljs.highlightBlock(block))
+})

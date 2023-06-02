@@ -3,7 +3,7 @@
 This is a collection of basic syntax concepts of Kiwi.
 If you are similar with Kotlin, it will be easy to understand.
 
-_see [Examples here](../projects/overview.html)._
+_see [Examples here](../projects/overview.md)._
 
 ## Package definition and imports
 
@@ -325,7 +325,7 @@ try {
 }
 ```
 
-_see [Exceptions](../concepts/exceptions.md)._
+_see [Exceptions](../concepts/control-flow/exceptions.md)._
 
 ## Events
 
@@ -400,14 +400,14 @@ for i in 1..10 step 2 {
 Check if a number is within a range using `in` operator.
 
 ```kiwi
-fun isInRange(x: Int) -> bool = x in 1..10
+fun isInRange(x: Int) -> Bool = x in 1..10
 ```
 
 Check if a number is out of range.
 
 ```kiwi
 fun square(x: Int) -> Int {
-    if x in short.MAX_VALUE... {
+    if x in Short.MAX_VALUE... {
        log("Number is too big")
     }
     return x * x
@@ -429,8 +429,8 @@ for (item in items) {
 Check if a collection contains an object using `in` and `!in` operators.
 
 ```kiwi
-fun isInRange(x: Int) -> bool = x in 1..10
-fun isNotInRange(x: Int) -> bool = x !in 1..10
+fun isInRange(x: Int) -> Bool = x in 1..10
+fun isNotInRange(x: Int) -> Bool = x !in 1..10
 ```
 
 _see [Collections](../standard-library/collections.md)._

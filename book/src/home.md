@@ -1,13 +1,18 @@
+<div class="wide-page"></div>
 <div class="docs-content-wrapper">
 
 # Kiwi docs
 
 Latest stable version: {{version}}
 
+```admonish info
+Help us improve the docs by [contributing](/contributing/overview.md)!
+```
+
 <div class="docs-card-container">
 
 ```admonish quote title="Get started with Kiwi" class="docs-card"
-<a class="docs-card-link" href="{{root}}/get-started.html">
+<a class="docs-card-link" href="/get-started.html">
 <div class="docs-card-visit">
     {{ #template assets/rocket.svg }}
     <span>Check out</span>
@@ -19,7 +24,7 @@ your preferred IDE.
 ```
 
 ```admonish quote title="Projects based on Kiwi" class="docs-card"
-<a class="docs-card-link" href="{{root}}/projects/overview.html">
+<a class="docs-card-link" href="/projects/overview.html">
 <div class="docs-card-visit">
     {{ #template assets/explore.svg }}
     <span>Look at projects</span>
@@ -36,7 +41,7 @@ Explore projects based on Kiwi.
 <div class="docs-card-container">
 
 ```admonish quote title="Basic syntax" class="docs-card"
-<a class="docs-card-link" href="{{root}}/basics/syntax.html">
+<a class="docs-card-link" href="/basics/syntax.html">
 A quick overview of the basic syntax of Kiwi:
 
 - _keywords_
@@ -47,12 +52,23 @@ A quick overview of the basic syntax of Kiwi:
 ```
 
 ```admonish quote title="IDE support" class="docs-card"
-<a class="docs-card-link" href="{{root}}/tools/ide.html">
+<a class="docs-card-link" href="/tools/ide.html">
 Check out the IDE support for Kiwi:
 
 - _IntelliJ IDEA_
 - _Visual Studio Code_
 - _Language Server_
+
+</a>
+```
+
+```admonish quote title="Contributing" class="docs-card"
+<a class="docs-card-link" href="/tools/ide.html">
+Check out this page if you want to contribute to Kiwi:
+
+- _How to contribute_
+- _How to build_
+- _e.t.c._
 
 </a>
 ```
