@@ -1,0 +1,5 @@
+README.md merge=ours
+LICENSE merge=ours
+.gitattributes merge=ours
+.gitignore merge=ours
+gradle merge=ours

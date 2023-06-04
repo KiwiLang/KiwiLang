@@ -1,4 +1,4 @@
-<div class="wide-page"></div>
+<!--- wide page --->
 <div class="docs-content-wrapper">
 
 # Kiwi docs

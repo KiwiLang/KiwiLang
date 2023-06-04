@@ -49,9 +49,13 @@
   - [General](projects/overview.md)
 - [Contributing Kiwi]()
   - [How to contribute](contributing/overview.md)
+  - [Writing documentation]()
+    - [Prerequisites](contributing/documentation/prerequisites.md)
+    - [MdBook](contributing/documentation/mdbook.md)
+    - [Tricks and tips](contributing/documentation/tricks-and-tips.md)
   - [Report a bug](contributing/report-a-bug.md)
   - [Request a feature](contributing/request-a-feature.md)
-  - [Documentation](contributing/documentation.md)
   - [Contributors](contributing/contributors.md)
+  - [Contact us](contributing/contact-us.md)
 
 
