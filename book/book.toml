@@ -7,6 +7,7 @@ description = "Documentation for the Kiwi programming language"
 authors = ["ButterSus <eduardkrivosapkin5@gmail.com>"]
 language = "en"
 multilingual = false
+src = "src"
 
 # BUILD CONFIGURATION
 # ===================
@@ -39,6 +40,7 @@ additional-css = [
 # =======>
 
 [preprocessor] # required by mdbook-admonish
+[preprocessor.emojicodes] # adds emojis
 [preprocessor.template] # adds custom templates
 [preprocessor.admonish] # adds admonitions
 command = "mdbook-admonish"
@@ -64,14 +66,23 @@ version = "-.-.-"
 
 # Social variables
 # ---------------->
-github-organization = "https://github.com/KiwiLang"
-discord-invite = "https://discord.gg/hwznTdFHDj"
+github_repository = "https://github.com/KiwiLang/KiwiLang"
+github_organization = "https://github.com/KiwiLang"
+discord_invite = "https://discord.gg/hwznTdFHDj"
+stackoverflow_tag = "https://stackoverflow.com/questions/tagged/kiwi-lang"
 
 
 
 # Links variables
 # --------------->
-language-server-kiwi-url = "#"
-vscode-extension-kiwi-url = "#"
-kotlin-url = "https://kotlinlang.org"
-kotlin-docs-url = "https://kotlinlang.org/docs/reference"
+mdbook_url = "https://rust-lang.github.io/mdBook"
+mdbook_template_url = "https://github.com/sgoudham/mdbook-template"
+mdbook_admonish_url = "https://tommilligan.github.io/mdbook-admonish"
+mdbook_catppuccino_url = "https://github.com/catppuccin/mdBook"
+mdbook_variables_url = "https://crates.io/crates/mdbook-variables"
+markdown_url = "https://www.markdownguide.org"
+
+language_server-kiwi-url = "#"
+vscode_extension-kiwi-url = "#"
+kotlin_url = "https://kotlinlang.org"
+kotlin_docs_url = "https://kotlinlang.org/docs/reference"

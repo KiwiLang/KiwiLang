@@ -1,1 +1,0 @@
-[sus](/basics/syntax.md)

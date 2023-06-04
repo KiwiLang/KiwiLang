@@ -6,6 +6,7 @@ window.addEventListener("load", (_) => {
                 let strong = item.querySelector('a > strong')
                 strong.innerHTML = '⋄ ' + strong.innerHTML
                 nextItem.style.display = 'none'
+                strong.classList.add('chapter-mark')
                 item.classList.add('chapter-list-item-static')
                 return
             }
@@ -19,6 +20,7 @@ window.addEventListener("load", (_) => {
                 nextItem.style.display = 'none'
                 strong.innerHTML = '▸ ' + strong.innerHTML
             }
+            strong.classList.add('chapter-mark')
             item.onclick = (_) => {
                 if (nextItem.style.display === 'none') {
                     nextItem.style.display = 'inherit'
@@ -41,15 +43,23 @@ window.addEventListener("load", (_) => {
     }
     while (item) {
         let prevItem = item.previousElementSibling
-        if (prevItem && prevItem.classList.contains('chapter-list-item-static')) {
+        if (item.tagName === 'LI' && !item.classList.contains('chapter-item')) {
             item.style.display = 'inherit'
+            if (!prevItem.classList.contains('chapter-list-item-static')) {
+                let strong = prevItem.querySelector('strong')
+                strong.innerHTML = '▾ ' + strong.innerHTML.slice(2)
+            }
         }
         item = item.parentNode;
     }
-
-    if (document.querySelector('.wide-page')) {
-        document.querySelector('main').classList.add('wide-page-main')
-    }
+    document.querySelector('main').childNodes.forEach((element) => {
+        if (element && element.nodeType === Node.COMMENT_NODE) {
+            let content = element.textContent.replace(/^[ -]*|[ -]*$/g, '');
+            if (content === 'wide page') {
+                document.querySelector('main').classList.add('wide-page')
+            }
+        }
+    })
 })
 
 
