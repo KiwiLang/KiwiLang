@@ -24,16 +24,18 @@ default-theme = "light"
 preferred-dark-theme = "coal"
 use-site-url-as-root = true
 additional-js = [
-    "./dist/highlight.js", # syntax highlighting
-    "./dist/sidebar.js", # sidebar
-    "./dist/pagetoc.js", # pagetoc
+    "dist/mermaid.min.js", # mermaid
+    "dist/mermaid-init.js", # mermaid
+    "dist/highlight.js", # syntax highlighting
+    "dist/sidebar.js", # sidebar
+    "dist/pagetoc.js", # pagetoc
 ]
 additional-css = [
-    "./theme/mdbook-admonish.css", # mkdocs-material
-    "./theme/index.css", # custom css
-    "./theme/kiwi.css", # new theme
-    "./theme/kiwi-highlight.css", # new theme
-    "./theme/pagetoc.css", # pagetoc
+    "theme/mdbook-admonish.css", # mkdocs-material
+    "theme/index.css", # custom css
+    "theme/kiwi.css", # new theme
+    "theme/kiwi-highlight.css", # new theme
+    "theme/pagetoc.css", # pagetoc
 ]
 
 # PLUGINS
@@ -42,8 +44,10 @@ additional-css = [
 [preprocessor] # required by mdbook-admonish
 [preprocessor.emojicodes] # adds emojis
 [preprocessor.template] # adds custom templates
+[preprocessor.mermaid] # adds mermaid diagrams
+[preprocessor.kiwi] # our custom preprocessor
+command = "python book/mdbook-kiwi.py"
 [preprocessor.admonish] # adds admonitions
-command = "mdbook-admonish"
 assets_version = "2.0.1"
 [preprocessor.catppuccin] # adds new themes
 assets_version = "0.1.1" # DO NOT EDIT: Managed by `mdbook-catppuccin install`
@@ -76,6 +80,7 @@ stackoverflow_tag = "https://stackoverflow.com/questions/tagged/kiwi-lang"
 # Links variables
 # --------------->
 mdbook_url = "https://rust-lang.github.io/mdBook"
+mdbook_summary_url = "https://rust-lang.github.io/mdBook/format/summary.html"
 mdbook_template_url = "https://github.com/sgoudham/mdbook-template"
 mdbook_admonish_url = "https://tommilligan.github.io/mdbook-admonish"
 mdbook_catppuccino_url = "https://github.com/catppuccin/mdBook"

@@ -1,29 +1,26 @@
-<div class="wide-page"></div>
+<!--- wide page --->
 
 # IDE support
 
-<div class="docs-card-container">
+```docs-card
+title="Visual Studio Code"
+link="{{vscode-kiwi-extension-url}}"
+icon="/assets/vscode.svg"
+mono="true"
+text="Kiwi Extension"
 
-```admonish quote title="Visual Studio Code" class="docs-card"
-<a class="docs-card-link" href="{{vscode-kiwi-extension-url}}">
-<div class="docs-card-visit icon-mode">
-    {{ #template ../assets/vscode.svg }}
-    <span>Kiwi Extension</span>
-</div>
+The Kiwi extension for Visual Studio Code:
 
-The Kiwi extension for Visual Studio Code provides
-</a>
+- _Syntax highlighting_
+- _Code snippets_
 ```
 
-```admonish quote title="Language Server" class="docs-card"
-<a class="docs-card-link" href="{{language-server-kiwi-url}}">
-<div class="docs-card-visit icon-mode">
-    {{ #template ../assets/languageserver.svg }}
-    <span>Charge your IDE!</span>
-</div>
+```docs-card
+title="Language Server"
+link="{{language-server-kiwi-url}}"
+icon="/assets/languageserver.svg"
+mono="true"
+text="Charge your IDE!"
 
-... Coming soon ...
-</a>
+`Coming soon ...`
 ```
-
-</div>

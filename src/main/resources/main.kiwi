@@ -1,0 +1,8 @@
+interpret class Int {
+    @ProtectFromCollision
+    constructor(
+        value: $Int by components
+    ) {
+        $execute("")
+    }
+}

@@ -9,69 +9,58 @@ Latest stable version: {{version}}
 Help us improve the docs by [contributing](/contributing/overview.md)!
 ```
 
-<div class="docs-card-container">
-
-```admonish quote title="Get started with Kiwi" class="docs-card"
-<a class="docs-card-link" href="/get-started.html">
-<div class="docs-card-visit">
-    {{ #template assets/rocket.svg }}
-    <span>Check out</span>
-</div>
+```docs-card 
+title="Get started with Kiwi" 
+link="/get-started.html"
+icon="assets/rocket.svg"
+text="Check out"
 
 Create your first project with Kiwi in
 your preferred IDE.
-</a>
 ```
 
-```admonish quote title="Projects based on Kiwi" class="docs-card"
-<a class="docs-card-link" href="/projects/overview.html">
-<div class="docs-card-visit">
-    {{ #template assets/explore.svg }}
-    <span>Look at projects</span>
-</div>
+```docs-card
+title="Projects based on Kiwi"
+link="/projects/overview.html"
+icon="assets/explore.svg"
+text="Look at projects"
 
 Explore projects based on Kiwi.
-</a>
 ```
-
-</div>
 
 ## First steps
 
-<div class="docs-card-container">
+```docs-card
+title="Basic syntax"
+link="/basics/syntax.md"
 
-```admonish quote title="Basic syntax" class="docs-card"
-<a class="docs-card-link" href="/basics/syntax.html">
 A quick overview of the basic syntax of Kiwi:
 
 - _keywords_
 - _operators_
 - _e.t.c._
-
-</a>
 ```
 
-```admonish quote title="IDE support" class="docs-card"
-<a class="docs-card-link" href="/tools/ide.html">
+```docs-card
+title="IDE support"
+link="/tools/ide.md"
+
 Check out the IDE support for Kiwi:
 
 - _IntelliJ IDEA_
 - _Visual Studio Code_
 - _Language Server_
-
-</a>
 ```
 
-```admonish quote title="Contributing" class="docs-card"
-<a class="docs-card-link" href="/tools/ide.html">
+```docs-card
+title="Contributing"
+link="/contributing/overview.md"
+
 Check out this page if you want to contribute to Kiwi:
 
 - _How to contribute_
 - _How to build_
 - _e.t.c._
-
-</a>
 ```
 
-</div>
 </div>
