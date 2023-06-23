@@ -1,4 +1,4 @@
-<div class="wide-page"></div>
+<!--- wide page --->
 
 # Get started with Kiwi
 

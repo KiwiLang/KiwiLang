@@ -52,7 +52,7 @@ function, a new function will be created,
 so it's better to avoid using it as much as possible.
 
 _see [Compile-time known annotations](../../standard-library/compile-time-known-annotations.md)
-and [Interpret functions](../compile-time/interpret-functions.md)._
+and [Interpret Modifier](../compile-time/interpret-modifier.md)._
 
 ## Interpret classes in types
 

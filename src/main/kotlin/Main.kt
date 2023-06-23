@@ -1,6 +1,8 @@
 import java.io.File
 import com.buttersus.frontend.lexical.*
 import com.buttersus.frontend.syntax.*
+import com.kiwilang.frontend.lexical.Lexer
+import com.kiwilang.frontend.syntax.Parser
 
 fun main() {
     val source = File("src/main/resources/main.kiwi").readText()

@@ -100,7 +100,7 @@ a: Int = 1
 b: $Int = a  # error: can't use runtime variable in compile-time
 ```
 
-_see [Variables](../concepts/variables.md) and [Compile-time](../concepts/compile-time/compile-time-logic.md)._
+_see [Variables](../concepts/variables.md) and [Compile-time](../concepts/compile-time/overview.md)._
 
 ## Functions
 
@@ -118,10 +118,11 @@ A function can be declared as expression
 fun sum(x: Int, y: Int) -> Int = x + y
 ```
 
-Also, it can be declared as compile-time
+Also, it can be declared as compile-time and interpret
 
 ```kiwi
 compiletime fun sum(x: $Int, y: $Int) -> $Int = x + y
+interpret fun sum(x: Int, y: Int) -> Int = x + y
 ```
 
 Or even inline runtime function
@@ -133,7 +134,7 @@ inline fun sum(x: Int, y: Int) -> Int {
 ```
 
 _see [Functions](../concepts/functions/functions.md), 
-[Compile-time Functions](../concepts/compile-time/compile-time-functions.md) and
+[Compile-time](../concepts/compile-time/overview.md) and
 [Inline Functions](../concepts/functions/inline-functions.md)._
 
 ## Creating classes and instances
