@@ -3,6 +3,31 @@
     --content-max-width: 640px;
 }
 
+:is(.admonition):is(.note) {
+    margin: 1em 0;
+}
+
+table th {
+    font-variant: all-small-caps;
+    font-size: small;
+}
+
+table td {
+    font-size: small;
+}
+
+h1, h2 {
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-variant: small-caps;
+}
+
+h3, h4, h5, h6 {
+    font-variant: small-caps;
+}
+
 @media (-moz-touch-enabled: 1), (pointer: coarse) {
     .chapter li a {
         padding: inherit;
@@ -26,6 +51,12 @@
 
 ul > li {
     margin-top: 0.6em;
+}
+
+.kiwi-image-wrapper > img, .kiwi-image-wrapper > svg {
+    width: inherit;
+    height: inherit;
+    display: block;
 }
 
 ul > li:first-child {
@@ -54,17 +85,20 @@ h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a,
     text-decoration: none;
 }
 
-.footer-links > a, .footer-social > a, .footer-links > a:hover,
-.footer-social > a:hover, .footer-links > a:visited, .footer-social > a:visited {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: none;
-}
-
-#searchresults a, .content a:link, a:visited, .footer-license > a, a > .hljs {
+#searchresults a,
+.footer-license a, .footer-license a:hover, .footer-license a:visited, .footer-license a:-webkit-any-link,
+.content a, .content a:hover, .content a:visited, .content a:-webkit-any-link,
+a > .hljs {
     color: inherit;
     border-color: inherit;
     border-bottom: 1px solid;
+    text-decoration: none;
+}
+
+.footer-layout a, .footer-layout a:hover, .footer-layout a:visited, .footer-layout a:-webkit-any-link,
+a > .hljs {
+    color: inherit;
+    border-color: inherit;
     text-decoration: none;
 }
 

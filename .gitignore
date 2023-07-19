@@ -7,3 +7,4 @@
 /book/yarn.lock
 /book/package.json
 /book/log.*
+/venv/
