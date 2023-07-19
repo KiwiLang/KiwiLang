@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from os import path
+from PIL import Image
 import pathlib
 import abc
 import typing
@@ -193,58 +194,6 @@ class Preprocessor(abc.ABC):
 # =============
 
 
-class MermaidSwitchPreprocessor(Preprocessor):
-    """
-    This preprocessor is used to replace mermaid code blocks with the wrapped one,
-    that allows to switch between different themes. (Currently only "forest" and "dark" are supported)
-    """
-
-    @classmethod
-    def replace(cls, match: re.Match) -> str:
-        themes = {
-            'light': 'forest',
-            'latte': 'forest',
-            'coal': 'dark',
-            'macchiato': 'dark',
-        }
-        blocks = []
-        styles = []
-        options = match.group(1)
-        if re.fullmatch(r' *(\w+: *\w+)?( +\w+: *\w+)*', options) is None:
-            log(options)
-            raise Exception('Invalid mermaid options')
-        for option in re.findall(r'\w+: *\w+', options):
-            name = option.split(':')[0].strip()
-            value = option.split(':')[1].strip()
-            match name:
-                case 'side':
-                    assert value in ['left', 'right']
-                    styles.append(f'float: {value}')
-                case _:
-                    raise Exception(f'Invalid mermaid option: {name}')
-        code = match.group(2)
-        style = f' style=\"{"; ".join(styles)}\"' if styles else ''
-        themeMermaids = set(themes.values())
-        for themeMermaid, index in zip(themeMermaids, range(len(themeMermaids))):
-            className = f' class="mermaid mermaid-inner"' if index != 0 else f' class="mermaid mermaid-outer"'
-            themePages = [
-                themePageInner for themePageInner, themeMermaidInner in themes.items()
-                if themeMermaidInner == themeMermaid
-            ]
-            blocks.append(f'<pre{style}{className} themes="{",".join(themePages)}">'
-                          f'%%{{init: {{\'theme\': \'{themeMermaid}\'}}}}%%\n{code}'
-                          f'</pre>')
-        return '\n\n'.join(blocks)
-
-    @classmethod
-    def make(cls, content: str) -> str:
-        return re.sub(
-            r'```mermaid([^\n]*)\n(.*?)```',
-            cls.replace, content,
-            flags=re.DOTALL
-        )
-
-
 class DocsCardPreprocessor(Preprocessor):
     """
     This preprocessor is used to replace docs-card code blocks with the
@@ -289,9 +238,9 @@ class DocsCardPreprocessor(Preprocessor):
                 docs_card,
                 flags=re.DOTALL
             ).strip('\n')
-            assert options['mono'] in ['true', 'false']
+            assert options['mono'] in ['true', 'false'], f'Invalid mono option: {options["mono"]}'
             icon_mode = " icon-mode" if options['mono'] == 'true' else str()
-            icon = f'{{{{ #template {options["icon"]} }}}}' if options['icon'] else str()
+            icon = f'[/img]: {options["icon"]} "72px"\n' if options['icon'] else str()
             span = f'<span>{options["text"]}</span>' if options['text'] else str()
             visit = f'<div class="docs-card-visit{icon_mode}">{icon}{span}</div>\n\n' if icon or span else str()
             cards.append(
@@ -308,6 +257,118 @@ class DocsCardPreprocessor(Preprocessor):
     def make(cls, content: str) -> str:
         return re.sub(
             r'```docs-card(.*?)```(\s*```docs-card(.*?)```)*',
+            cls.replace, content,
+            flags=re.DOTALL
+        )
+
+
+class KiwiCommandsPreprocessor(Preprocessor):
+    """
+    This preprocessor is used to replace kiwi commands with the wrapped ones
+    see syntax below:
+    `[/<command>]: <args or code>`
+    """
+
+    @classmethod
+    def replace(cls, match: re.Match) -> str:
+        command = match.group(1)
+        args = match.group(2).split()
+        match command:
+            case 'img':
+                assert len(args) > 0, 'No image path provided'
+                if args[0].startswith('/'):
+                    assert (file := (cls.src_path / args[0][1:])).exists(), f'Image not found: {args[0]}'
+                else:
+                    assert (file := (cls.absolute_path.parent / args[0])).exists(), f'Image not found: {args[0]}'
+                result = f'{{{{ #template {args[0]} }}}}'
+                for option in args[1:]:
+                    if match := re.fullmatch(
+                            r'" *(?:(w(?=idth\W)?|h(?=eight\W)?)\w*)?=?(\d+)(%|px)? *"',
+                            option,
+                            flags=re.DOTALL
+                    ):
+                        direction: typing.Literal['w', 'h'] = match.group(1)
+                        value = int(match.group(2))
+                        unit: typing.Optional[str] = match.group(3)
+                        if not unit:
+                            unit = 'px'
+                        if direction is None:
+                            if file.suffix == '.svg':
+                                width = re.search(r'width="(\d+(?:px|%)?)"', file.read_text()).group(1)
+                                height = re.search(r'height="(\d+(?:px|%)?)"', file.read_text()).group(1)
+                                assert width == height, f'SVG width and height are not equal: {args[0]}'
+                            elif file.suffix in ['.jpg', '.jpeg', '.png', '.bmp', '.gif']:
+                                img = Image.open(file)
+                                assert img.width == img.height, f'Image width and height are not equal: {args[0]}'
+                            else:
+                                raise ValueError(f'Unsupported image format: {file.suffix}')
+                            return f'<div class="kiwi-image-wrapper" style="width: {value}{unit};' \
+                                   f'height: {value}{unit};">{result}</div>'
+                        return f'<div class="kiwi-image-wrapper" style="' \
+                               f'{"width" if direction == "w" else "height"}: {value}{unit};' \
+                               f'{"width" if direction == "h" else "height"}: auto;' \
+                               f'">{result}</div>'
+                return result
+            case _:
+                raise ValueError(f'Unknown command: {command}')
+
+    @classmethod
+    def make(cls, content: str) -> str:
+        return re.sub(
+            r'\[/(\w+)]:([^\n]*)',
+            cls.replace, content,
+            flags=re.DOTALL
+        )
+
+
+class MermaidSwitchPreprocessor(Preprocessor):
+    """
+    This preprocessor is used to replace mermaid code blocks with the wrapped one,
+    that allows to switch between different themes. (Currently only "forest" and "dark" are supported)
+    """
+
+    @classmethod
+    def replace(cls, match: re.Match) -> str:
+        log(f"Replacing match of mermaid code:\n{match.group(0)}")
+        themes = {
+            'light': 'forest',
+            'latte': 'forest',
+            'coal': 'dark',
+            'macchiato': 'dark',
+        }
+        blocks = []
+        styles = []
+        options = match.group(1)
+        if re.fullmatch(r' *(\w+: *\w+)?( +\w+: *\w+)*', options) is None:
+            log(options)
+            raise Exception('Invalid mermaid options')
+        for option in re.findall(r'\w+: *\w+', options):
+            name = option.split(':')[0].strip()
+            value = option.split(':')[1].strip()
+            match name:
+                case 'side':
+                    assert value in ['left', 'right'], f'Invalid side: {value}'
+                    styles.append(f'float: {value}')
+                case _:
+                    raise Exception(f'Invalid mermaid option: {name}')
+        code = match.group(2)
+        style = f' style=\"{"; ".join(styles)}\"' if styles else ''
+        themeMermaids = set(themes.values())
+        for themeMermaid, index in zip(themeMermaids, range(len(themeMermaids))):
+            className = f' class="mermaid mermaid-inner"' if index != 0 else f' class="mermaid mermaid-outer"'
+            themePages = [
+                themePageInner for themePageInner, themeMermaidInner in themes.items()
+                if themeMermaidInner == themeMermaid
+            ]
+            blocks.append(f'<pre{style}{className} themes="{",".join(themePages)}">'
+                          f'%%{{init: {{\'theme\': \'{themeMermaid}\'}}}}%%\n{code}'
+                          f'</pre>')
+        return '\n\n'.join(blocks)
+
+    @classmethod
+    def make(cls, content: str) -> str:
+        return re.sub(
+            r'```mermaid([^\n]*)\n(.*?)```',
             cls.replace, content,
             flags=re.DOTALL
         )
@@ -363,11 +424,10 @@ if __name__ == '__main__':
     # Preprocessing
 
     log("Preprocessing...")
-    MermaidSwitchPreprocessor.preprocess(contextLoaded, bookLoaded)
     DocsCardPreprocessor.preprocess(contextLoaded, bookLoaded)
+    KiwiCommandsPreprocessor.preprocess(contextLoaded, bookLoaded)
+    MermaidSwitchPreprocessor.preprocess(contextLoaded, bookLoaded)
     TemplateAbsolutePreprocessor.preprocess(contextLoaded, bookLoaded)
     log("Preprocessing finished")
 
-    # Context dumping
-
-    print(json.dumps(bookLoaded))
+    print(json.dumps(bookLoaded, ensure_ascii=False))

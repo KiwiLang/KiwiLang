@@ -9,10 +9,10 @@ Latest stable version: {{version}}
 Help us improve the docs by [contributing](/contributing/overview.md)!
 ```
 
-```docs-card 
-title="Get started with Kiwi" 
+```docs-card
+title="Get started with Kiwi"
 link="/get-started.html"
-icon="assets/rocket.svg"
+icon="/assets/rocket.svg"
 text="Check out"
 
 Create your first project with Kiwi in
@@ -22,7 +22,7 @@ your preferred IDE.
 ```docs-card
 title="Projects based on Kiwi"
 link="/projects/overview.html"
-icon="assets/explore.svg"
+icon="/assets/explore.svg"
 text="Look at projects"
 
 Explore projects based on Kiwi.
@@ -32,7 +32,7 @@ Explore projects based on Kiwi.
 
 ```docs-card
 title="Basic syntax"
-link="/basics/syntax.md"
+link="/basics/syntax.html"
 
 A quick overview of the basic syntax of Kiwi:
 
@@ -42,8 +42,18 @@ A quick overview of the basic syntax of Kiwi:
 ```
 
 ```docs-card
+title="Compile-time introduction"
+link="/concepts/compile-time/overview.html"
+
+Learn about the compile-time in Kiwi:
+- _What is it?_
+- _Time modifiers_
+- _e.t.c._
+```
+
+```docs-card
 title="IDE support"
-link="/tools/ide.md"
+link="/tools/ide.html"
 
 Check out the IDE support for Kiwi:
 
@@ -54,7 +64,7 @@ Check out the IDE support for Kiwi:
 
 ```docs-card
 title="Contributing"
-link="/contributing/overview.md"
+link="/contributing/overview.html"
 
 Check out this page if you want to contribute to Kiwi:
 

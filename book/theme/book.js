@@ -325,8 +325,8 @@ function playground_text(playground, hidden = true) {
         document.querySelectorAll('.mermaid-inner').forEach(
             function (inner) {
                 if (inner.getAttribute('themes').split(',').includes(get_theme()))
-                    inner.style.display = 'inherit';
-                else inner.style.display = 'none';
+                    inner.style.zIndex = '0';
+                else inner.style.zIndex = '-1';
             });
         themePopup.querySelector("button#" + get_theme()).classList.add('theme-selected');
     }

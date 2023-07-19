@@ -1,5 +1,7 @@
 # Structure
 
+[/img]: /assets/kotlin-logo.svg "48px"
+
 The compiler is written in Kotlin and is split into multiple modules:
 
 - `kotlin-compiler` - The main compiler module.
