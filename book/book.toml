@@ -1,5 +1,5 @@
 # BOOK INFO
-# =========
+# =========>
 
 [book]
 title = "Kiwi Book"
@@ -10,13 +10,13 @@ multilingual = false
 src = "src"
 
 # BUILD CONFIGURATION
-# ===================
+# ===================>
 
 [build]
 build-dir = "../docs"
 
 # OUTPUT CONFIGURATION
-# ====================
+# ====================>
 
 [output.html]
 site-url = "https://kiwilang.site"
@@ -24,16 +24,18 @@ default-theme = "light"
 preferred-dark-theme = "coal"
 use-site-url-as-root = true
 additional-js = [
-    "./dist/highlight.js", # syntax highlighting
-    "./dist/sidebar.js", # sidebar
-    "./dist/pagetoc.js", # pagetoc
+    "dist/mermaid.min.js", # mermaid
+    "dist/mermaid-init.js", # mermaid
+    "dist/highlight.js", # syntax highlighting
+    "dist/sidebar.js", # sidebar
+    "dist/pagetoc.js", # pagetoc
 ]
 additional-css = [
-    "./theme/mdbook-admonish.css", # mkdocs-material
-    "./theme/index.css", # custom css
-    "./theme/kiwi.css", # new theme
-    "./theme/kiwi-highlight.css", # new theme
-    "./theme/pagetoc.css", # pagetoc
+    "theme/mdbook-admonish.css", # mkdocs-material
+    "theme/index.css", # custom css
+    "theme/kiwi.css", # new theme
+    "theme/kiwi-highlight.css", # new theme
+    "theme/pagetoc.css", # pagetoc
 ]
 
 # PLUGINS
@@ -42,11 +44,14 @@ additional-css = [
 [preprocessor] # required by mdbook-admonish
 [preprocessor.emojicodes] # adds emojis
 [preprocessor.template] # adds custom templates
+[preprocessor.mermaid] # adds mermaid diagrams
+[preprocessor.kiwi] # our custom preprocessor
+command = "venv/Scripts/python.exe book/mdbook-kiwi.py"
 [preprocessor.admonish] # adds admonitions
-command = "mdbook-admonish"
 assets_version = "2.0.1"
 [preprocessor.catppuccin] # adds new themes
-assets_version = "0.1.1" # DO NOT EDIT: Managed by `mdbook-catppuccin install`
+assets_version = "0.2.0" # DO NOT EDIT: Managed by `mdbook-catppuccin install`
+# warning: we're using a custom version of mdbook-catppuccin, so the assets_version is different (0.1.1)
 [preprocessor.variables] # adds macros
 use_env = true # use environment variables
 
@@ -76,13 +81,21 @@ stackoverflow_tag = "https://stackoverflow.com/questions/tagged/kiwi-lang"
 # Links variables
 # --------------->
 mdbook_url = "https://rust-lang.github.io/mdBook"
+mdbook_summary_url = "https://rust-lang.github.io/mdBook/format/summary.html"
+
+# Preprocessor variables
+# ---------------------->
+mdbook_emojicodes_url = "https://github.com/blyxyas/mdbook-emojicodes"
 mdbook_template_url = "https://github.com/sgoudham/mdbook-template"
+mdbook_mermaid_url = "https://github.com/badboy/mdbook-mermaid"
 mdbook_admonish_url = "https://tommilligan.github.io/mdbook-admonish"
 mdbook_catppuccino_url = "https://github.com/catppuccin/mdBook"
 mdbook_variables_url = "https://crates.io/crates/mdbook-variables"
-markdown_url = "https://www.markdownguide.org"
 
-language_server-kiwi-url = "#"
-vscode_extension-kiwi-url = "#"
+# Other variables
+# --------------->
+markdown_url = "https://www.markdownguide.org"
+language_server-kiwi-url = "#"  # should be changed
+vscode_extension-kiwi-url = "#"  # should be changed
 kotlin_url = "https://kotlinlang.org"
 kotlin_docs_url = "https://kotlinlang.org/docs/reference"

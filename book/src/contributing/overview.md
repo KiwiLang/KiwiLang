@@ -2,7 +2,11 @@
 
 # How to contribute
 
-Hi! We are really excited that you are interested in contributing to Kiwi documentation.
+Hi! :wave:
+---
+
+We are really excited that you are interested in contributing to Kiwi documentation.
+
 Before submitting your contribution though, please make sure to take a moment and read through the following guidelines:
 
 - [Pull request guidelines](#pull-request-guidelines)
@@ -55,31 +59,23 @@ Instead, use different branches for each of them.
 
 There are many ways to contribute to the project:
 
-<div class="docs-card-container">
-
-```admonish quote title="Improve Kiwi documentation" class="docs-card"
-<a class="docs-card-link" href="documentation/overview.html">
-<div class="docs-card-visit">
-    {{ #template ../assets/documentation.svg }}
-    <span>Visit tutorial</span>
-</div>
+```docs-card
+title="Improve Kiwi documentation"
+link="documentation/prerequisites.html"
+icon="/assets/documentation.svg"
+text="Visit tutorial"
 
 Add new posts, improve existing ones, translate to other languages.
-</a>
 ```
 
-```admonish quote title="Discord community" class="docs-card"
-<a class="docs-card-link" href="{{discord_invite}}">
-<div class="docs-card-visit">
-    {{ #template ../assets/discord.svg }}
-    <span>Join us!</span>
-</div>
+```docs-card
+title="Discord community"
+link="{{discord_invite}}"
+icon="/assets/discord.svg"
+text="Join us!"
 
 Join to discuss Kiwi, ask questions, and connect with other users.
-</a>
 ```
-
-</div>
 
 ## Other ways to contribute
 

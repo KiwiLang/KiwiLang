@@ -1,8 +1,4 @@
 @media only screen and (max-width: 1399px) {
-    .content {
-        display: block;
-    }
-
     main {
         margin-left: auto !important;
         margin-right: auto !important;
@@ -17,7 +13,7 @@
     .sidetoc {
         margin-left: auto;
         margin-right: auto;
-        left: calc(100% + (var(--content-max-width)) / 8 + 20px);
+        left: calc(100% + (var(--content-max-width)) / 8 - 40px);
         position: absolute;
         font-size: 13px;
         top: 40px;

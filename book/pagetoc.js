@@ -11,7 +11,6 @@ Array.prototype.forEach.call(document.getElementsByClassName("pagetoc")[0].child
 const updateFunction = function () {
     let id
     const elements = document.getElementsByClassName("header")
-    console.log(window.pageYOffset)
     Array.prototype.forEach.call(elements, function (el) {
         if (window.pageYOffset >= el.offsetTop) {
             id = el
@@ -19,10 +18,12 @@ const updateFunction = function () {
     })
 
     Array.prototype.forEach.call(document.getElementsByClassName("pagetoc")[0].children, function (el) {
+        if (id === undefined) return
         el.classList.remove("active")
     })
 
     Array.prototype.forEach.call(document.getElementsByClassName("pagetoc")[0].children, function (el) {
+        if (id === undefined) return
         if (id.href.localeCompare(el.href) === 0) {
             el.classList.add("active")
         }
@@ -45,6 +46,12 @@ window.addEventListener('load', function () {
                 break
             case "H4":
                 indent = "60px"
+                break
+            case "H5":
+                indent = "80px"
+                break
+            case "H6":
+                indent = "100px"
                 break
             default:
                 break

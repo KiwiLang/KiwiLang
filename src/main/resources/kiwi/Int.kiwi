@@ -289,7 +289,7 @@ interpret class Int {
     # OBJECT DESTRUCTORS
     # ==================
 
-    @WhenLeavingScope
+    @Check(isLeavingScope)
     inline destructor
     """Destructor"""
     {
