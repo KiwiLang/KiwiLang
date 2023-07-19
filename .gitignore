@@ -1,7 +1,10 @@
 /.gradle/
 /.idea/
 /build/
-/build/classes/kotlin/main/
-/node_modules/
 /book/node_modules/
 /book/.cache/
+/book/package-lock.json
+/book/yarn.lock
+/book/package.json
+/book/log.*
+/venv/
